@@ -1,0 +1,33 @@
+﻿<Window x:Class="DesktopCharacter.View.TimerSetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopCharacter.View"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
+        xmlns:v="clr-namespace:DesktopCharacter.View"
+        Title="TimerSetting" Height="300" Width="300">
+    <Window.DataContext>
+        <vm:TimerSettingModelView></vm:TimerSettingModelView>
+    </Window.DataContext>
+
+    <i:Interaction.Triggers>
+        <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
+            <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+        
+        <i:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="90,80,0,0" TextWrapping="Wrap" Text="{Binding TimerCount, StringFormat={}{0:00000}}" VerticalAlignment="Top" Width="120"/>
+        <CheckBox x:Name="Message60" Content="終了一分前にお知らせする" HorizontalAlignment="Left" Margin="90,127,0,0" VerticalAlignment="Top" IsChecked="{Binding Message_60}"/>
+        <CheckBox x:Name="Message30" Content="終了30秒前にお知らせする" HorizontalAlignment="Left" Margin="90,153,0,0" VerticalAlignment="Top" IsChecked="{Binding Message_30}"/>
+        <Button x:Name="Start" Content="スタート" Command="{Binding StartCommand}" HorizontalAlignment="Left" Margin="106,188,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>

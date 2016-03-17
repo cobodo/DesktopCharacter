@@ -1,0 +1,40 @@
+﻿<ContextMenu x:Class="DesktopCharacter.View.MenuItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DesktopCharacter.View"
+             xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+             xmlns:v="clr-namespace:DesktopCharacter.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ItemsControl.DataContext>
+        <vm:MenuItemViewModel></vm:MenuItemViewModel>
+    </ItemsControl.DataContext>
+
+    <i:Interaction.Triggers>
+        <l:InteractionMessageTrigger MessageKey="TimerSetting" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type v:TimerSetting}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+        <l:InteractionMessageTrigger MessageKey="Setting" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type v:Setting}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+    </i:Interaction.Triggers>
+
+    <MenuItem Header="ツール">
+        <MenuItem Header="タイマー" Command="{Binding TimerSettingOpenCommand}"/>
+    </MenuItem>
+    <MenuItem Header="ランチャー" ItemsSource="{Binding Children}">
+        <ItemsControl.ItemContainerStyle>
+            <Style TargetType="MenuItem">
+                <Setter Property="Header" Value="{Binding Headder}"/>
+                <Setter Property="Command" Value="{Binding Command}"/>
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+    </MenuItem>
+    <MenuItem Header="トーク" Command="{Binding TalkCommand}"/>
+    <MenuItem Header="設定" Command="{Binding SettingCommand}"/>
+    <MenuItem Header="終了" Command="{Binding CloseCommand}"/>
+</ContextMenu>
