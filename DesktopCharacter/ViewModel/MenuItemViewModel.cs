@@ -14,7 +14,10 @@ namespace DesktopCharacter.ViewModel
 {
     class MenuItemViewModel : Livet.ViewModel
     {
-        private ModelView MainViewRef = Util.WindowInstance.MainInstnace;
+        public CharacterViewModel CharacterVM
+        {
+            set; private get;
+        }
 
         private ObservableCollection<MenuItemViewModel> mChildren;      //!< 現在の子供
         public ObservableCollection<MenuItemViewModel> Children
@@ -104,7 +107,7 @@ namespace DesktopCharacter.ViewModel
             get
             {
                 return mCloseCommand == null
-                    ? mCloseCommand = new ViewModelCommand(() => { MainViewRef.Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close")); })
+                    ? mCloseCommand = new ViewModelCommand(() => { CharacterVM.Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close")); })
                     : mCloseCommand;
             }
         }
@@ -118,7 +121,7 @@ namespace DesktopCharacter.ViewModel
                 {
                     mTimerSettingOpenCommand = new ViewModelCommand(() =>
                     {
-                        using (var vm = new ViewModel.TimerSettingModelView())
+                        using (var vm = new ViewModel.TimerSettingViewModel(CharacterVM))
                         {
                             Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
                         }

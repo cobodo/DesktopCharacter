@@ -14,11 +14,10 @@ using System.Collections.ObjectModel;
 
 namespace DesktopCharacter
 {
-    class ModelView : Livet.ViewModel
+    class CharacterViewModel : Livet.ViewModel
     {
-        public ModelView()
+        public CharacterViewModel()
         {
-            Util.WindowInstance.MainInstnace = this;
         }
     }
 }

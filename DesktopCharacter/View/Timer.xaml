@@ -11,7 +11,7 @@
         Title="Timer" Height="100" Width="200">
 
     <Window.DataContext>
-        <vm:TimerModelView></vm:TimerModelView>
+        <vm:TimerViewModel></vm:TimerViewModel>
     </Window.DataContext>
     
     <i:Interaction.Triggers>

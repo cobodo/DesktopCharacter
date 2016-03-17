@@ -9,19 +9,19 @@ using System.Windows.Threading;
 
 namespace DesktopCharacter.ViewModel
 {
-    class TimerModelView : Livet.ViewModel
+    class TimerViewModel : Livet.ViewModel
     {
         private DispatcherTimer mTimer;
         private int mCount;
         private DateTime mStartTime;
         private TimeSpan mNowTimeSpan;
 
-        public TimerModelView()
+        public TimerViewModel()
         {
             
         }
 
-        public TimerModelView(int count)
+        public TimerViewModel(int count)
         {
             mCount = count;
 

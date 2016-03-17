@@ -11,7 +11,7 @@
         xmlns:v="clr-namespace:DesktopCharacter.View"
         Title="TimerSetting" Height="300" Width="300">
     <Window.DataContext>
-        <vm:TimerSettingModelView></vm:TimerSettingModelView>
+        <vm:TimerSettingViewModel></vm:TimerSettingViewModel>
     </Window.DataContext>
 
     <i:Interaction.Triggers>

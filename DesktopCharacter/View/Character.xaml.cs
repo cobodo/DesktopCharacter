@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopCharacter.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter
+namespace DesktopCharacter.View
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Character : Window
     {
-        public MainWindow()
+        public Character()
         {
             InitializeComponent();
+            var userVM = this.menuItem.DataContext as MenuItemViewModel;
+            userVM.CharacterVM = this.DataContext as CharacterViewModel;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
