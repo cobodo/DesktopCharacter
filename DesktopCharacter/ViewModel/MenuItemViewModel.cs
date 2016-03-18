@@ -75,7 +75,7 @@ namespace DesktopCharacter.ViewModel
                 {
                     mTalkCommand = new ViewModelCommand(() =>
                     {
-                        Util.WindowInstance.TalkInstance.AddMessage("バカなの？バカなの？バカなの？バカなの？");
+                        DesktopCharacter.Model.CharacterTalkModel.Instance.Talk("バカなの？バカなの？バカなの？バカなの？");
                     });
                 }
                 return mTalkCommand;

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Concurrent;
-using System.Collections;
+using DesktopCharacter.Model;
+using System.Reactive.Linq;
 
 namespace DesktopCharacter.ViewModel
 {
@@ -26,6 +23,8 @@ namespace DesktopCharacter.ViewModel
             }
         }
 
+        private CharacterTalkModel model = CharacterTalkModel.Instance;
+
         public TalkViewModel()
         {
             Util.WindowInstance.TalkInstance = this;
@@ -33,6 +32,7 @@ namespace DesktopCharacter.ViewModel
             mWorker = new BackgroundWorker();
             mWorker.DoWork += new DoWorkEventHandler(MessageWorker);
             mWorker.RunWorkerAsync();
+            model.TalkObservable().Subscribe(AddMessage);
         }
 
         private void MessageWorker(object sender, DoWorkEventArgs e)
@@ -59,7 +59,7 @@ namespace DesktopCharacter.ViewModel
             return mMessageQueue.TryDequeue( out value );
         }
 
-        public void AddMessage( string text )
+        private void AddMessage( string text )
         {
             mMessageQueue.Enqueue( text );
         }
