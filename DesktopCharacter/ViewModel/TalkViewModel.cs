@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Collections.Concurrent;
 using DesktopCharacter.Model;
+using System.Reactive.Linq;
 
 namespace DesktopCharacter.ViewModel
 {
@@ -31,8 +32,9 @@ namespace DesktopCharacter.ViewModel
             mWorker = new BackgroundWorker();
             mWorker.DoWork += new DoWorkEventHandler(MessageWorker);
             mWorker.RunWorkerAsync();
-
-            model.TalkObservable().Subscribe(AddMessage);
+            model.TalkObservable()
+                .ObserveOnDispatcher()
+                .Subscribe(AddMessage);
         }
 
         private void MessageWorker(object sender, DoWorkEventArgs e)

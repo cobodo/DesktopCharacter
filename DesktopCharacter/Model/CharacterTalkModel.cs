@@ -37,7 +37,6 @@ namespace DesktopCharacter.Model
         /// <returns>発言イベントを流すObservable</returns>
         public IObservable<string> TalkObservable()
         {
-            //observableOnでUIスレッド指定出来るようにすれば、シングルスレッドで実行されるのが保証されるのでQueueをブロッキングにする必要がなくなる
             return talkEvent;
         }
     }
