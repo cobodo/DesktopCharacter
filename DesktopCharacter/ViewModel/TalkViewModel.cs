@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Concurrent;
+using System.Collections;
 
 namespace DesktopCharacter.ViewModel
 {
     class TalkViewModel : Livet.ViewModel
     {
-        private Queue<string> mMessageQueue = new Queue<string>();
+        private ConcurrentQueue<string> mMessageQueue = new ConcurrentQueue<string>();
         private BackgroundWorker mWorker;
 
         private string mText;
@@ -37,8 +39,8 @@ namespace DesktopCharacter.ViewModel
         {
             while (!mWorker.CancellationPending)
             {
-                string text = GetMessageSafe();
-                if (text != "")
+                string text;
+                if (GetMessageSafe( out text ))
                 {
                     for ( int i = 0; i < text.Length; ++i )
                     {
@@ -52,13 +54,9 @@ namespace DesktopCharacter.ViewModel
             e.Cancel = true;
         }
 
-        private string GetMessageSafe()
+        private bool GetMessageSafe( out string value )
         {
-            if ( mMessageQueue.Count > 0 )
-            {
-                return mMessageQueue.Dequeue();
-            }
-            return "";
+            return mMessageQueue.TryDequeue( out value );
         }
 
         public void AddMessage( string text )

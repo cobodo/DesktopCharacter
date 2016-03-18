@@ -104,8 +104,8 @@
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
     <Compile Include="ViewModel\TalkViewModel.cs" />
-    <Compile Include="ViewModel\TimerModelView.cs" />
-    <Compile Include="ViewModel\TimerSettingModelView.cs" />
+    <Compile Include="ViewModel\TimerViewModel.cs" />
+    <Compile Include="ViewModel\TimerSettingViewModel.cs" />
     <Compile Include="View\MenuItem.xaml.cs">
       <DependentUpon>MenuItem.xaml</DependentUpon>
     </Compile>
@@ -121,7 +121,7 @@
     <Compile Include="View\TimerSetting.xaml.cs">
       <DependentUpon>TimerSetting.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\Character.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -129,8 +129,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\Character.xaml.cs">
+      <DependentUpon>Character.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\MenuItem.xaml">
@@ -155,7 +155,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelView.cs" />
+    <Compile Include="ViewModel\CharacterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

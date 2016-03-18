@@ -10,12 +10,18 @@ using Livet.Messaging.Windows;
 
 namespace DesktopCharacter.ViewModel
 {
-    class TimerSettingModelView : Livet.ViewModel
+    class TimerSettingViewModel : Livet.ViewModel
     {
-        private ModelView mModelView = Util.WindowInstance.MainInstnace;
+        private CharacterViewModel mCharacterVM;
 
-        public TimerSettingModelView()
+        public TimerSettingViewModel()
         {
+
+        }
+
+        public TimerSettingViewModel( CharacterViewModel vm )
+        {
+            mCharacterVM = vm;
         }
 
         private int mTimerCount;
@@ -64,7 +70,7 @@ namespace DesktopCharacter.ViewModel
                             () =>
                             {
                                 Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
-                                mModelView.Messenger.Raise(new TransitionMessage(new TimerModelView(mTimerCount), "Timer"));
+                                mCharacterVM.Messenger.Raise(new TransitionMessage(new TimerViewModel(mTimerCount), "Timer"));
                             }
                         );
                 }
