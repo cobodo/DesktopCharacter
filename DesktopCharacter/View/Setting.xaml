@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCharacter.View"
+        xmlns:st="clr-namespace:DesktopCharacter.View.SettingTabView"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
         mc:Ignorable="d"
         Title="Setting" Height="300" Width="300">
@@ -12,11 +13,11 @@
     </Window.DataContext>
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" VerticalAlignment="Top" Height="300" Width="300">
-            <TabItem Header="メッセージ">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="トーク">
+                <st:TalkTab></st:TalkTab>
             </TabItem>
             <TabItem Header="ランチャー">
-                <Grid Background="#FFE5E5E5"/>
+                <st:LauncehrTab></st:LauncehrTab>
             </TabItem>
         </TabControl>
     </Grid>

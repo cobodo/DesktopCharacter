@@ -117,6 +117,8 @@
     <Compile Include="Util\WindowInstance.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
+    <Compile Include="ViewModel\SettingTabViewModel\LauncherSettingViewModel.cs" />
+    <Compile Include="ViewModel\SettingTabViewModel\TalkSettingViewModel.cs" />
     <Compile Include="ViewModel\TalkViewModel.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\TimerSettingViewModel.cs" />
@@ -125,6 +127,12 @@
     </Compile>
     <Compile Include="View\Setting.xaml.cs">
       <DependentUpon>Setting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingTabView\LauncehrTab.xaml.cs">
+      <DependentUpon>LauncehrTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingTabView\TalkTab.xaml.cs">
+      <DependentUpon>TalkTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Talk.xaml.cs">
       <DependentUpon>Talk.xaml</DependentUpon>
@@ -152,6 +160,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Setting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingTabView\LauncehrTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingTabView\TalkTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
