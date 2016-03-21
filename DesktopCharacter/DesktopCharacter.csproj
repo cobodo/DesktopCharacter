@@ -113,6 +113,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\CharacterTalkModel.cs" />
     <Compile Include="Model\WebHookNotification\WebHookNotificationService.cs" />
+    <Compile Include="Model\TimerModel.cs" />
     <Compile Include="Util\EventManager.cs" />
     <Compile Include="Util\WindowInstance.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
