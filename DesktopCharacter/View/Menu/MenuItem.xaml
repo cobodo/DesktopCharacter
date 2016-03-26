@@ -1,13 +1,14 @@
-﻿<ContextMenu x:Class="DesktopCharacter.View.MenuItem"
+﻿<ContextMenu x:Class="DesktopCharacter.View.Menu.MenuItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DesktopCharacter.View"
-             xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
+             xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.Menu"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
              xmlns:v="clr-namespace:DesktopCharacter.View"
+             xmlns:menuVM="clr-namespace:DesktopCharacter.View.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <ItemsControl.DataContext>
@@ -26,14 +27,9 @@
     <MenuItem Header="ツール">
         <MenuItem Header="タイマー" Command="{Binding TimerSettingOpenCommand}"/>
     </MenuItem>
-    <MenuItem Header="ランチャー" ItemsSource="{Binding Children}">
-        <ItemsControl.ItemContainerStyle>
-            <Style TargetType="MenuItem">
-                <Setter Property="Header" Value="{Binding Headder}"/>
-                <Setter Property="Command" Value="{Binding Command}"/>
-            </Style>
-        </ItemsControl.ItemContainerStyle>
-    </MenuItem>
+ 
+    <menuVM:LauncherMenu></menuVM:LauncherMenu>
+    
     <MenuItem Header="トーク" Command="{Binding TalkCommand}"/>
     <MenuItem Header="設定" Command="{Binding SettingCommand}"/>
     <MenuItem Header="終了" Command="{Binding CloseCommand}"/>

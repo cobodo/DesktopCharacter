@@ -15,7 +15,7 @@ namespace DesktopCharacter.Model
         /// <summary>
         /// Modelのインスタンス
         /// </summary>
-        public readonly static CharacterTalkModel Instance = new CharacterTalkModel();
+        public static CharacterTalkModel Instance { get; } = new CharacterTalkModel();
 
         private CharacterTalkModel()
         {

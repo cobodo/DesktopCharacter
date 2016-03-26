@@ -10,7 +10,7 @@ using Livet.Messaging;
 using System.Diagnostics;
 using Microsoft.Win32;
 
-namespace DesktopCharacter.ViewModel
+namespace DesktopCharacter.ViewModel.Menu
 {
     class MenuItemViewModel : Livet.ViewModel
     {
@@ -19,51 +19,9 @@ namespace DesktopCharacter.ViewModel
             set; private get;
         }
 
-        private ObservableCollection<MenuItemViewModel> mChildren;      //!< 現在の子供
-        public ObservableCollection<MenuItemViewModel> Children
-        {
-            get { return this.mChildren; }
-        }
-
-        private string mHeadder;
-        public string Headder
-        {
-            get { return mHeadder; }
-            set
-            {
-                mHeadder = value;
-                this.RaisePropertyChanged("Headder");
-            }
-        }
-
-        public Livet.Commands.ViewModelCommand Command { get; private set; }
-
-        public MenuItemViewModel(string headder, Livet.Commands.ViewModelCommand command)
-        {
-            Headder = headder;
-            Command = command;
-        }
-
         public MenuItemViewModel()
         {
-            this.mChildren = new ObservableCollection<MenuItemViewModel>(new MenuItemViewModel[] {
-                new MenuItemViewModel("notepad.exe", new ViewModelCommand( () => { Process.Start("notepad.exe"); }) ),
-                new MenuItemViewModel("追加", new ViewModelCommand(() => 
-                {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.FilterIndex = 1;
-                    openFileDialog.Filter = "Setting Files|*.exe|All Files (*.*)|*.*";
-                    bool? result = openFileDialog.ShowDialog();
-                    if (result == true)
-                    {
-                        this.mChildren.Insert( this.mChildren.Count - 1, 
-                            new MenuItemViewModel
-                            (
-                                openFileDialog.SafeFileName, new ViewModelCommand( () => { Process.Start( openFileDialog.FileName ); } )
-                            ) );
-                    }
-                })),
-            });
+
         }
 
         private ViewModelCommand mTalkCommand;

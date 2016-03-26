@@ -115,23 +115,27 @@
     <Compile Include="Model\WebHookNotification\WebHookNotificationService.cs" />
     <Compile Include="Util\EventManager.cs" />
     <Compile Include="Util\WindowInstance.cs" />
-    <Compile Include="ViewModel\MenuItemViewModel.cs" />
+    <Compile Include="ViewModel\Menu\LauncherMenuViewModel.cs" />
+    <Compile Include="ViewModel\Menu\MenuItemViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
-    <Compile Include="ViewModel\SettingTabViewModel\LauncherSettingViewModel.cs" />
-    <Compile Include="ViewModel\SettingTabViewModel\TalkSettingViewModel.cs" />
+    <Compile Include="ViewModel\SettingTab\LauncherSettingViewModel.cs" />
+    <Compile Include="ViewModel\SettingTab\TalkSettingViewModel.cs" />
     <Compile Include="ViewModel\TalkViewModel.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\TimerSettingViewModel.cs" />
-    <Compile Include="View\MenuItem.xaml.cs">
+    <Compile Include="View\Menu\LauncherMenu.xaml.cs">
+      <DependentUpon>LauncherMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\MenuItem.xaml.cs">
       <DependentUpon>MenuItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Setting.xaml.cs">
       <DependentUpon>Setting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingTabView\LauncehrTab.xaml.cs">
+    <Compile Include="View\SettingTab\LauncehrTab.xaml.cs">
       <DependentUpon>LauncehrTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingTabView\TalkTab.xaml.cs">
+    <Compile Include="View\SettingTab\TalkTab.xaml.cs">
       <DependentUpon>TalkTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Talk.xaml.cs">
@@ -155,7 +159,11 @@
       <DependentUpon>Character.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\MenuItem.xaml">
+    <Page Include="View\Menu\LauncherMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Menu\MenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,11 +171,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SettingTabView\LauncehrTab.xaml">
+    <Page Include="View\SettingTab\LauncehrTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SettingTabView\TalkTab.xaml">
+    <Page Include="View\SettingTab\TalkTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

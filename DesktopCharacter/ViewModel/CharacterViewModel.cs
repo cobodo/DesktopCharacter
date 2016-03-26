@@ -12,7 +12,7 @@ using System.Reactive.Linq;
 using Livet.Messaging;
 using System.Collections.ObjectModel;
 
-namespace DesktopCharacter
+namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {

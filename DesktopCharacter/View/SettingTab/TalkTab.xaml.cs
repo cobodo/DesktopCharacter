@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter.View.SettingTabView
+namespace DesktopCharacter.View.SettingTab
 {
     /// <summary>
     /// TalkTab.xaml の相互作用ロジック

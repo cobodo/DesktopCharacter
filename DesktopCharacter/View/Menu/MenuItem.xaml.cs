@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter.View
+namespace DesktopCharacter.View.Menu
 {
     /// <summary>
     /// MenuItem.xaml の相互作用ロジック

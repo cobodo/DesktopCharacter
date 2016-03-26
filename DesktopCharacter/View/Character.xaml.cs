@@ -24,7 +24,7 @@ namespace DesktopCharacter.View
         public Character()
         {
             InitializeComponent();
-            var userVM = this.menuItem.DataContext as MenuItemViewModel;
+            var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
         }
 

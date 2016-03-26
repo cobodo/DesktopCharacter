@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter.View.SettingTabView
+namespace DesktopCharacter.View.Menu
 {
     /// <summary>
-    /// LauncehrTab.xaml の相互作用ロジック
+    /// LauncherMenu.xaml の相互作用ロジック
     /// </summary>
-    public partial class LauncehrTab : UserControl
+    public partial class LauncherMenu : System.Windows.Controls.MenuItem
     {
-        public LauncehrTab()
+        public LauncherMenu()
         {
             InitializeComponent();
         }

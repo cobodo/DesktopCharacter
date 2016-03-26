@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesktopCharacter.ViewModel.SettingTabViewModel
+namespace DesktopCharacter.ViewModel.SettingTab
 {
-    class LauncherSettingViewModel : Livet.ViewModel
+    class TalkSettingViewModel : Livet.ViewModel
     {
     }
 }
