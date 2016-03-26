@@ -7,8 +7,9 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:local="clr-namespace:DesktopCharacter"
         xmlns:v="clr-namespace:DesktopCharacter.View"
+        xmlns:menuView="clr-namespace:DesktopCharacter.View.Menu"
         mc:Ignorable="d"
-        xmlns:vm="clr-namespace:DesktopCharacter"
+        xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
@@ -38,7 +39,7 @@
 
     <Grid>
         <Grid.ContextMenu>
-            <v:MenuItem x:Name="menuItem"></v:MenuItem>
+          <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
         
         <v:Talk Margin="175,10,75,220"></v:Talk>

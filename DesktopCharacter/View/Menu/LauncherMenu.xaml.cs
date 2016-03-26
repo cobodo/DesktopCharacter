@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter.View
+namespace DesktopCharacter.View.Menu
 {
     /// <summary>
-    /// MenuItem.xaml の相互作用ロジック
+    /// LauncherMenu.xaml の相互作用ロジック
     /// </summary>
-    public partial class MenuItem : ContextMenu
+    public partial class LauncherMenu : System.Windows.Controls.MenuItem
     {
-        public MenuItem()
+        public LauncherMenu()
         {
             InitializeComponent();
         }
