@@ -32,7 +32,7 @@ namespace DesktopCharacter.ViewModel
             mWorker = new BackgroundWorker();
             mWorker.DoWork += new DoWorkEventHandler(MessageWorker);
             mWorker.RunWorkerAsync();
-            model.TalkObservable().Subscribe(AddMessage);
+            model.TalkSubject.Subscribe(AddMessage);
         }
 
         private void MessageWorker(object sender, DoWorkEventArgs e)
