@@ -10,7 +10,7 @@ namespace DesktopCharacter.Model
     /// </summary>
     sealed class CharacterTalkModel
     {
-        private Subject<string> talkEvent = new Subject<string>();
+        public Subject<string> TalkSubject { get; } = new Subject<string>();
 
         /// <summary>
         /// Modelのインスタンス
@@ -28,16 +28,7 @@ namespace DesktopCharacter.Model
         /// <param name="text">発言させる内容</param>
         public void Talk(string text)
         {
-            talkEvent.OnNext(text);
-        }
-
-        /// <summary>
-        /// 発言のイベントを通知するObservableを返します
-        /// </summary>
-        /// <returns>発言イベントを流すObservable</returns>
-        public IObservable<string> TalkObservable()
-        {
-            return talkEvent;
+            TalkSubject.OnNext(text);
         }
     }
 }

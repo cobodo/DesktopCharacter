@@ -17,8 +17,11 @@ namespace DesktopCharacter.Model.WebHookNotification
     /// </summary>
     class WebHookNotificationService
     {
-        private string host;
-        private Subject<SlackMessage> slackStreamingSubject = new Subject<SlackMessage>();
+        private readonly string host;
+        /// <summary>
+        /// Slackからのメッセージ
+        /// </summary>
+        public Subject<SlackMessage> SlackMessage { get; } =  new Subject<SlackMessage>();
 
         /// <param name="host">接続先のホスト</param>
         public WebHookNotificationService(string host)
@@ -47,17 +50,8 @@ namespace DesktopCharacter.Model.WebHookNotification
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonData)))
             {
                 var data = (SlackMessage)serializer.ReadObject(stream);
-                slackStreamingSubject.OnNext(data);
+                SlackMessage.OnNext(data);
             }
-        }
-
-        /// <summary>
-        /// Slackからのコマンド通知を流すObservable
-        /// </summary>
-        /// <returns>Slackからのコマンド通知</returns>
-        public IObservable<SlackMessage> SlackMessageObservable()
-        {
-            return slackStreamingSubject;
         }
     }
 
@@ -71,7 +65,7 @@ namespace DesktopCharacter.Model.WebHookNotification
         /// APIのトークン
         /// 例: KJkjLT0RH6zb6ydgSzRd70kV
         /// </summary>
-        [DataMember]
+        [DataMember()]
         public string token;
         /// <summary>
         /// チームのID
