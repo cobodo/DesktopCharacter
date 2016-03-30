@@ -7,6 +7,7 @@ using Livet;
 using Livet.Commands;
 using Livet.Messaging;
 using Livet.Messaging.Windows;
+using DesktopCharacter.Model;
 
 namespace DesktopCharacter.ViewModel
 {
@@ -70,7 +71,7 @@ namespace DesktopCharacter.ViewModel
                             () =>
                             {
                                 Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
-                                mCharacterVM.Messenger.Raise(new TransitionMessage(new TimerViewModel(mTimerCount), "Timer"));
+                                mCharacterVM.Messenger.Raise(new TransitionMessage(new TimerViewModel(new TimerModel(mTimerCount)), "Timer"));
                             }
                         );
                 }

@@ -1,4 +1,5 @@
-﻿using Livet.Messaging.Windows;
+﻿using DesktopCharacter.Model;
+using Livet.Messaging.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +12,29 @@ namespace DesktopCharacter.ViewModel
 {
     class TimerViewModel : Livet.ViewModel
     {
-        private DispatcherTimer mTimer;
-        private int mCount;
-        private DateTime mStartTime;
-        private TimeSpan mNowTimeSpan;
 
         public TimerViewModel()
         {
             
         }
 
-        public TimerViewModel(int count)
+        public TimerViewModel(TimerModel model)
         {
-            mCount = count;
-
-            mTimer = new DispatcherTimer(DispatcherPriority.Normal);
-            mTimer.Interval = new TimeSpan(0, 0, 0, 1);
-            mTimer.Tick += new EventHandler((object sender, EventArgs e) =>
-            {
-                mNowTimeSpan = DateTime.Now.Subtract(mStartTime);
-                Text = mNowTimeSpan.ToString(@"mm\:ss\:fff");
-                if (TimeSpan.Compare(mNowTimeSpan, new TimeSpan(0, 0, count)) >= 0)
+            model.StateObservable().Subscribe((TimerState state) => {
+                if(state == TimerState.FINISHED)
                 {
                     Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
                 }
             });
-
-            mStartTime = DateTime.Now;
-            mTimer.Start();
+            model.TimeObservable().Subscribe((int time) => {
+                int h = time / (60 * 60);
+                time -= h * (60 * 60);
+                int m = time / 60;
+                time -= m * 60;
+                int s = time;
+                Text = String.Format("{0:D2}:{1:D2}:{2:D2}", h, m, s);
+            });
+            model.Start();
         }
 
         private string mText;
