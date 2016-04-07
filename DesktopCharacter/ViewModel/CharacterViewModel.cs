@@ -16,8 +16,22 @@ namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {
+        /// <summary>
+        /// TalkVMのインスタンス
+        /// </summary>
+        public TalkViewModel mTalkViewModel { private get; set; }
+
         public CharacterViewModel()
         {
+        }
+
+        /// <summary>
+        /// 終了時に呼ばれるイベント
+        /// </summary>
+        public void ClosedEvent()
+        {
+            //!< threadを終了させる
+            mTalkViewModel.ClosedEvent();
         }
     }
 }
