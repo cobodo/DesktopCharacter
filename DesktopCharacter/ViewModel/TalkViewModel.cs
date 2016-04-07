@@ -32,6 +32,7 @@ namespace DesktopCharacter.ViewModel
             mWorker = new BackgroundWorker();
             mWorker.DoWork += new DoWorkEventHandler(MessageWorker);
             mWorker.RunWorkerAsync();
+            mWorker.WorkerSupportsCancellation = true;
             model.TalkSubject.Subscribe(AddMessage);
         }
 
@@ -62,6 +63,15 @@ namespace DesktopCharacter.ViewModel
         private void AddMessage( string text )
         {
             mMessageQueue.Enqueue( text );
+        }
+
+        /// <summary>
+        /// 終了時に呼ばれるイベント
+        /// </summary>
+        public void ClosedEvent()
+        {
+            //!< threadを終了させる
+            mWorker.CancelAsync();
         }
 
     }
