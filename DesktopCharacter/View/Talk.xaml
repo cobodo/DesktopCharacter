@@ -5,11 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DesktopCharacter.View"
              xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="250">
     <UserControl.DataContext>
         <vm:TalkViewModel></vm:TalkViewModel>
     </UserControl.DataContext>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Canvas Width="250" Height="100">
         <Image Source="../Res/Message.png" Width="250" Height="100"/>

@@ -26,6 +26,8 @@ namespace DesktopCharacter.View
             InitializeComponent();
             var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
+            var characterVM = this.DataContext as ViewModel.CharacterViewModel;
+            characterVM.mTalkViewModel = this.TalkView.DataContext as ViewModel.TalkViewModel;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -34,6 +34,7 @@
         
         <i:EventTrigger EventName="Closed">
             <l:DataContextDisposeAction/>
+            <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -42,7 +43,7 @@
           <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
         
-        <v:Talk Margin="175,10,75,220"></v:Talk>
+        <v:Talk x:Name="TalkView" Margin="175,10,75,220"></v:Talk>
         <Image Source="../res/kayo.png" Margin="-155,0,155,0"/>
         
     </Grid>
