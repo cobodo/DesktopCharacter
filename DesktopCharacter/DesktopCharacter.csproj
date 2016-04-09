@@ -139,6 +139,8 @@
     </ApplicationDefinition>
     <Compile Include="Model\CharacterTalkModel.cs" />
     <Compile Include="Model\Database\DatabaseContext.cs" />
+    <Compile Include="Model\Domain\LauncherSetting.cs" />
+    <Compile Include="Model\Repository\LauncherSettingRepository.cs" />
     <Compile Include="Model\WebHookNotification\WebHookNotificationService.cs" />
     <Compile Include="Model\TimerModel.cs" />
     <Compile Include="Util\EventManager.cs" />
