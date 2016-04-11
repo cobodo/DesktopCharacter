@@ -4,20 +4,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace DesktopCharacter.Model.Repository
 {
     public class LauncherSettingRepository
     {
-        public void save(LauncherSetting settings)
+        private const string SETTINGS_FILE = "Launchersetting.cfg";
+        public void Save(LauncherSetting settings)
         {
-            //TODO データをjson形式で書き出し、すでに存在すれば上書きする
+            string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
+            using (StreamWriter writeToFile = new StreamWriter(SETTINGS_FILE, false))
+            {
+                writeToFile.Write(json);
+            }
         }
 
-        public LauncherSetting load()
+        public LauncherSetting Load()
         {
-            //TODO ローカルのデータを読み込み、存在しなければnew LauncherSettings()を返す
-            return null;
+            if (!File.Exists(SETTINGS_FILE))
+            {
+                return new LauncherSetting();
+            }
+
+            using (StreamReader sr = new StreamReader(SETTINGS_FILE))
+            {
+                string fileToJson = sr.ReadToEnd();
+                LauncherSetting ls = JsonConvert.DeserializeObject<LauncherSetting>(fileToJson);
+                return ls;
+            }
         }
     }
 }
