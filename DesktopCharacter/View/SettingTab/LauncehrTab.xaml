@@ -6,7 +6,14 @@
              xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    <Grid x:Name="LauncherGrid" Margin="0">
+        <DataGrid x:Name="dataGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="index"/>
+                <DataGridTextColumn Header="ショートカット名"/>
+                <DataGridTextColumn Header="パス" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </UserControl>
