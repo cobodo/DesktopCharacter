@@ -1,5 +1,7 @@
-﻿using SQLite.CodeFirst;
+﻿using System.Data;
+using SQLite.CodeFirst;
 using System.Data.Entity;
+using DesktopCharacter.Model.Database.Domain;
 
 
 namespace DesktopCharacter.Model.Database
@@ -10,6 +12,8 @@ namespace DesktopCharacter.Model.Database
         {
 
         }
+
+        public DbSet<TwitterUser> TwitterUser { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
