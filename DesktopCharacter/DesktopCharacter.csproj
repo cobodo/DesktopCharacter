@@ -155,10 +155,12 @@
     <Compile Include="Model\Service\Twitter\TwitterRepository.cs" />
     <Compile Include="Model\WebHookNotification\WebHookNotificationService.cs" />
     <Compile Include="Model\TimerModel.cs" />
+    <Compile Include="Util\Converter\ObjectIsNullConverter.cs" />
     <Compile Include="Util\EventManager.cs" />
     <Compile Include="Util\WindowInstance.cs" />
     <Compile Include="ViewModel\Menu\LauncherMenuViewModel.cs" />
     <Compile Include="ViewModel\Menu\MenuItemViewModel.cs" />
+    <Compile Include="ViewModel\SettingTab\TwitterSettingViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
     <Compile Include="ViewModel\SettingTab\LauncherSettingViewModel.cs" />
     <Compile Include="ViewModel\SettingTab\TalkSettingViewModel.cs" />
@@ -179,6 +181,9 @@
     </Compile>
     <Compile Include="View\SettingTab\TalkTab.xaml.cs">
       <DependentUpon>TalkTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingTab\TwitterSettingsTab.xaml.cs">
+      <DependentUpon>TwitterSettingsTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Talk.xaml.cs">
       <DependentUpon>Talk.xaml</DependentUpon>
@@ -218,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingTab\TalkTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingTab\TwitterSettingsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,9 +14,18 @@ namespace DesktopCharacter.Model.Database.Domain
         [Key]
         [Column("filter_id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FilterId { get; set; }
+        public int FilterId
+        {
+            get;
+            set;
+        }
+
         [Column("favorite"), Required]
-        public bool Favorite { get; set; }
+        public bool Favorite
+        {
+            get;
+            set;
+        }
         [Column("unfavorite"), Required]
         public bool Unfavorite { get; set; }
         [Column("retweet"), Required]

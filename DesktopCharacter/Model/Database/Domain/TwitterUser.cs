@@ -20,6 +20,6 @@ namespace DesktopCharacter.Model.Database.Domain
         [Column("access_token_secret"), Required]
         public string Secret { get; set; }
 
-        public virtual TwitterNotificationFilter Filter { get; set; }
+        public TwitterNotificationFilter Filter { get; set; }
     }
 }

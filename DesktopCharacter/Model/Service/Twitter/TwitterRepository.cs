@@ -15,14 +15,14 @@ namespace DesktopCharacter.Model.Service.Twitter
         /// 保存されているアクセストークンからTwitterを作成
         /// </summary>
         /// <returns>保存されているユーザー全てのTwitter</returns>
-        public List<Twitter> Load()
+        public List<TwitterUser> Load()
         {
             List<TwitterUser> twitterUsers;
             using (var context = new DatabaseContext())
             {
-                twitterUsers = context.TwitterUser.ToList();
+                twitterUsers = context.TwitterUser.Include("Filter").ToList();
             }
-            return twitterUsers.Select(CreateTwitter).ToList();
+            return twitterUsers.ToList();
         }
 
         /// <summary>
@@ -34,6 +34,22 @@ namespace DesktopCharacter.Model.Service.Twitter
             using (var context = new DatabaseContext())
             {
                 context.TwitterUser.AddOrUpdate(user);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// ユーザーを保存する
+        /// </summary>
+        /// <param name="users">保存するユーザー</param>
+        public void Save(List<TwitterUser> users)
+        {
+            using (var context = new DatabaseContext())
+            {
+                users.ForEach(user =>
+                {
+                    context.TwitterUser.AddOrUpdate(user);
+                });
                 context.SaveChanges();
             }
         }

@@ -12,12 +12,15 @@
         <vm:SettingViewModel></vm:SettingViewModel>
     </Window.DataContext>
     <Grid>
-        <TabControl x:Name="tabControl">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="トーク">
                 <st:TalkTab></st:TalkTab>
             </TabItem>
             <TabItem Header="ランチャー">
                 <st:LauncehrTab></st:LauncehrTab>
+            </TabItem>
+            <TabItem Header="Twitter">
+                <st:TwitterSettingsTab x:Name="TwitterSettingsTab"></st:TwitterSettingsTab>
             </TabItem>
         </TabControl>
     </Grid>

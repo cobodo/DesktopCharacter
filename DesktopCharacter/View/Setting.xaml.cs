@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DesktopCharacter.View.SettingTab;
+using DesktopCharacter.ViewModel.SettingTab;
 
 namespace DesktopCharacter.View
 {
@@ -22,6 +24,13 @@ namespace DesktopCharacter.View
         public Setting()
         {
             InitializeComponent();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            var twitterSettingViewModel = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
+            twitterSettingViewModel?.OnClose();
         }
     }
 }
