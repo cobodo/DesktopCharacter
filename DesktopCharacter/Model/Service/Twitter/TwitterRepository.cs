@@ -46,10 +46,8 @@ namespace DesktopCharacter.Model.Service.Twitter
         {
             using (var context = new DatabaseContext())
             {
-                users.ForEach(user =>
-                {
-                    context.TwitterUser.AddOrUpdate(user);
-                });
+                context.TwitterUser.AddOrUpdate(users.ToArray());
+                context.TwitterNotificationFilter.AddOrUpdate(users.Select(u => u.Filter).ToArray());
                 context.SaveChanges();
             }
         }

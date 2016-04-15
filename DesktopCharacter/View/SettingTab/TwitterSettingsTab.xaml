@@ -25,7 +25,7 @@
                  Margin="10,35,10,10" Width="150">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DisplayName}"/>
+                    <TextBlock Text="{Binding UserId}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -33,28 +33,37 @@
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <StackPanel>
                 <CheckBox Content="いいね"
-                          IsChecked="{Binding SelectedTwitterUser.Favorite, TargetNullValue=False, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Favorite, FallbackValue=False, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="いいね解除"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Unfavorite, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="リツイート"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Retweet, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="メンション"
+                <CheckBox Content="メンション" 
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Mention, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="フォロワーが増えた"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Follow, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="フォロワーが減った"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Unfollow, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="ブロックされた"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Block, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="ブロック解除された"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.Unblock, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="リストに追加された"
-                          IsChecked="{Binding SelectedTwitterUser.Filter.ListAdded, TargetNullValue=False, Mode=TwoWay}"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.ListAdded, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="リストから削除された"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.ListRemoved, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <CheckBox Content="ダイレクトメッセージ"
+                          IsChecked="{Binding SelectedTwitterUser.Filter.DirectMessage, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <Button Content="削除"
                         IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
