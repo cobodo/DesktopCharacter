@@ -21,6 +21,7 @@ namespace DesktopCharacter.ViewModel.Menu
 
         public string Headder { get; set; }
         public ViewModelCommand Command { get; private set; }
+        public object Focus { get; set; }
 
         public LauncherMenuViewModel(string headder, ViewModelCommand command)
         {
