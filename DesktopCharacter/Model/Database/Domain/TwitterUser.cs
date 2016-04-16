@@ -21,5 +21,18 @@ namespace DesktopCharacter.Model.Database.Domain
         public string Secret { get; set; }
 
         public TwitterNotificationFilter Filter { get; set; }
+
+        public TwitterUser()
+        {
+            
+        }
+
+        public TwitterUser(CoreTweet.Tokens tokens)
+        {
+            UserId = tokens.UserId;
+            Token = tokens.AccessToken;
+            Secret = tokens.AccessTokenSecret;
+            Filter = new TwitterNotificationFilter();
+        }
     }
 }

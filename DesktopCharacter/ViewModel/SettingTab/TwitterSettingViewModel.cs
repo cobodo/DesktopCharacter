@@ -7,14 +7,30 @@ using System.Threading.Tasks;
 using DesktopCharacter.Model.Database;
 using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Service.Twitter;
+using DesktopCharacter.View.Dialog;
 using Livet;
+using Livet.Commands;
+using Livet.Messaging;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
     class TwitterSettingViewModel : Livet.ViewModel
     {
-        private ObservableCollection<TwitterUser> _twitterUsers;
+        private ViewModelCommand _createAccount;
 
+        public ViewModelCommand CreateAccount
+        {
+            get
+            {
+                if (_createAccount == null)
+                {
+                    _createAccount = new ViewModelCommand(OpenCreateAccount);
+                }
+                return _createAccount;
+            }
+        }
+
+        private ObservableCollection<TwitterUser> _twitterUsers;
         public ObservableCollection<TwitterUser> TwitterUsers
         {
             get
@@ -54,6 +70,16 @@ namespace DesktopCharacter.ViewModel.SettingTab
         {
             var twitterRepository = new TwitterRepository();
             twitterRepository.Save(TwitterUsers.ToList());
+        }
+
+        public void OpenCreateAccount()
+        {
+            var twitterSignInDialog = new TwitterSignInDialog();
+            var showDialog = twitterSignInDialog.ShowDialog();
+            if (showDialog != null && showDialog.Value)
+            {
+                TwitterUsers.Add(twitterSignInDialog.AuthTwitterUser);
+            }
         }
     }
 }

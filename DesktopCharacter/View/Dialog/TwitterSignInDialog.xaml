@@ -1,0 +1,15 @@
+﻿<Window x:Class="DesktopCharacter.View.Dialog.TwitterSignInDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopCharacter.View.Dialog"
+        mc:Ignorable="d"
+        Title="Twitter認証"
+        Height="90" Width="300">
+    <StackPanel>
+        <TextBlock x:Name="Message" Text="ブラウザで表示されたPINコードを入力" VerticalAlignment="Stretch"/>
+        <TextBox x:Name="PinCode" GotFocus="PinCode_OnGotFocus"/>
+        <Button x:Name="AuthButton" Content="OK" Click="Button_Click"/>
+    </StackPanel>
+</Window>

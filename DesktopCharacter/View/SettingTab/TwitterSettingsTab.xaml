@@ -16,9 +16,13 @@
     <UserControl.DataContext>
         <vm:TwitterSettingViewModel/>
     </UserControl.DataContext>
+
     <Grid>
-        <Button x:Name="authButton" Content="新規アカウント" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="accountList" ItemsSource="{Binding TwitterUsers}"
+        <Button x:Name="AuthButton" Content="新規アカウント"
+                Command="{Binding CreateAccount}"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="10,10,0,0"/>
+        <ListBox ItemsSource="{Binding TwitterUsers}"
                  HorizontalAlignment="Left" VerticalAlignment="Stretch"
                  SelectedItem="{Binding SelectedTwitterUser}"
                  SelectionMode="Single"

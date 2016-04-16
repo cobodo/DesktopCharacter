@@ -7,7 +7,7 @@ using DesktopCharacter.Model.Database.Domain;
 
 namespace DesktopCharacter.Model.Service.Twitter
 {
-    class Twitter: IDisposable
+    public class Twitter: IDisposable
     {
         public const string ConsumerKey = "KYylblbCVKZgnTMUhgFCkLrkK";
         public const string ConsumerSecret = "xsVZvuuvBFFhUtlhKgi7YW5XqfFqLme1hJUzhU9XCJdYNzCNBp";

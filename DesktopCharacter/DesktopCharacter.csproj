@@ -167,6 +167,9 @@
     <Compile Include="ViewModel\TalkViewModel.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\TimerSettingViewModel.cs" />
+    <Compile Include="View\Dialog\TwitterSignInDialog.xaml.cs">
+      <DependentUpon>TwitterSignInDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Menu\LauncherMenu.xaml.cs">
       <DependentUpon>LauncherMenu.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <DependentUpon>Character.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Dialog\TwitterSignInDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Menu\LauncherMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
