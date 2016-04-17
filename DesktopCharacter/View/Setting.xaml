@@ -19,6 +19,9 @@
             <TabItem Header="ランチャー">
                 <st:LauncehrTab></st:LauncehrTab>
             </TabItem>
+            <TabItem Header="Codic">
+                <st:CodicTab></st:CodicTab>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

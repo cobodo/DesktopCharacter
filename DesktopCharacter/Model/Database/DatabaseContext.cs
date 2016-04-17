@@ -1,6 +1,7 @@
 ﻿using SQLite.CodeFirst;
 using System.Data.Entity;
-
+using DesktopCharacter.Model.Domain;
+using System;
 
 namespace DesktopCharacter.Model.Database
 {
@@ -11,10 +12,13 @@ namespace DesktopCharacter.Model.Database
 
         }
 
+        public DbSet<CodicUser> CodicUser { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<DatabaseContext>(modelBuilder);
             System.Data.Entity.Database.SetInitializer(sqliteConnectionInitializer);
+            Database.Log = s => Console.WriteLine(@"[Database] " + s);
         }
     }
 }

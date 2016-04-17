@@ -7,6 +7,8 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:local="clr-namespace:DesktopCharacter"
         xmlns:v="clr-namespace:DesktopCharacter.View"
+        xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
+        xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate" 
         xmlns:menuView="clr-namespace:DesktopCharacter.View.Menu"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
@@ -25,7 +27,7 @@
 
     <i:Interaction.Triggers>
         <l:InteractionMessageTrigger MessageKey="Timer" Messenger="{Binding Messenger}">
-            <l:TransitionInteractionMessageAction WindowType="{x:Type v:Timer}" Mode="Modal" />
+            <l:TransitionInteractionMessageAction WindowType="{x:Type ToolTimerView:Timer}" Mode="Modal" />
         </l:InteractionMessageTrigger>
         
         <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter.View
+namespace DesktopCharacter.View.Tool.Timer
 {
     /// <summary>
     /// TimerSetting.xaml の相互作用ロジック

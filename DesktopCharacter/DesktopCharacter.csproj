@@ -142,21 +142,30 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\CharacterTalkModel.cs" />
+    <Compile Include="Model\Service\Codic\CodicAPI.cs" />
+    <Compile Include="Model\Service\Codic\CoidcFormat.cs" />
     <Compile Include="Model\Database\DatabaseContext.cs" />
+    <Compile Include="Model\Domain\CodicUser.cs" />
     <Compile Include="Model\Domain\LauncherSetting.cs" />
+    <Compile Include="Model\Repository\CodicRepository.cs" />
     <Compile Include="Model\Repository\LauncherSettingRepository.cs" />
+    <Compile Include="Model\Service\Codic\CodicService.cs" />
     <Compile Include="Model\WebHookNotification\WebHookNotificationService.cs" />
     <Compile Include="Model\TimerModel.cs" />
+    <Compile Include="Util\Behavior\PlaceHolderBehavior.cs" />
     <Compile Include="Util\EventManager.cs" />
+    <Compile Include="Util\ParameterBuild.cs" />
     <Compile Include="Util\WindowInstance.cs" />
     <Compile Include="ViewModel\Menu\LauncherMenuViewModel.cs" />
     <Compile Include="ViewModel\Menu\MenuItemViewModel.cs" />
+    <Compile Include="ViewModel\SettingTab\CodicSettingTabViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
     <Compile Include="ViewModel\SettingTab\LauncherSettingViewModel.cs" />
     <Compile Include="ViewModel\SettingTab\TalkSettingViewModel.cs" />
     <Compile Include="ViewModel\TalkViewModel.cs" />
-    <Compile Include="ViewModel\TimerViewModel.cs" />
-    <Compile Include="ViewModel\TimerSettingViewModel.cs" />
+    <Compile Include="ViewModel\Tool\Timer\TimerViewModel.cs" />
+    <Compile Include="ViewModel\Tool\Timer\TimerSettingViewModel.cs" />
+    <Compile Include="ViewModel\Tool\Translate\TranslateViewModel.cs" />
     <Compile Include="View\Menu\LauncherMenu.xaml.cs">
       <DependentUpon>LauncherMenu.xaml</DependentUpon>
     </Compile>
@@ -165,6 +174,9 @@
     </Compile>
     <Compile Include="View\Setting.xaml.cs">
       <DependentUpon>Setting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingTab\CodicTab.xaml.cs">
+      <DependentUpon>CodicTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingTab\LauncehrTab.xaml.cs">
       <DependentUpon>LauncehrTab.xaml</DependentUpon>
@@ -175,11 +187,14 @@
     <Compile Include="View\Talk.xaml.cs">
       <DependentUpon>Talk.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Timer.xaml.cs">
+    <Compile Include="View\Tool\Timer\Timer.xaml.cs">
       <DependentUpon>Timer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TimerSetting.xaml.cs">
+    <Compile Include="View\Tool\Timer\TimerSetting.xaml.cs">
       <DependentUpon>TimerSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\Translate\Translate.xaml.cs">
+      <DependentUpon>Translate.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Character.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -205,6 +220,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SettingTab\CodicTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SettingTab\LauncehrTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,11 +236,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Timer.xaml">
+    <Page Include="View\Tool\Timer\Timer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TimerSetting.xaml">
+    <Page Include="View\Tool\Timer\TimerSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\Translate\Translate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
