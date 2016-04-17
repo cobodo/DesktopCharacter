@@ -9,6 +9,8 @@
              xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
              xmlns:v="clr-namespace:DesktopCharacter.View"
              xmlns:menuVM="clr-namespace:DesktopCharacter.View.Menu"
+             xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
+             xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <ItemsControl.DataContext>
@@ -17,15 +19,19 @@
 
     <i:Interaction.Triggers>
         <l:InteractionMessageTrigger MessageKey="TimerSetting" Messenger="{Binding Messenger}">
-            <l:TransitionInteractionMessageAction WindowType="{x:Type v:TimerSetting}" Mode="Modal" />
+            <l:TransitionInteractionMessageAction WindowType="{x:Type ToolTimerView:TimerSetting}" Mode="Modal" />
         </l:InteractionMessageTrigger>
         <l:InteractionMessageTrigger MessageKey="Setting" Messenger="{Binding Messenger}">
             <l:TransitionInteractionMessageAction WindowType="{x:Type v:Setting}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+        <l:InteractionMessageTrigger MessageKey="CodicWindow" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type ToolTranslateView:Translate}" Mode="Modal" />
         </l:InteractionMessageTrigger>
     </i:Interaction.Triggers>
 
     <MenuItem Header="ツール">
         <MenuItem Header="タイマー" Command="{Binding TimerSettingOpenCommand}"/>
+        <MenuItem Header="翻訳" Command="{Binding CodicWindowOpenCommand}"/>
     </MenuItem>
  
     <menuVM:LauncherMenu></menuVM:LauncherMenu>

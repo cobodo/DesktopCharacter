@@ -9,6 +9,7 @@ using Livet.Messaging.Windows;
 using Livet.Messaging;
 using System.Diagnostics;
 using Microsoft.Win32;
+using DesktopCharacter.ViewModel.Tool;
 
 namespace DesktopCharacter.ViewModel.Menu
 {
@@ -79,7 +80,7 @@ namespace DesktopCharacter.ViewModel.Menu
                 {
                     mTimerSettingOpenCommand = new ViewModelCommand(() =>
                     {
-                        using (var vm = new ViewModel.TimerSettingViewModel(CharacterVM))
+                        using (var vm = new Tool.Timer.TimerSettingViewModel(CharacterVM))
                         {
                             Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
                         }
@@ -88,5 +89,21 @@ namespace DesktopCharacter.ViewModel.Menu
                 return mTimerSettingOpenCommand;
             }
         }
+
+        private ViewModelCommand _codicWindowOpenCommand;
+        public ViewModelCommand CodicWindowOpenCommand
+        {
+            get
+            {
+                return _codicWindowOpenCommand ?? (_codicWindowOpenCommand = new ViewModelCommand(() => 
+                {
+                    using (var vm = new Tool.Translate.TranslateViewModel())
+                    {
+                        Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
+                    }
+                }));
+            }
+        }
+
     }
 }

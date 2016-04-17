@@ -3,7 +3,7 @@ using System.Data;
 using SQLite.CodeFirst;
 using System.Data.Entity;
 using DesktopCharacter.Model.Database.Domain;
-
+using DesktopCharacter.Model.Domain;
 
 namespace DesktopCharacter.Model.Database
 {
@@ -14,9 +14,9 @@ namespace DesktopCharacter.Model.Database
 
         }
 
+        public DbSet<CodicUser> CodicUser { get; set; }
         public DbSet<TwitterUser> TwitterUser { get; set; }
         public DbSet<TwitterNotificationFilter> TwitterNotificationFilter { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<DatabaseContext>(modelBuilder);

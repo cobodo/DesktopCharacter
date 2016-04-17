@@ -16,7 +16,7 @@ namespace DesktopCharacter.ViewModel
 
         public SettingViewModel()
         {
-
+            
         }
 
         public void ClosedEvent()

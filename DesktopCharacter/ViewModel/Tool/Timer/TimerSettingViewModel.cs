@@ -9,7 +9,7 @@ using Livet.Messaging;
 using Livet.Messaging.Windows;
 using DesktopCharacter.Model;
 
-namespace DesktopCharacter.ViewModel
+namespace DesktopCharacter.ViewModel.Tool.Timer
 {
     class TimerSettingViewModel : Livet.ViewModel
     {
