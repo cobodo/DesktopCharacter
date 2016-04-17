@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CoreTweet;
 using DesktopCharacter.Model.Database.Domain;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
 
 namespace DesktopCharacter.View.Dialog
@@ -32,25 +34,34 @@ namespace DesktopCharacter.View.Dialog
             System.Diagnostics.Process.Start(_oAuthSession.AuthorizeUri.ToString());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             AuthButton.IsEnabled = false;
             Message.Text = "認証中";
+            PinCode.IsEnabled = false;
 
-            //非同期処理にしたい
-            var tokens = _oAuthSession.GetTokens(PinCode.Text);
-            if (tokens != null)
+            var tokensAsync = _oAuthSession.GetTokensAsync(PinCode.Text);
+            try
             {
+                await tokensAsync;
+
+                var tokens = tokensAsync.Result;
+                if (tokens == null) throw new NullReferenceException("token is null.");
+
                 var twitterUser = new TwitterUser(tokens);
-                var twitterRepository = new TwitterRepository();
+                var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
                 twitterRepository.Save(twitterUser);
                 AuthTwitterUser = twitterUser;
                 DialogResult = true;
                 return;
             }
-
-            AuthButton.IsEnabled = true;
-            Message.Text = "認証中";
+            catch
+            {
+                AuthButton.IsEnabled = true;
+                PinCode.IsEnabled = true;
+                PinCode.Text = "";
+                Message.Text = "認証失敗";
+            }
         }
 
         private void PinCode_OnGotFocus(object sender, RoutedEventArgs e)

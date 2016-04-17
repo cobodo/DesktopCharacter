@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DesktopCharacter.Model.Database;
 using DesktopCharacter.Model.Database.Domain;
+using DesktopCharacter.Model.Service.Twitter;
 
-namespace DesktopCharacter.Model.Service.Twitter
+namespace DesktopCharacter.Model.Repository
 {
     class TwitterRepository
     {
         /// <summary>
-        /// 保存されているアクセストークンからTwitterを作成
+        /// 保存されているアクセストークンからTwitterUserを作成
         /// </summary>
         /// <returns>保存されているユーザー全てのTwitter</returns>
-        public List<TwitterUser> Load()
+        public List<TwitterUser> FindAll()
         {
             List<TwitterUser> twitterUsers;
             using (var context = new DatabaseContext())
@@ -50,11 +48,6 @@ namespace DesktopCharacter.Model.Service.Twitter
                 context.TwitterNotificationFilter.AddOrUpdate(users.Select(u => u.Filter).ToArray());
                 context.SaveChanges();
             }
-        }
-
-        public Twitter CreateTwitter(TwitterUser user)
-        {
-            return new Twitter(user);
         }
     }
 }

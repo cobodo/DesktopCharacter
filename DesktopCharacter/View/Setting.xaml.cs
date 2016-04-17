@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DesktopCharacter.Model.Locator;
 using DesktopCharacter.View.SettingTab;
 using DesktopCharacter.ViewModel.SettingTab;
 
@@ -29,6 +30,9 @@ namespace DesktopCharacter.View
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            //設定が変更されたのでConfigBaseContextをクリア
+            ServiceLocator.Instance.ClearConfigBaseContext();
+
             var twitterSettingViewModel = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
             twitterSettingViewModel?.OnClose();
         }

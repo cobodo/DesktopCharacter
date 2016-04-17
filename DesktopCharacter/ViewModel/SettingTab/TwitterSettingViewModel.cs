@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Database;
 using DesktopCharacter.Model.Database.Domain;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
 using DesktopCharacter.View.Dialog;
 using Livet;
@@ -18,17 +20,8 @@ namespace DesktopCharacter.ViewModel.SettingTab
     {
         private ViewModelCommand _createAccount;
 
-        public ViewModelCommand CreateAccount
-        {
-            get
-            {
-                if (_createAccount == null)
-                {
-                    _createAccount = new ViewModelCommand(OpenCreateAccount);
-                }
-                return _createAccount;
-            }
-        }
+        public ViewModelCommand CreateAccount => 
+            _createAccount ?? (_createAccount = new ViewModelCommand(OpenCreateAccount));
 
         private ObservableCollection<TwitterUser> _twitterUsers;
         public ObservableCollection<TwitterUser> TwitterUsers
@@ -58,17 +51,16 @@ namespace DesktopCharacter.ViewModel.SettingTab
 
         public TwitterSettingViewModel()
         {
-            var twitterRepository = new TwitterRepository();
+            var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
             TwitterUsers = new ObservableCollection<TwitterUser>();
-            twitterRepository.Load().ForEach(user =>
-            {
-                TwitterUsers.Add(user);
-            });
+            var users = twitterRepository.FindAll();
+            
+            users.ForEach(user => TwitterUsers.Add(user));
         }
 
         public void OnClose()
         {
-            var twitterRepository = new TwitterRepository();
+            var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
             twitterRepository.Save(TwitterUsers.ToList());
         }
 
@@ -76,10 +68,13 @@ namespace DesktopCharacter.ViewModel.SettingTab
         {
             var twitterSignInDialog = new TwitterSignInDialog();
             var showDialog = twitterSignInDialog.ShowDialog();
-            if (showDialog != null && showDialog.Value)
-            {
-                TwitterUsers.Add(twitterSignInDialog.AuthTwitterUser);
-            }
+
+            if (showDialog == null || !showDialog.Value) return;
+            var resultUser = twitterSignInDialog.AuthTwitterUser;
+
+            // ReSharper disable once SimplifyLinqExpression
+            if (TwitterUsers.Any(user => resultUser.UserId == user.UserId)) return;
+            TwitterUsers.Add(resultUser);
         }
     }
 }

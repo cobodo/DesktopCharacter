@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Data;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading;
+using System.Windows.Threading;
 using CoreTweet.Streaming;
 using DesktopCharacter.Model.Database.Domain;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
 
 namespace DesktopCharacter.Model.Service.Twitter
 {
@@ -28,12 +33,11 @@ namespace DesktopCharacter.Model.Service.Twitter
         public Twitter(TwitterUser twitterUser)
         {
             TwitterUser = twitterUser;
-            Initialize();
         }
 
         public void Initialize()
         {
-            var tokens = CoreTweet.Tokens.Create(ConsumerKey, ConsumerSecret, TwitterUser.Token, TwitterUser.Secret);
+            var tokens = CoreTweet.Tokens.Create(ConsumerKey, ConsumerSecret, TwitterUser.Token, TwitterUser.Secret, TwitterUser.UserId);
             var observable = tokens.Streaming.UserAsObservable();
             ScreenName = tokens.ScreenName;
 
