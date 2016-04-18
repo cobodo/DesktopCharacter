@@ -8,6 +8,7 @@ using CoreTweet.Streaming;
 using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
+using DesktopCharacter.ViewModel;
 
 namespace DesktopCharacter.Model.Service.Twitter
 {
@@ -17,7 +18,6 @@ namespace DesktopCharacter.Model.Service.Twitter
 
         public void Dispose()
         {
-            Console.WriteLine("TwitterService Dispose");
             foreach (var twitter in _twitterList)
             {
                 twitter.Dispose();
@@ -29,7 +29,6 @@ namespace DesktopCharacter.Model.Service.Twitter
             var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
             var twitterUsers = twitterRepository.FindAll();
             _twitterList = twitterUsers.Select(user => new Twitter(user)).ToList();
-            Console.WriteLine("TwitterService Initialzied");
             foreach (var twitter in _twitterList)
             {
                 Console.WriteLine(twitter.ScreenName);
@@ -54,52 +53,52 @@ namespace DesktopCharacter.Model.Service.Twitter
                     case EventCode.Favorite:
                         if (user.Filter.Favorite)
                         {
-                            //TODO お気に入り通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にふぁぼられました");
                         }
                         break;
                     case EventCode.Unfavorite:
                         if (user.Filter.Unfavorite)
                         {
-                            //TODO あんふぁぼ通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にあんふぁぼされました");
                         }
                         break;
                     case EventCode.Follow:
                         if (user.Filter.Follow)
                         {
-                            //TODO フォロー通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にフォローされました");
                         }
                         break;
 
                     case EventCode.Unfollow:
                         if (user.Filter.Unfollow)
                         {
-                            //TODO アンフォロー通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にフォロー解除されました");
                         }
                         break;
 
                     case EventCode.Block:
                         if (user.Filter.Block)
                         {
-                            //TODO ブロック通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にブロックされました");
                         }
                         break;
 
                     case EventCode.Unblock:
                         if (user.Filter.Unblock)
                         {
-                            //TODO アンブロック通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にブロック解除されました");
                         }
                         break;
                     case EventCode.ListMemberAdded:
                         if (user.Filter.ListAdded)
                         {
-                            //TODO リストメンバー追加通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にリスト追加されました");
                         }
                         break;
                     case EventCode.ListMemberRemoved:
                         if (user.Filter.ListRemoved)
                         {
-                            //TODO リストメンバー削除通知
+                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にリストから外されました");
                         }
                         break;
                 }
@@ -109,11 +108,11 @@ namespace DesktopCharacter.Model.Service.Twitter
                 var sm = (StatusMessage)m;
                 if (IsMentionStatus(sm, user))
                 {
-                    //TODO メンション通知
+                    CharacterTalkModel.Instance.Talk(sm.Status.User.Name + "からメンション");
                 }
                 if (IsRetweet(sm, user))
                 {
-                    //TODO リツイート通知
+                    CharacterTalkModel.Instance.Talk(sm.Status.User.Name + "にRTされました");
                 }
             }
             if (m.Type == MessageType.DirectMesssage)
@@ -121,7 +120,7 @@ namespace DesktopCharacter.Model.Service.Twitter
                 var dm = (DirectMessageMessage)m;
                 if (dm.DirectMessage.Sender.Id != user.UserId && user.Filter.DirectMessage)
                 {
-                    //TODO ダイレクトメッセージ通知
+                    CharacterTalkModel.Instance.Talk(dm.DirectMessage.Sender.Name + "からDM");
                 }
             }
         }

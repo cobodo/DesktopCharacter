@@ -30,11 +30,12 @@ namespace DesktopCharacter.View
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            //設定が変更されたのでConfigBaseContextをクリア
-            ServiceLocator.Instance.ClearConfigBaseContext();
 
             var twitterSettingViewModel = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
             twitterSettingViewModel?.OnClose();
+
+            //設定が変更されたのでConfigBaseContextをクリア
+            ServiceLocator.Instance.ClearConfigBaseContext();
         }
     }
 }
