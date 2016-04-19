@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.View.SettingTab;
+using DesktopCharacter.ViewModel;
 using DesktopCharacter.ViewModel.SettingTab;
 
 namespace DesktopCharacter.View
@@ -27,15 +28,13 @@ namespace DesktopCharacter.View
             InitializeComponent();
         }
 
-        protected override void OnClosed(EventArgs e)
+        protected override void OnSourceInitialized(EventArgs e)
         {
-            base.OnClosed(e);
-
-            var twitterSettingViewModel = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
-            twitterSettingViewModel?.OnClose();
-
-            //設定が変更されたのでConfigBaseContextをクリア
-            ServiceLocator.Instance.ClearConfigBaseContext();
+            base.OnSourceInitialized(e);
+            var vm = DataContext as SettingViewModel;
+            vm.LauncherSetting = LauncehrTab.DataContext as LauncherSettingViewModel;
+            vm.TalkSetting = TalkTab.DataContext as TalkSettingViewModel;
+            vm.TwitterSetting = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
         }
     }
 }
