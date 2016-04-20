@@ -83,17 +83,17 @@ namespace DesktopCharacter.Model.Locator
             configBaseContext.CallInitializeAll();
         }
 
-        private void RegisterByPrototypeScope<T>(Func<object> instanceFactory)
+        private void RegisterByPrototypeScope<T>(Func<T> instanceFactory) where T: class 
         {
             prototypeContext.RegisterFactory<T>(instanceFactory);
         }
 
-        private void RegisterByApplicationScope<T>(Func<object> instanceFactory)
+        private void RegisterByApplicationScope<T>(Func<T> instanceFactory) where T : class
         {
             applicationContext.RegisterFactory<T>(instanceFactory);
         }
 
-        private void RegisterByConfigBaseScope<T>(Func<object> instanceFactory)
+        private void RegisterByConfigBaseScope<T>(Func<T> instanceFactory) where T : class 
         {
             configBaseContext.RegisterFactory<T>(instanceFactory);
         }
@@ -173,11 +173,8 @@ namespace DesktopCharacter.Model.Locator
         public void ClearCacheAll()
         {
             //インスタンスの後処理
-            foreach (var value in _instance.Values)
+            foreach (var disposable in _instance.Values.OfType<IDisposable>())
             {
-                if (!(value is IDisposable)) continue;
-
-                var disposable = (IDisposable) value;
                 disposable.Dispose();
             }
             _instance.Clear();
@@ -192,7 +189,7 @@ namespace DesktopCharacter.Model.Locator
             _instance.Remove(type);
         }
 
-        public void RegisterFactory<T>(Func<object> instanceFactory)
+        public void RegisterFactory<T>(Func<T> instanceFactory) where T : class
         {
             Factory.Add(typeof(T), instanceFactory);
         }
