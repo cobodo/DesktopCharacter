@@ -6,19 +6,29 @@
         xmlns:local="clr-namespace:DesktopCharacter.View"
         xmlns:st="clr-namespace:DesktopCharacter.View.SettingTab"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:messaging="http://schemas.livet-mvvm.net/2011/wpf"
         mc:Ignorable="d"
         Title="Setting" Height="300" Width="300">
-    <Window.DataContext>
-        <vm:SettingViewModel></vm:SettingViewModel>
-    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <messaging:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <TabControl x:Name="tabControl">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="トーク">
-                <st:TalkTab></st:TalkTab>
+                <st:TalkTab x:Name="TalkTab"></st:TalkTab>
             </TabItem>
             <TabItem Header="ランチャー">
-                <st:LauncehrTab></st:LauncehrTab>
+                <st:LauncehrTab x:Name="LauncehrTab"></st:LauncehrTab>
+            </TabItem>
+            <TabItem Header="Twitter">
+                <st:TwitterSettingsTab x:Name="TwitterSettingsTab"></st:TwitterSettingsTab>
             </TabItem>
         </TabControl>
     </Grid>
 </Window>
+
+
+
