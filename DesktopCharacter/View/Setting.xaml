@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:messaging="http://schemas.livet-mvvm.net/2011/wpf"
         mc:Ignorable="d"
-        Title="Setting" Height="300" Width="300">
+        Title="Setting" Height="400" Width="400">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <messaging:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>

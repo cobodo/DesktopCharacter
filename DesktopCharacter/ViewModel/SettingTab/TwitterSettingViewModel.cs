@@ -23,6 +23,14 @@ namespace DesktopCharacter.ViewModel.SettingTab
         public ViewModelCommand CreateAccount => 
             _createAccount ?? (_createAccount = new ViewModelCommand(OpenCreateAccount));
 
+        private ViewModelCommand _deleteAccount;
+        public ViewModelCommand DeleteAccount => _deleteAccount ??
+            (_deleteAccount = new ViewModelCommand(() =>
+            {
+                _twitterUsers.Remove(_selectedTwitterUser);
+            }));
+
+
         private ObservableCollection<TwitterUser> _twitterUsers;
         public ObservableCollection<TwitterUser> TwitterUsers
         {
@@ -49,19 +57,31 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
+        private readonly List<TwitterUser> oldTwitterUsersList;
+
         public TwitterSettingViewModel()
         {
             var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
             TwitterUsers = new ObservableCollection<TwitterUser>();
             var users = twitterRepository.FindAll();
+            oldTwitterUsersList = users;
             
             users.ForEach(user => TwitterUsers.Add(user));
         }
 
         public void OnClose()
         {
+            //現在の状態を保存
             var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
             twitterRepository.Save(TwitterUsers.ToList());
+
+            //差分からアカウントを削除
+            var diff = new List<TwitterUser>(oldTwitterUsersList);
+            foreach (var twitterUser in TwitterUsers)
+            {
+                diff.Remove(twitterUser);
+            }
+            twitterRepository.Delete(diff);
         }
 
         public void OpenCreateAccount()

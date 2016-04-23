@@ -70,6 +70,7 @@
                           IsChecked="{Binding SelectedTwitterUser.Filter.DirectMessage, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
                 <Button Content="削除"
+                        Command="{Binding DeleteAccount}"
                         IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
             </StackPanel>
         </GroupBox>
