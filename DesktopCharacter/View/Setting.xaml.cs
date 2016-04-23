@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.View.SettingTab;
+using DesktopCharacter.ViewModel;
+using DesktopCharacter.ViewModel.SettingTab;
 
 namespace DesktopCharacter.View
 {
@@ -22,6 +26,15 @@ namespace DesktopCharacter.View
         public Setting()
         {
             InitializeComponent();
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            var vm = DataContext as SettingViewModel;
+            vm.LauncherSetting = LauncehrTab.DataContext as LauncherSettingViewModel;
+            vm.TalkSetting = TalkTab.DataContext as TalkSettingViewModel;
+            vm.TwitterSetting = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
         }
     }
 }

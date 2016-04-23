@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesktopCharacter.Model.Domain
+namespace DesktopCharacter.Model.Database.Domain
 {
     [Table("codic_user")]
     class CodicUser

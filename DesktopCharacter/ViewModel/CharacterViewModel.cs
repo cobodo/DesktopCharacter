@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Reactive.Linq;
 using Livet.Messaging;
 using System.Collections.ObjectModel;
+using DesktopCharacter.Model.Locator;
 
 namespace DesktopCharacter.ViewModel
 {
@@ -23,6 +24,7 @@ namespace DesktopCharacter.ViewModel
 
         public CharacterViewModel()
         {
+            ServiceLocator.Instance.InitializeServiceLocator();
         }
 
         /// <summary>
