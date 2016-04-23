@@ -75,7 +75,9 @@ namespace DesktopCharacter.Model.Repository
         {
             using (var context = new DatabaseContext())
             {
+                context.TwitterUser.Attach(user);
                 context.TwitterUser.Remove(user);
+                context.SaveChanges();
             }
         }
     }
