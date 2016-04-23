@@ -31,11 +31,20 @@ namespace DesktopCharacter.Model.Service.Twitter
             _twitterList = twitterUsers.Select(user => new Twitter(user)).ToList();
             foreach (var twitter in _twitterList)
             {
-                Console.WriteLine(twitter.ScreenName);
                 twitter.Initialize();
                 twitter.StreamingObservable
                     .Subscribe(m => OnTwitterMessage(m, twitter.TwitterUser));
             }
+        }
+
+        /// <summary>
+        /// IDに一致するTwitterを返す
+        /// </summary>
+        /// <param name="id">UserID</param>
+        /// <returns></returns>
+        public Twitter FindById(long id)
+        {
+            return _twitterList.FirstOrDefault(twitter => twitter.TwitterUser.UserId == id);
         }
 
         private void OnTwitterMessage(StreamingMessage m, TwitterUser user)

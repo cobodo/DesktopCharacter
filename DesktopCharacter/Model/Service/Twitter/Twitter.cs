@@ -39,7 +39,11 @@ namespace DesktopCharacter.Model.Service.Twitter
         {
             var tokens = CoreTweet.Tokens.Create(ConsumerKey, ConsumerSecret, TwitterUser.Token, TwitterUser.Secret, TwitterUser.UserId);
             var observable = tokens.Streaming.UserAsObservable();
-            ScreenName = tokens.ScreenName;
+
+            //ScreenNameは変更可能なので毎回認証時に取得
+            var userResponse = tokens.Users.Show(TwitterUser.UserId, null);
+            ScreenName = userResponse.ScreenName;
+            TwitterUser.ScreenName = ScreenName;
 
             _streamingSubject = new Subject<StreamingMessage>();
             //エラー時に10秒待って再接続

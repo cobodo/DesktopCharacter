@@ -19,6 +19,8 @@ namespace DesktopCharacter.Model.Database.Domain
         public string Token { get; set; }
         [Column("access_token_secret"), Required]
         public string Secret { get; set; }
+        [NotMapped]
+        public string ScreenName { get; set; }
 
         public TwitterNotificationFilter Filter { get; set; }
 
@@ -32,6 +34,7 @@ namespace DesktopCharacter.Model.Database.Domain
             UserId = tokens.UserId;
             Token = tokens.AccessToken;
             Secret = tokens.AccessTokenSecret;
+            ScreenName = tokens.ScreenName;
             Filter = new TwitterNotificationFilter();
         }
     }
