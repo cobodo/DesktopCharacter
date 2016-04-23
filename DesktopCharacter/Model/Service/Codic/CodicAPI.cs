@@ -25,16 +25,14 @@ namespace DesktopCharacter.Model.Service.Codic
             {
                 stream = await client.GetStreamAsync(new Uri(url));
                 string json = await PostJsonStringAsync(stream);
-                var result = JsonConvert.DeserializeObject<CodicFormat>(json, new JsonSerializerSettings()
+                return JsonConvert.DeserializeObject<List<CodicFormat>>(json, new JsonSerializerSettings()
                 {
                     Culture = new System.Globalization.CultureInfo("ja-JP"),
                     DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
                     DateTimeZoneHandling = DateTimeZoneHandling.Local,
                     Formatting = Formatting.Indented,
                     StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-                });
-                System.Console.WriteLine(result);
-                return JsonConvert.DeserializeObject<CodicFormat>(result.ToString());
+                }).FirstOrDefault();
             }
             catch (HttpRequestException e)
             {
