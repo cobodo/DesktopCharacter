@@ -4,11 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Service.Codic;
+using System.Collections.ObjectModel;
 
 namespace DesktopCharacter.ViewModel.Tool.Translate
 {
+
+    class TranslateResultModel : Livet.NotificationObject
+    {
+        private ObservableCollection<TranslateResultModel> _list = new ObservableCollection<TranslateResultModel>(  );
+        public ObservableCollection<TranslateResultModel> List { get { return _list; } }
+
+        public TranslateResultModel()
+        {
+
+        }
+
+        public TranslateResultModel(string text)
+        {
+            Text = text;
+        }
+
+        string _text;
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; this.RaisePropertyChanged("Text"); }
+        }
+    }
+
     class TranslateViewModel : Livet.ViewModel
     {
+
+        private TranslateResultModel _translateResultModel = new TranslateResultModel();
+        public TranslateResultModel ResultModel
+        {
+            get { return _translateResultModel; }
+            set
+            {
+                _translateResultModel = value;
+                this.RaisePropertyChanged("ResultModel");
+            }
+        }
 
         private string _text;
         public string Text
@@ -16,7 +52,7 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
             get { return _text; }
             set
             {
-                _text = value;
+              _text = value;
                 this.RaisePropertyChanged("Text");
             }   
         }
@@ -28,18 +64,11 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
             _codicService = new CodicService();
         }
 
-        private Livet.Commands.ViewModelCommand _translateCommand;
-        public Livet.Commands.ViewModelCommand TranslateCommand
+        public async void TranslateRun()
         {
-            get
-            {
-                return _translateCommand ?? (_translateCommand = new Livet.Commands.ViewModelCommand(
-                async () =>
-                {
-                    await _codicService.translateAsync( Text );
-                }));
-            }
+            ResultModel.List.Clear();
+            var result = await _codicService.translateAsync(Text);
+            result.words[0].candidates.ForEach(e => _translateResultModel.List.Add( new TranslateResultModel(e.text)));
         }
-
     }
 }

@@ -25,16 +25,14 @@ namespace DesktopCharacter.Model.Service.Codic
         /// テキストをCodicに投げて翻訳を受け取ります
         /// </summary>
         /// <param name="text"></param>
-        public async Task translateAsync(string text)
+        public async Task<CodicFormat> translateAsync(string text)
         {
             ParameterBuild parameter = new ParameterBuild();
             parameter.Parameter.Add("text", text);
 
             CodicAPI api = new CodicAPI();
             CodicFormat result = await api.translateAscyn(parameter.Convert(), _codicRepository.Token);
-
-            //!< 翻訳結果を喋らせる(ほんとはリストとかに格納？)
-            Model.CharacterTalkModel.Instance.Talk(result.translated_text);
+            return result;
         }
     }
 }
