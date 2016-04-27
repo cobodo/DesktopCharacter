@@ -62,11 +62,25 @@ namespace DesktopCharacter.ViewModel.SettingTab
         public TwitterSettingViewModel()
         {
             var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
+            var twitterService = ServiceLocator.Instance.GetInstance<TwitterService>();
+
             TwitterUsers = new ObservableCollection<TwitterUser>();
             var users = twitterRepository.FindAll();
             oldTwitterUsersList = users;
             
-            users.ForEach(user => TwitterUsers.Add(user));
+            users.ForEach(user =>
+            {
+                var findById = twitterService.FindById(user.UserId);
+                //おそらく無いと思うが、未認証のユーザーがいれば一度認証してスクリーンネームを取得する
+                if (findById == null)
+                {
+                    Console.WriteLine(@"User not found: " + user.UserId);
+                    var twitter = new Twitter(user);
+                    twitter.Initialize();
+                    findById = twitter;
+                }
+                TwitterUsers.Add(findById.TwitterUser);
+            });
         }
 
         public void OnClose()

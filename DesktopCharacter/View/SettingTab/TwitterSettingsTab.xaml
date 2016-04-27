@@ -29,7 +29,7 @@
                  Margin="10,35,10,10" Width="150">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding UserId}"/>
+                    <TextBlock Text="{Binding ScreenName}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
