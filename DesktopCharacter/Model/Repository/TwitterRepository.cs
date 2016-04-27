@@ -49,5 +49,36 @@ namespace DesktopCharacter.Model.Repository
                 context.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// ユーザーを削除する
+        /// </summary>
+        /// <param name="users">削除するユーザー</param>
+        public void Delete(List<TwitterUser> users)
+        {
+            using (var context = new DatabaseContext())
+            {
+                foreach (var twitterUser in users)
+                {
+                    context.TwitterUser.Attach(twitterUser);
+                }
+                context.TwitterUser.RemoveRange(users);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// ユーザを削除する
+        /// </summary>
+        /// <param name="user">削除するユーザー</param>
+        public void Delete(TwitterUser user)
+        {
+            using (var context = new DatabaseContext())
+            {
+                context.TwitterUser.Attach(user);
+                context.TwitterUser.Remove(user);
+                context.SaveChanges();
+            }
+        }
     }
 }
