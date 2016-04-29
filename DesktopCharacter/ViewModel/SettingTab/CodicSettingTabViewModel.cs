@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Database.Domain;
-
+using DesktopCharacter.Model.Locator;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
     class CodicSettingTabViewModel : Livet.ViewModel
     {
+        private CodicUser _codicUser;
 
         private string _tokenTextBox;
         public string TokenTextBox
@@ -24,9 +25,25 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
+        private string _guideTextBox;
+        public string GuideTextBox
+        {
+            get { return _guideTextBox; }
+            set { _guideTextBox = value; this.RaisePropertyChanged("GuideTextBox"); }
+        }
+
+        private string _casingItem;
+        public string CasingItem
+        {
+            get { return _casingItem; }
+            set { _casingItem = value; this.RaisePropertyChanged("ComboxItem"); }
+        }
+
         public CodicSettingTabViewModel()
         {
-            
+            var coidcRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
+            _codicUser = coidcRepository.Load();
+            GuideTextBox = "Token貼り付けて";
         }
 
         private Livet.Commands.ViewModelCommand _codicPageOpenCommand;
@@ -41,21 +58,14 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
-        private Livet.Commands.ViewModelCommand _codicTokenRegister;
-        public Livet.Commands.ViewModelCommand CodicTokenRegister
+        public void OnClose()
         {
-            get
+            if (TokenTextBox == null)
             {
-                return _codicTokenRegister ?? (_codicTokenRegister = new Livet.Commands.ViewModelCommand(() =>
-                {
-                    if(TokenTextBox == null) { return; }
-                    CodicUser user = new CodicUser
-                    {
-                        Token = TokenTextBox,
-                    };
-                    CodicRepository.Instance.Save(user);
-                }));
+                TokenTextBox = _codicUser.Token;
             }
+            var coidcRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
+            coidcRepository.Save( new CodicUser { Token = TokenTextBox, Casing = CasingItem } );
         }
     }
 }

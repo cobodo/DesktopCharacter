@@ -15,15 +15,18 @@ namespace DesktopCharacter.Model.Database.Domain
         [Column("codic_access_token"), Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Token { get; set; }
+        [Column("codic_casing"), Required]
+        public string Casing { get; set; }
 
         public CodicUser()
         {
 
         }
 
-        public CodicUser( string token )
+        public CodicUser( string token, string casing )
         {
             Token = token;
+            Casing = casing;
         }
     }
 }

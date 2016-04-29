@@ -13,6 +13,7 @@ namespace DesktopCharacter.ViewModel
         public LauncherSettingViewModel LauncherSetting { set; private get; }
         public TalkSettingViewModel TalkSetting { set; private get; }
         public TwitterSettingViewModel TwitterSetting { set; private get; }
+        public CodicSettingTabViewModel CodicSettingTab { set; private get; }
 
         public SettingViewModel()
         {
@@ -22,6 +23,7 @@ namespace DesktopCharacter.ViewModel
         public void ClosedEvent()
         {
             TwitterSetting.OnClose();
+            CodicSettingTab.OnClose();
 
             ServiceLocator.Instance.ClearConfigBaseContext();
         }
