@@ -6,15 +6,33 @@
         xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
         xmlns:SettingVM="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
         xmlns:Behavior="clr-namespace:DesktopCharacter.Util.Behavior"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Height="300" Width="300">
     <UserControl.DataContext>
         <SettingVM:CodicSettingTabViewModel></SettingVM:CodicSettingTabViewModel>
     </UserControl.DataContext>
-    
+    <UserControl.Resources>
+        <x:ArrayExtension x:Key="CasingList" Type="sys:String">
+            <sys:String>camel</sys:String>
+            <sys:String>pascal</sys:String>
+            <sys:String>lower+underscore</sys:String>
+            <sys:String>upper+underscore</sys:String>
+            <sys:String>hyphen</sys:String>
+        </x:ArrayExtension>
+    </UserControl.Resources>
+
     <Grid>
         <Button Content="Codic ログイン" Command="{Binding CodicPageOpenCommand}" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox Text="{Binding TokenTextBox, UpdateSourceTrigger=PropertyChanged}" Behavior:PlaceHolderBehavior.PlaceHolderText="Token" HorizontalAlignment="Left" Margin="30,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
-        <Button Content="トークン登録" Command="{Binding CodicTokenRegister}" HorizontalAlignment="Left" Margin="30,130,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox Text="{Binding TokenTextBox, UpdateSourceTrigger=PropertyChanged}" Behavior:PlaceHolderBehavior.PlaceHolderText="{Binding GuideTextBox}" HorizontalAlignment="Left" Margin="30,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+        <Label Content="記法の設定" HorizontalAlignment="Left" Margin="30,144,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox" 
+                  ItemsSource="{Binding Source={StaticResource CasingList}}"
+                  HorizontalAlignment="Left" 
+                  Margin="30,175,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="120"
+                  SelectedItem="{Binding CasingItem, UpdateSourceTrigger=PropertyChanged}">
+        </ComboBox>
     </Grid>
 </UserControl>

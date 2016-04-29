@@ -27,7 +27,7 @@
                 <st:TwitterSettingsTab x:Name="TwitterSettingsTab"></st:TwitterSettingsTab>
             </TabItem>
             <TabItem Header="Codic">
-                <st:CodicTab></st:CodicTab>
+                <st:CodicTab x:Name="CodicSettingTab"></st:CodicTab>
             </TabItem>
         </TabControl>
     </Grid>

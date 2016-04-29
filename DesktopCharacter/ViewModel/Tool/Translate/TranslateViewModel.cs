@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Service.Codic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace DesktopCharacter.ViewModel.Tool.Translate
 {
@@ -14,9 +15,20 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
         private ObservableCollection<TranslateResultModel> _list = new ObservableCollection<TranslateResultModel>(  );
         public ObservableCollection<TranslateResultModel> List { get { return _list; } }
 
+        public TranslateResultModel SelectItem
+        {
+            set
+            {
+                if( value == null)
+                {
+                    return;
+                }
+                Clipboard.SetText(value.Text);
+            }
+        }
+
         public TranslateResultModel()
         {
-
         }
 
         public TranslateResultModel(string text)
@@ -67,8 +79,8 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
         public async void TranslateRun()
         {
             ResultModel.List.Clear();
-            var result = await _codicService.translateAsync(Text);
-            result.words[0].candidates.ForEach(e => _translateResultModel.List.Add( new TranslateResultModel(e.text)));
+            var result = await _codicService.GetTranslateAsync(Text);
+            result.words[0].candidates.ForEach(e => _translateResultModel.List.Add( new TranslateResultModel(e.text_in_casing)));
         }
     }
 }

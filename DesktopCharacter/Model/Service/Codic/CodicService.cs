@@ -7,31 +7,41 @@ using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Domain;
 using DesktopCharacter.Util;
 using System.IO;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Service.Codic.Format;
 
 namespace DesktopCharacter.Model.Service.Codic
 {
     class CodicService
     {
-        public static CodicService Instance { get; } = new CodicService();
-
         private CodicUser _codicRepository;
 
         public CodicService()
         {
-            _codicRepository = CodicRepository.Instance.Load();
+            var codicRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
+            _codicRepository = codicRepository.Load();
         }
 
         /// <summary>
         /// テキストをCodicに投げて翻訳を受け取ります
         /// </summary>
         /// <param name="text"></param>
-        public async Task<CodicFormat> translateAsync(string text)
+        public async Task<CodictTanslateResult> GetTranslateAsync(string text)
         {
+            CodicAPI api = new CodicAPI();
+
             ParameterBuild parameter = new ParameterBuild();
             parameter.Parameter.Add("text", text);
+            parameter.Parameter.Add("casing", _codicRepository.Casing);
 
+            CodictTanslateResult result = await api.GetTranslateAscyn(parameter.Convert(), _codicRepository.Token);
+            return result;
+        }
+
+        public async Task<List<CodicProject>> GetUserProjectsAync(string text)
+        {
             CodicAPI api = new CodicAPI();
-            CodicFormat result = await api.translateAscyn(parameter.Convert(), _codicRepository.Token);
+            var result = await api.GetUserProjectsAync(_codicRepository.Token);
             return result;
         }
     }

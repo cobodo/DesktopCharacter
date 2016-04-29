@@ -15,8 +15,13 @@ namespace DesktopCharacter.Util
             string result = "?";
             foreach (var item in Parameter)
             {
+                if(item.Value == string.Empty)
+                {
+                    continue;
+                }
                 result += item.Key + "=" + item.Value + "&";
             }
+            result = result.TrimEnd('&');
             return result;
         }
     }

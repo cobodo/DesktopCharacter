@@ -11,8 +11,6 @@ namespace DesktopCharacter.Model.Repository
 {
     class CodicRepository
     {
-        public static CodicRepository Instance { get; } = new CodicRepository(); 
-
         public void Save(CodicUser settings)
         {
             using (var context = new DatabaseContext())

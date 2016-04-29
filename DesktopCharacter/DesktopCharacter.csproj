@@ -147,7 +147,6 @@
     </ApplicationDefinition>
     <Compile Include="Model\CharacterTalkModel.cs" />
     <Compile Include="Model\Service\Codic\CodicAPI.cs" />
-    <Compile Include="Model\Service\Codic\CoidcFormat.cs" />
     <Compile Include="Model\Database\DatabaseContext.cs" />
     <Compile Include="Model\Domain\CodicUser.cs" />
     <Compile Include="Model\Domain\LauncherSetting.cs" />
@@ -156,6 +155,8 @@
     <Compile Include="Model\Service\Codic\CodicService.cs" />
     <Compile Include="Model\Database\Domain\TwitterNotificationFilter.cs" />
     <Compile Include="Model\Locator\ServiceLocator.cs" />
+    <Compile Include="Model\Service\Codic\Format\CodicProject.cs" />
+    <Compile Include="Model\Service\Codic\Format\CodictTanslateResult.cs" />
     <Compile Include="Model\Service\Twitter\Twitter.cs" />
     <Compile Include="Model\Database\Domain\TwitterUser.cs" />
     <Compile Include="Model\Repository\TwitterRepository.cs" />
@@ -210,9 +211,6 @@
     </Compile>
     <Compile Include="View\Tool\Timer\TimerSetting.xaml.cs">
       <DependentUpon>TimerSetting.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Tool\Translate\ResultListBox.xaml.cs">
-      <DependentUpon>ResultListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Tool\Translate\Translate.xaml.cs">
       <DependentUpon>Translate.xaml</DependentUpon>
@@ -270,10 +268,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Tool\Timer\TimerSetting.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Tool\Translate\ResultListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
