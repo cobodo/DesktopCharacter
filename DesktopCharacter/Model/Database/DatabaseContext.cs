@@ -3,7 +3,6 @@ using System.Data;
 using SQLite.CodeFirst;
 using System.Data.Entity;
 using DesktopCharacter.Model.Database.Domain;
-using DesktopCharacter.Model.Domain;
 
 namespace DesktopCharacter.Model.Database
 {

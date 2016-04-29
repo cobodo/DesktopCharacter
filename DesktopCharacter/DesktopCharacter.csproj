@@ -194,14 +194,14 @@
     <Compile Include="View\SettingTab\CodicTab.xaml.cs">
       <DependentUpon>CodicTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingTab\LauncehrTab.xaml.cs">
-      <DependentUpon>LauncehrTab.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\SettingTab\TalkTab.xaml.cs">
       <DependentUpon>TalkTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingTab\TwitterSettingsTab.xaml.cs">
       <DependentUpon>TwitterSettingsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingTab\LauncehrTab.xaml.cs">
+      <DependentUpon>LauncehrTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Talk.xaml.cs">
       <DependentUpon>Talk.xaml</DependentUpon>
@@ -252,16 +252,16 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingTab\TalkTab.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Talk.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingTab\TwitterSettingsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Talk.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Tool\Timer\Timer.xaml">
       <SubType>Designer</SubType>
