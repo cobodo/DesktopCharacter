@@ -148,7 +148,7 @@
     <Compile Include="Model\CharacterTalkModel.cs" />
     <Compile Include="Model\Service\Codic\CodicAPI.cs" />
     <Compile Include="Model\Database\DatabaseContext.cs" />
-    <Compile Include="Model\Domain\CodicUser.cs" />
+    <Compile Include="Model\Database\Domain\CodicUser.cs" />
     <Compile Include="Model\Domain\LauncherSetting.cs" />
     <Compile Include="Model\Repository\CodicRepository.cs" />
     <Compile Include="Model\Repository\LauncherSettingRepository.cs" />

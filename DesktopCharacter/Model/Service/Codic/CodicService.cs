@@ -9,6 +9,7 @@ using DesktopCharacter.Util;
 using System.IO;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Service.Codic.Format;
+using DesktopCharacter.Model.Database.Domain;
 
 namespace DesktopCharacter.Model.Service.Codic
 {

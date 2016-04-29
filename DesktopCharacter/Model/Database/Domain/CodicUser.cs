@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesktopCharacter.Model.Domain
+namespace DesktopCharacter.Model.Database.Domain
 {
     [Table("codic_user")]
     class CodicUser
@@ -15,7 +15,7 @@ namespace DesktopCharacter.Model.Domain
         [Column("codic_access_token"), Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Token { get; set; }
-        [Column("codic_casing"), Required]
+        [Column("codic_casing")]
         public string Casing { get; set; }
 
         public CodicUser()

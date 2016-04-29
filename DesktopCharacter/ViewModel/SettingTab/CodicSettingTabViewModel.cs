@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Database.Domain;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
@@ -43,6 +44,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             var coidcRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
             _codicUser = coidcRepository.Load();
             GuideTextBox = "Token貼り付けて";
+            CasingItem = _codicUser.Casing;
         }
 
         private Livet.Commands.ViewModelCommand _codicPageOpenCommand;
