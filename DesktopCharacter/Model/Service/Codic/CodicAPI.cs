@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using DesktopCharacter.Util;
 using Newtonsoft.Json;
 using DesktopCharacter.Model.Service.Codic.Format;
+using System.Threading;
+using System.Reactive.Threading.Tasks;
+using System.Reactive.Linq;
 
 namespace DesktopCharacter.Model.Service.Codic
 {
@@ -16,61 +19,56 @@ namespace DesktopCharacter.Model.Service.Codic
         private static string EngineURL = "https://api.codic.jp/v1.1/engine/translate.json";
         private static string ProjectURL = "https://api.codic.jp/v1/user_projects.json";
 
-        public async Task<List<CodicProject>> GetUserProjectsAync(string token)
+        public IObservable<List<CodicProject>> GetUserProjectsAync(string token)
         {
             HttpClient client = new HttpClient() { Timeout = TimeSpan.FromSeconds(1) };
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             string url = ProjectURL;
 
-            var result = await GetHttpRequetAsync<CodicProject>(client, new Uri(url));
-            return result;
+            return  GetHttpRequetAsync<CodicProject>(client, new Uri(url));
         }
 
-        public async Task<CodictTanslateResult> GetTranslateAscyn( string parameter, string token )
+        public IObservable<List<CodictTanslateResult>> GetTranslateAscyn( string parameter, string token )
         {
             HttpClient client = new HttpClient() { Timeout = TimeSpan.FromSeconds(1) };
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             string url = EngineURL + parameter;
 
-            var result = await GetHttpRequetAsync<CodictTanslateResult>(client, new Uri(url));
-            return result?.FirstOrDefault();
+            return GetHttpRequetAsync<CodictTanslateResult>(client, new Uri(url));
         }
 
-        private async Task<List<TYPE>> GetHttpRequetAsync<TYPE>(HttpClient client, Uri url)
+        private IObservable<List<TYPE>> GetHttpRequetAsync<TYPE>(HttpClient client, Uri url)
         {
-            Stream stream = null;
-            try
+            return Observable.Create<List<TYPE>>(async (observer) =>
             {
-                stream = await client.GetStreamAsync(url);
-                string json = await PostJsonStringAsync(stream);
-                return JsonConvert.DeserializeObject<List<TYPE>>(json, new JsonSerializerSettings()
+                try
                 {
-                    Culture = new System.Globalization.CultureInfo("ja-JP"),
-                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Local,
-                    Formatting = Formatting.Indented,
-                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-                });
-            }
-            catch (HttpRequestException e)
-            {
-                Exception ex = e;
-                System.Console.WriteLine("Error Message : {0}", ex.Message);
-            }
-            catch (TaskCanceledException e)
-            {
-                Console.WriteLine("\n Time Out!");
-                Console.WriteLine("Error Message : {0} ", e.Message);
-            }
-            return null;
-        }
-
-        private async Task<string> PostJsonStringAsync( Stream stream )
-        {
-            using (StreamReader sr = new StreamReader(stream))
-            {
-                return await sr.ReadToEndAsync();
-            }
+                    using (var stream = await client.GetStreamAsync(url))
+                    using (StreamReader sr = new StreamReader(stream))
+                    {
+                        string json = await sr.ReadToEndAsync();
+                        var result = JsonConvert.DeserializeObject<List<TYPE>>(json, new JsonSerializerSettings()
+                        {
+                            Culture = new System.Globalization.CultureInfo("ja-JP"),
+                            DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                            DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                            Formatting = Formatting.Indented,
+                            StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                        });
+                        observer.OnNext(result);
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Exception ex = e;
+                    System.Console.WriteLine("Error Message : {0}", ex.Message);
+                }
+                catch (TaskCanceledException e)
+                {
+                    Console.WriteLine("\n Time Out!");
+                    Console.WriteLine("Error Message : {0} ", e.Message);
+                }
+            });
         }
     }
 }

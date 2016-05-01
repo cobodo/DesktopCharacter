@@ -76,11 +76,23 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
             _codicService = new CodicService();
         }
 
-        public async void TranslateRun()
+        public void TranslateRun()
         {
-            ResultModel.List.Clear();
-            var result = await _codicService.GetTranslateAsync(Text);
-            result.words[0].candidates.ForEach(e => _translateResultModel.List.Add( new TranslateResultModel(e.text_in_casing)));
+            _codicService.GetTranslateAsync(Text).Subscribe
+            (
+                value =>
+                {
+                    ResultModel.List.Clear();
+                    var result = value.FirstOrDefault();
+                    if( result != null)
+                    {
+                        result.words[0].candidates.ForEach(e => _translateResultModel.List.Add(new TranslateResultModel(e.text_in_casing)));
+                    }
+                },
+                error => System.Console.WriteLine(error.Message),
+                () => System.Console.WriteLine("")
+            );
+            
         }
     }
 }

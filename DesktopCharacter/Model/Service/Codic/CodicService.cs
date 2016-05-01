@@ -27,7 +27,7 @@ namespace DesktopCharacter.Model.Service.Codic
         /// テキストをCodicに投げて翻訳を受け取ります
         /// </summary>
         /// <param name="text"></param>
-        public async Task<CodictTanslateResult> GetTranslateAsync(string text)
+        public IObservable<List<CodictTanslateResult>> GetTranslateAsync(string text)
         {
             CodicAPI api = new CodicAPI();
 
@@ -35,15 +35,17 @@ namespace DesktopCharacter.Model.Service.Codic
             parameter.Parameter.Add("text", text);
             parameter.Parameter.Add("casing", _codicRepository.Casing);
 
-            CodictTanslateResult result = await api.GetTranslateAscyn(parameter.Convert(), _codicRepository.Token);
-            return result;
+            return api.GetTranslateAscyn(parameter.Convert(), _codicRepository.Token);
         }
 
-        public async Task<List<CodicProject>> GetUserProjectsAync(string text)
+        /// <summary>
+        /// Codicに登録してあるプロジェクトを取得します
+        /// </summary>
+        /// <returns></returns>
+        public IObservable<List<CodicProject>> GetUserProjectsAync()
         {
             CodicAPI api = new CodicAPI();
-            var result = await api.GetUserProjectsAync(_codicRepository.Token);
-            return result;
+            return api.GetUserProjectsAync(_codicRepository.Token);
         }
     }
 }

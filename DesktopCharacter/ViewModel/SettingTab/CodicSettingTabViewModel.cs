@@ -44,7 +44,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             var coidcRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
             _codicUser = coidcRepository.Load();
             GuideTextBox = "Token貼り付けて";
-            CasingItem = _codicUser.Casing;
+            CasingItem = _codicUser?.Casing;
         }
 
         private Livet.Commands.ViewModelCommand _codicPageOpenCommand;
@@ -63,7 +63,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
         {
             if (TokenTextBox == null)
             {
-                TokenTextBox = _codicUser.Token;
+                TokenTextBox = _codicUser?.Token;
             }
             var coidcRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
             coidcRepository.Save( new CodicUser { Token = TokenTextBox, Casing = CasingItem } );
