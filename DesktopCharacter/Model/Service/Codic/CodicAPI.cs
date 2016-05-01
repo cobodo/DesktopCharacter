@@ -58,15 +58,9 @@ namespace DesktopCharacter.Model.Service.Codic
                         observer.OnNext(result);
                     }
                 }
-                catch (HttpRequestException e)
+                catch(Exception e)
                 {
-                    Exception ex = e;
-                    System.Console.WriteLine("Error Message : {0}", ex.Message);
-                }
-                catch (TaskCanceledException e)
-                {
-                    Console.WriteLine("\n Time Out!");
-                    Console.WriteLine("Error Message : {0} ", e.Message);
+                    observer.OnError(e);
                 }
             });
         }

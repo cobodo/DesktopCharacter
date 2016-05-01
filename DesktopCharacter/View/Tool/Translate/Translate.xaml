@@ -12,6 +12,14 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Translate" Height="160" Width="480">
+    
+    <i:Interaction.Triggers>
+        <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
+            <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+    </i:Interaction.Triggers>
+    
+    
     <Grid>
         <TextBox FontSize="20" HorizontalAlignment="Left" Height="36" Margin="10,30,0,35" TextWrapping="Wrap" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" Width="240" Behavior:PlaceHolderBehavior.PlaceHolderText="翻訳したい単語を入れてくれ">
             <i:Interaction.Triggers>

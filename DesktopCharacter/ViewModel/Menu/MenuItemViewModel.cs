@@ -10,6 +10,7 @@ using Livet.Messaging;
 using System.Diagnostics;
 using Microsoft.Win32;
 using DesktopCharacter.ViewModel.Tool;
+using System.Windows;
 
 namespace DesktopCharacter.ViewModel.Menu
 {
@@ -97,9 +98,15 @@ namespace DesktopCharacter.ViewModel.Menu
             {
                 return _codicWindowOpenCommand ?? (_codicWindowOpenCommand = new ViewModelCommand(() => 
                 {
-                    using (var vm = new Tool.Translate.TranslateViewModel())
+                    try {
+                        using (var vm = new Tool.Translate.TranslateViewModel())
+                        {
+                            Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
+                        }
+                    } 
+                    catch(NullReferenceException e)
                     {
-                        Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
+                        MessageBox.Show("Coidcのアクセストークンが設定されていません");
                     }
                 }));
             }

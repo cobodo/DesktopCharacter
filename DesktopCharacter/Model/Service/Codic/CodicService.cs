@@ -21,6 +21,10 @@ namespace DesktopCharacter.Model.Service.Codic
         {
             var codicRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
             _codicRepository = codicRepository.Load();
+            if (_codicRepository == null)
+            {
+                throw new NullReferenceException();
+            }
         }
 
         /// <summary>
@@ -33,8 +37,10 @@ namespace DesktopCharacter.Model.Service.Codic
 
             ParameterBuild parameter = new ParameterBuild();
             parameter.Parameter.Add("text", text);
-            parameter.Parameter.Add("casing", _codicRepository.Casing);
-
+            if (_codicRepository.Casing != string.Empty)
+            {
+                parameter.Parameter.Add("casing", _codicRepository.Casing);
+            }
             return api.GetTranslateAscyn(parameter.Convert(), _codicRepository.Token);
         }
 

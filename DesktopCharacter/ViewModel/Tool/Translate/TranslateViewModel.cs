@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DesktopCharacter.Model.Service.Codic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using Livet.Messaging.Windows;
 
 namespace DesktopCharacter.ViewModel.Tool.Translate
 {
@@ -73,7 +74,14 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
 
         public TranslateViewModel()
         {
-            _codicService = new CodicService();
+            try
+            {
+                _codicService = new CodicService();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void TranslateRun()
@@ -84,15 +92,29 @@ namespace DesktopCharacter.ViewModel.Tool.Translate
                 {
                     ResultModel.List.Clear();
                     var result = value.FirstOrDefault();
-                    if( result != null)
+                    if (result != null && result.successful)
                     {
-                        result.words[0].candidates.ForEach(e => _translateResultModel.List.Add(new TranslateResultModel(e.text_in_casing)));
+                        if (result.words.Count >= 1)
+                        {
+                            result.words[0].candidates.ForEach(e => _translateResultModel.List.Add(new TranslateResultModel(e.text_in_casing)));
+                        }
+                        else
+                        {
+                            _translateResultModel.List.Add(new TranslateResultModel(result.translated_text));
+                        }
                     }
                 },
-                error => System.Console.WriteLine(error.Message),
-                () => System.Console.WriteLine("")
+                error =>
+                {
+                    System.Console.WriteLine(error.Message);
+                },
+                () => System.Console.WriteLine("TranslateRun(...) Complete")
             );
-            
+        }
+
+        public void Close()
+        {
+            Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
         }
     }
 }
