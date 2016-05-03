@@ -14,16 +14,6 @@ project "DesktopCharacter"
     defines { 
         "TRACE" 
     }
-    
-    configuration { "Debug*" }
-        defines { "DEBUG" }
-        flags   { "Symbols" }
-        postbuildcommands {
-            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"'
-        }
-    
-    --configuration { "Release*" }
-        --optimize "On"
 
     files {
          "./**.cs", 
@@ -83,6 +73,14 @@ project "DesktopCharacter"
         buildaction ( "Resource" )
     end
     
+    
+    configuration { "Debug*" }
+        defines { "DEBUG" }
+        flags   { "Symbols" }
+        postbuildcommands { 'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"' }
 
-    
-    
+    configuration { "Release*" }
+        optimize "On"
+
+
+        
