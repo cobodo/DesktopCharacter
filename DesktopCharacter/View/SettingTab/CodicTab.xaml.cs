@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DesktopCharacter.View
+namespace DesktopCharacter.View.SettingTab
 {
     /// <summary>
-    /// Timer.xaml の相互作用ロジック
+    /// CodicTab.xaml の相互作用ロジック
     /// </summary>
-    public partial class Timer : Window
+    public partial class CodicTab : UserControl
     {
-        public Timer()
+        public CodicTab()
         {
             InitializeComponent();
         }

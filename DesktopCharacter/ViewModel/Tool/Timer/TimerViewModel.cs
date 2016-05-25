@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Threading;
 
-namespace DesktopCharacter.ViewModel
+namespace DesktopCharacter.ViewModel.Tool.Timer
 {
     class TimerViewModel : Livet.ViewModel
     {

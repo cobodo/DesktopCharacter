@@ -35,6 +35,8 @@ namespace DesktopCharacter.View
             vm.LauncherSetting = LauncehrTab.DataContext as LauncherSettingViewModel;
             vm.TalkSetting = TalkTab.DataContext as TalkSettingViewModel;
             vm.TwitterSetting = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
+            vm.CodicSettingTab =  CodicSettingTab.DataContext as CodicSettingTabViewModel;
+            
         }
     }
 }

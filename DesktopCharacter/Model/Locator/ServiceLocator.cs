@@ -37,6 +37,7 @@ namespace DesktopCharacter.Model.Locator
         {
             RegisterByPrototypeScope<TwitterRepository>(() => new TwitterRepository());
             RegisterByConfigBaseScope<TwitterService>(() => new TwitterService());
+            RegisterByConfigBaseScope<CodicRepository>(() => new CodicRepository());
         }
 
         private void InitializeContexts()
