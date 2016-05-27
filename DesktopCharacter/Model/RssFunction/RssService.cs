@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel.Syndication;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+
+namespace DesktopCharacter.Model.RssFunction
+{
+    //RSS渡せば喋ります(現在RSS1.0非対応)
+    class RssService
+    {
+        public void ReturnRss(String url)
+        {
+            using (XmlReader reader = XmlReader.Create(url))
+            {
+                SyndicationFeed feed = SyndicationFeed.Load(reader);
+                foreach (SyndicationItem items in feed.Items)
+                {
+                    DesktopCharacter.Model.CharacterTalkModel.Instance.Talk("タイトル:" + items.Title.Text);
+                }
+            }
+        }
+    }
+}
