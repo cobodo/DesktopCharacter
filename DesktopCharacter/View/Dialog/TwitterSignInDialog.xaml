@@ -1,15 +1,20 @@
 ﻿<Window x:Class="DesktopCharacter.View.Dialog.TwitterSignInDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCharacter.View.Dialog"
+        xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.Dialog"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Twitter認証"
         Height="90" Width="300">
     <StackPanel>
-        <TextBlock x:Name="Message" Text="ブラウザで表示されたPINコードを入力" VerticalAlignment="Stretch"/>
-        <TextBox x:Name="PinCode" GotFocus="PinCode_OnGotFocus"/>
-        <Button x:Name="AuthButton" Content="OK" Click="Button_Click"/>
+        <TextBlock x:Name="Message" Text="{c:Binding Message}" VerticalAlignment="Stretch"/>
+        <TextBox x:Name="PinCode" IsEnabled="{c:Binding !IsProcessing}" 
+                 GotFocus="PinCode_OnGotFocus" Text="{Binding PinCode}"/>
+        <Button x:Name="AuthButton" IsEnabled="{c:Binding !IsProcessing}"
+                Content="OK" Command="{Binding SubmitCommand}"/>
     </StackPanel>
 </Window>

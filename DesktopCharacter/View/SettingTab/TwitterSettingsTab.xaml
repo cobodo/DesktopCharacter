@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
              xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
              xmlns:converter="clr-namespace:DesktopCharacter.Util.Converter"
+             xmlns:v="clr-namespace:DesktopCharacter.View.Dialog"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -16,8 +17,13 @@
     <UserControl.DataContext>
         <vm:TwitterSettingViewModel/>
     </UserControl.DataContext>
+    <i:Interaction.Triggers>
+        <l:InteractionMessageTrigger MessageKey="SignIn" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type v:TwitterSignInDialog}"/>
+        </l:InteractionMessageTrigger>
+    </i:Interaction.Triggers>
 
-    <Grid>
+        <Grid>
         <Button x:Name="AuthButton" Content="新規アカウント"
                 Command="{Binding CreateAccount}"
                 HorizontalAlignment="Left" VerticalAlignment="Top"

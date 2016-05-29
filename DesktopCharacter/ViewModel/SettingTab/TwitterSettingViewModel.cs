@@ -10,6 +10,7 @@ using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
 using DesktopCharacter.View.Dialog;
+using DesktopCharacter.ViewModel.Dialog;
 using Livet;
 using Livet.Commands;
 using Livet.Messaging;
@@ -19,9 +20,25 @@ namespace DesktopCharacter.ViewModel.SettingTab
     class TwitterSettingViewModel : Livet.ViewModel
     {
         private ViewModelCommand _createAccount;
-
-        public ViewModelCommand CreateAccount => 
-            _createAccount ?? (_createAccount = new ViewModelCommand(OpenCreateAccount));
+        public ViewModelCommand CreateAccount
+        {
+            get
+            {
+                if (_createAccount == null)
+                {
+                    _createAccount = new ViewModelCommand(() =>
+                    {
+                        var vm = new TwitterSignInViewModel((TwitterUser resultUser) =>
+                        {
+                            if (TwitterUsers.Any(user => resultUser.UserId == user.UserId)) return;
+                            TwitterUsers.Add(resultUser);
+                        });
+                        Messenger.Raise(new TransitionMessage(typeof(TwitterSignInDialog), vm, TransitionMode.Modal, "SignIn"));
+                    });
+                }
+                return _createAccount;
+            }
+        }
 
         private ViewModelCommand _deleteAccount;
         public ViewModelCommand DeleteAccount => _deleteAccount ??
@@ -96,19 +113,6 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 diff.Remove(twitterUser);
             }
             twitterRepository.Delete(diff);
-        }
-
-        public void OpenCreateAccount()
-        {
-            var twitterSignInDialog = new TwitterSignInDialog();
-            var showDialog = twitterSignInDialog.ShowDialog();
-
-            if (showDialog == null || !showDialog.Value) return;
-            var resultUser = twitterSignInDialog.AuthTwitterUser;
-
-            // ReSharper disable once SimplifyLinqExpression
-            if (TwitterUsers.Any(user => resultUser.UserId == user.UserId)) return;
-            TwitterUsers.Add(resultUser);
         }
     }
 }
