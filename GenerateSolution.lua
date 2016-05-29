@@ -79,10 +79,17 @@ project "DesktopCharacter"
     configuration { "Debug*" }
         defines { "DEBUG" }
         flags   { "Symbols" }
-        postbuildcommands { 'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"' }
+        postbuildcommands   { 
+            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
+            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
+         }
 
     configuration { "Release*" }
         optimize "On"
+        postbuildcommands   { 
+            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
+            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
+         }
 
 
         
