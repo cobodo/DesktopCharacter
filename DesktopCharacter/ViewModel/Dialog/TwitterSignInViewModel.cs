@@ -45,6 +45,7 @@ namespace DesktopCharacter.ViewModel.Dialog
 
         private ViewModelCommand _submitCommand;
         public ViewModelCommand SubmitCommand => _submitCommand ?? (_submitCommand = new ViewModelCommand(OnSubmit));
+        public Action CloseAction { private get; set; }
 
         private readonly OAuth.OAuthSession _oAuthSession;
         public delegate void Callback(TwitterUser result);
@@ -77,8 +78,9 @@ namespace DesktopCharacter.ViewModel.Dialog
                 var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
                 twitterRepository.Save(twitterUser);
                 _callback.Invoke(twitterUser);
+                CloseAction();
             }
-            catch
+            catch(TwitterException e)
             {
                 PinCode = "";
                 Message= "認証失敗";

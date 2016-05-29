@@ -16,6 +16,7 @@ using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
+using DesktopCharacter.ViewModel.Dialog;
 
 namespace DesktopCharacter.View.Dialog
 {
@@ -28,6 +29,16 @@ namespace DesktopCharacter.View.Dialog
         public TwitterSignInDialog()
         {
             InitializeComponent();
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            base.OnContentRendered(e);
+            var vm = DataContext as TwitterSignInViewModel;
+            if (vm != null)
+            {
+                vm.CloseAction = new Action(Close);
+            }
         }
 
         private void PinCode_OnGotFocus(object sender, RoutedEventArgs e)
