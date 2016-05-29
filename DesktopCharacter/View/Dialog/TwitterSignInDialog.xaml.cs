@@ -24,44 +24,10 @@ namespace DesktopCharacter.View.Dialog
     /// </summary>
     public partial class TwitterSignInDialog : Window
     {
-        private readonly OAuth.OAuthSession _oAuthSession;
-        public TwitterUser AuthTwitterUser { get; private set; }
 
         public TwitterSignInDialog()
         {
             InitializeComponent();
-            _oAuthSession = CoreTweet.OAuth.Authorize(Twitter.ConsumerKey, Twitter.ConsumerSecret);
-            System.Diagnostics.Process.Start(_oAuthSession.AuthorizeUri.ToString());
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            AuthButton.IsEnabled = false;
-            Message.Text = "認証中";
-            PinCode.IsEnabled = false;
-
-            var tokensAsync = _oAuthSession.GetTokensAsync(PinCode.Text);
-            try
-            {
-                await tokensAsync;
-
-                var tokens = tokensAsync.Result;
-                if (tokens == null) throw new NullReferenceException("token is null.");
-
-                var twitterUser = new TwitterUser(tokens);
-                var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
-                twitterRepository.Save(twitterUser);
-                AuthTwitterUser = twitterUser;
-                DialogResult = true;
-                return;
-            }
-            catch
-            {
-                AuthButton.IsEnabled = true;
-                PinCode.IsEnabled = true;
-                PinCode.Text = "";
-                Message.Text = "認証失敗";
-            }
         }
 
         private void PinCode_OnGotFocus(object sender, RoutedEventArgs e)

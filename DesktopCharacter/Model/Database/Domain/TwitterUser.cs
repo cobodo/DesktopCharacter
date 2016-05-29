@@ -37,5 +37,23 @@ namespace DesktopCharacter.Model.Database.Domain
             ScreenName = tokens.ScreenName;
             Filter = new TwitterNotificationFilter();
         }
+
+        protected bool Equals(TwitterUser other)
+        {
+            return UserId == other.UserId;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((TwitterUser) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return UserId.GetHashCode();
+        }
     }
 }

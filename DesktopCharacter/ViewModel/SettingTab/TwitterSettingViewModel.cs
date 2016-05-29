@@ -10,6 +10,7 @@ using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
 using DesktopCharacter.View.Dialog;
+using DesktopCharacter.ViewModel.Dialog;
 using Livet;
 using Livet.Commands;
 using Livet.Messaging;
@@ -19,9 +20,23 @@ namespace DesktopCharacter.ViewModel.SettingTab
     class TwitterSettingViewModel : Livet.ViewModel
     {
         private ViewModelCommand _createAccount;
-
-        public ViewModelCommand CreateAccount => 
-            _createAccount ?? (_createAccount = new ViewModelCommand(OpenCreateAccount));
+        public ViewModelCommand CreateAccount
+        {
+            get
+            {
+                if (_createAccount == null)
+                {
+                    _createAccount = new ViewModelCommand(() =>
+                    {
+                        using (var vm = new TwitterSignInViewModel())
+                        {
+                            Messenger.Raise(new TransitionMessage(vm, "認証"));
+                        }
+                    });
+                }
+                return _createAccount;
+            }
+        }
 
         private ViewModelCommand _deleteAccount;
         public ViewModelCommand DeleteAccount => _deleteAccount ??
@@ -100,6 +115,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
 
         public void OpenCreateAccount()
         {
+            /*
             var twitterSignInDialog = new TwitterSignInDialog();
             var showDialog = twitterSignInDialog.ShowDialog();
 
@@ -109,6 +125,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             // ReSharper disable once SimplifyLinqExpression
             if (TwitterUsers.Any(user => resultUser.UserId == user.UserId)) return;
             TwitterUsers.Add(resultUser);
+            */
         }
     }
 }
