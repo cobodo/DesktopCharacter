@@ -28,10 +28,12 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 {
                     _createAccount = new ViewModelCommand(() =>
                     {
-                        using (var vm = new TwitterSignInViewModel())
+                        var vm = new TwitterSignInViewModel((TwitterUser resultUser) =>
                         {
-                            Messenger.Raise(new TransitionMessage(vm, "認証"));
-                        }
+                            if (TwitterUsers.Any(user => resultUser.UserId == user.UserId)) return;
+                            TwitterUsers.Add(resultUser);
+                        });
+                        Messenger.Raise(new TransitionMessage(typeof(TwitterSignInDialog), vm, TransitionMode.Modal, "SignIn"));
                     });
                 }
                 return _createAccount;
@@ -111,21 +113,6 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 diff.Remove(twitterUser);
             }
             twitterRepository.Delete(diff);
-        }
-
-        public void OpenCreateAccount()
-        {
-            /*
-            var twitterSignInDialog = new TwitterSignInDialog();
-            var showDialog = twitterSignInDialog.ShowDialog();
-
-            if (showDialog == null || !showDialog.Value) return;
-            var resultUser = twitterSignInDialog.AuthTwitterUser;
-
-            // ReSharper disable once SimplifyLinqExpression
-            if (TwitterUsers.Any(user => resultUser.UserId == user.UserId)) return;
-            TwitterUsers.Add(resultUser);
-            */
         }
     }
 }

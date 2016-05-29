@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using CoreTweet;
 using DesktopCharacter.Model.Database.Domain;
@@ -16,25 +18,52 @@ namespace DesktopCharacter.ViewModel.Dialog
     class TwitterSignInViewModel : Livet.ViewModel
     {
         public string PinCode { get; set; } = "";
-        public string Message { get; set; } = "";
-        public bool IsProcessing { get; private set; }
-        public ViewModelCommand SubmitCommand { get; private set; }
+        private string _message = "ブラウザで表示されたPINコードを入力";
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                _message = value;
+                RaisePropertyChanged("Message");
+            }
+        }
+
+        private bool _isProcessing;
+        public bool IsProcessing
+        {
+            get
+            {
+                return _isProcessing;
+            }
+            set
+            {
+                _isProcessing = value;
+                RaisePropertyChanged("IsProcessing");
+            }
+        }
+
+        private ViewModelCommand _submitCommand;
+        public ViewModelCommand SubmitCommand => _submitCommand ?? (_submitCommand = new ViewModelCommand(OnSubmit));
 
         private readonly OAuth.OAuthSession _oAuthSession;
-        public TwitterUser AuthTwitterUser { get; private set; }
+        public delegate void Callback(TwitterUser result);
+        private readonly Callback _callback;
 
-
-        public TwitterSignInViewModel()
+        public TwitterSignInViewModel(Callback callback)
         {
-            SubmitCommand = new ViewModelCommand(OnSubmit);
-
-            _oAuthSession = CoreTweet.OAuth.Authorize(Twitter.ConsumerKey, Twitter.ConsumerSecret);
-            System.Diagnostics.Process.Start(_oAuthSession.AuthorizeUri.ToString());
+            if (!(bool)(DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue))
+            {
+                this._callback = callback;
+                _oAuthSession = CoreTweet.OAuth.Authorize(Twitter.ConsumerKey, Twitter.ConsumerSecret);
+                System.Diagnostics.Process.Start(_oAuthSession.AuthorizeUri.ToString());
+            }
         }
 
         private async void OnSubmit()
         {
             IsProcessing = true;
+            this.Message = "認証中";
 
             var tokensAsync = _oAuthSession.GetTokensAsync(PinCode);
             try
@@ -47,7 +76,7 @@ namespace DesktopCharacter.ViewModel.Dialog
                 var twitterUser = new TwitterUser(tokens);
                 var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
                 twitterRepository.Save(twitterUser);
-                AuthTwitterUser = twitterUser;
+                _callback.Invoke(twitterUser);
             }
             catch
             {

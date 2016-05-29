@@ -18,8 +18,8 @@
         <vm:TwitterSettingViewModel/>
     </UserControl.DataContext>
     <i:Interaction.Triggers>
-        <l:InteractionMessageTrigger MessageKey="Setting" Messenger="{Binding Messenger}">
-            <l:TransitionInteractionMessageAction WindowType="{x:Type v:TwitterSignInDialog}" Mode="Modal" />
+        <l:InteractionMessageTrigger MessageKey="SignIn" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type v:TwitterSignInDialog}"/>
         </l:InteractionMessageTrigger>
     </i:Interaction.Triggers>
 
