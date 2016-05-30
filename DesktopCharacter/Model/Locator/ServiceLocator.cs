@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
+using NLog;
 
 namespace DesktopCharacter.Model.Locator
 {
@@ -12,6 +13,7 @@ namespace DesktopCharacter.Model.Locator
     {
 
         public static ServiceLocator Instance { get; } = new ServiceLocator();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         //毎回インスタンスを作成するスコープ
         private readonly InstanceContext prototypeContext = new PrototypeInstanceContext();
@@ -29,19 +31,23 @@ namespace DesktopCharacter.Model.Locator
         /// </summary>
         public void InitializeServiceLocator()
         {
+            logger.Info("InitializeServiceLocator");
             RegistFactories();
             InitializeContexts();
         }
 
         private void RegistFactories()
         {
+            logger.Info("=== Begin RegiserFactories ===");
             RegisterByPrototypeScope<TwitterRepository>(() => new TwitterRepository());
             RegisterByConfigBaseScope<TwitterService>(() => new TwitterService());
             RegisterByConfigBaseScope<CodicRepository>(() => new CodicRepository());
+            logger.Info("=== End RegistFactories ===");
         }
 
         private void InitializeContexts()
         {
+            logger.Info("InitializeContexts");
             InstanceContext[] contexts = { applicationContext, configBaseContext, prototypeContext };
             //インスタンスを最初に用意
             foreach (var instanceContext in contexts)
@@ -79,6 +85,7 @@ namespace DesktopCharacter.Model.Locator
         /// </summary>
         public void ClearConfigBaseContext()
         {
+            logger.Info("ClearConfigBaseContext");
             configBaseContext.ClearCacheAll();
             configBaseContext.Initialize();
             configBaseContext.CallInitializeAll();
@@ -87,16 +94,19 @@ namespace DesktopCharacter.Model.Locator
         private void RegisterByPrototypeScope<T>(Func<T> instanceFactory) where T: class 
         {
             prototypeContext.RegisterFactory<T>(instanceFactory);
+            logger.Info("Scope=Prototype Type={0}", typeof(T).FullName);
         }
 
         private void RegisterByApplicationScope<T>(Func<T> instanceFactory) where T : class
         {
             applicationContext.RegisterFactory<T>(instanceFactory);
+            logger.Info("Scope=Application Type={0}", typeof(T).FullName);
         }
 
         private void RegisterByConfigBaseScope<T>(Func<T> instanceFactory) where T : class 
         {
             configBaseContext.RegisterFactory<T>(instanceFactory);
+            logger.Info("Scope=ConfigBase Type={0}", typeof(T).FullName);
         }
     }
 

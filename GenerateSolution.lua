@@ -43,8 +43,9 @@ project "DesktopCharacter"
         "WindowsBase",
         "Microsoft.CSharp",
         "PresentationCore",
-        "PresentationFramework", 
-        "System.ServiceModel",       
+        "PresentationFramework",
+        "System.ServiceModel",
+        "packages/NLog.4.3.4/lib/net45/NLog.dll",
         "packages/CoreTweet.0.6.2.277/lib/net45/CoreTweet.dll",
         "packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll",
         "packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll",
@@ -80,10 +81,17 @@ project "DesktopCharacter"
     configuration { "Debug*" }
         defines { "DEBUG" }
         flags   { "Symbols" }
-        postbuildcommands { 'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"' }
+        postbuildcommands   { 
+            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
+            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
+         }
 
     configuration { "Release*" }
         optimize "On"
+        postbuildcommands   { 
+            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
+            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
+         }
 
 
         
