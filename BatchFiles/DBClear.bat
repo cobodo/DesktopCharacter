@@ -8,8 +8,8 @@ if %errorlevel% == 1 goto y
 if %errorlevel% == 2 goto n
 
 :y
-del %~dp0..\DesktopCharacter\bin\Debug\%DataBase%
-del %~dp0..\DesktopCharacter\bin\Release\%DataBase% 
+del %~dp0..\DesktopCharacter\bin\x64\Debug\%DataBase%
+del %~dp0..\DesktopCharacter\bin\x64\Release\%DataBase% 
 echo Database‚ğíœ‚µ‚Ü‚µ‚½
 GOTO END
 

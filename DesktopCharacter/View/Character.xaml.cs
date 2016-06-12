@@ -15,7 +15,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFLive2DOpenGL.Graphics;
+using BabumiGraphics.Graphics;
+using BabumiGraphics.Live2D;
+using BabumiGraphics;
 
 namespace DesktopCharacter.View
 {
@@ -33,7 +35,7 @@ namespace DesktopCharacter.View
         Shader mComputeShader;
         SSBObject mSSBObject;
 
-        WPFLive2DOpenGL.Live2D.Manager mLive2DManager = new WPFLive2DOpenGL.Live2D.Manager();
+        Manager mLive2DManager = new Manager();
 
         public Character()
         {
