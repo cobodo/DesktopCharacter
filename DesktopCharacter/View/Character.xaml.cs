@@ -25,7 +25,6 @@ namespace DesktopCharacter.View
     public partial class Character : Window
     {
         System.Drawing.Point mScreenSize;
-        System.Drawing.Point mOrigin;
 
         WriteableBitmap mBitmapSource;
         Int32Rect mSourceRect;
@@ -45,7 +44,6 @@ namespace DesktopCharacter.View
             characterVM.mTalkViewModel = this.TalkView.DataContext as ViewModel.TalkViewModel;
 
             mScreenSize = new System.Drawing.Point { X = (int)this.Width, Y = (int)this.Height };
-            mOrigin = new System.Drawing.Point { X = (int)this.Width, Y = (int)this.Height };
             mBitmapSource = new WriteableBitmap(mScreenSize.X, mScreenSize.Y, 96, 96, PixelFormats.Bgra32, null);
             mSourceRect = new Int32Rect(0, 0, mScreenSize.X, mScreenSize.Y);
         }
@@ -102,7 +100,7 @@ namespace DesktopCharacter.View
         private void OpenGLControl_OpenGLInitialized(object sender, OpenGLEventArgs args)
         {
             GraphicsManager.Instance.Device = args.OpenGL;
-            mLive2DManager.Load("koharu/koharu.model.json");
+            mLive2DManager.Load("Res/koharu", "koharu.model.json");
 
             mRenderTarget = new RenderTarget { Width = (uint)mScreenSize.X, Height = (uint)mScreenSize.Y };
             mRenderTarget.Create();
@@ -111,7 +109,7 @@ namespace DesktopCharacter.View
             mSSBObject.Create(1000000 * sizeof(uint));
 
             mComputeShader = new Shader();
-            mComputeShader.CreateShader("computeShader.fx", Shader.Type.ComputeShader);
+            mComputeShader.CreateShader("Res/computeShader.fx", Shader.Type.ComputeShader);
             mComputeShader.Attach();
 
             GraphicsManager.Instance.SetRenderTarget(mRenderTarget);
