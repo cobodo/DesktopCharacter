@@ -18,7 +18,8 @@
         ShowInTaskbar="False"
         Topmost="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="400"
+        xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF">
     <Window.DataContext>
         <vm:CharacterViewModel>
 
@@ -44,9 +45,10 @@
         <Grid.ContextMenu>
           <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
-        
-        <v:Talk x:Name="TalkView" Margin="175,10,75,220"></v:Talk>
-        <Image Source="../res/kayo.png" Margin="-155,0,155,0"/>
-        
+        <Image x:Name="Image" Width="400" Height="400"></Image>
+        <v:Talk x:Name="TalkView" Margin="81,-15,169,245"></v:Talk>
+        <sharpGL:OpenGLControl 
+            OpenGLDraw="OpenGLControl_OpenGLDraw" OpenGLInitialized="OpenGLControl_OpenGLInitialized" Width="0" Height="0"
+            RenderContextType="FBO" />
     </Grid>
 </Window>

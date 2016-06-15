@@ -1,0 +1,3 @@
+[submodule "live2dfordll"]
+	path = live2dfordll
+	url = https://bitbucket.org/babumi/live2dfordll.git

@@ -2,13 +2,14 @@
 
 solution "DesktopCharacter"
     configurations { "Debug", "Release" }
+    platforms { "x64" }
     location ("./")
     
 project "DesktopCharacter"
     location ("./DesktopCharacter")
     kind "WindowedApp"
     language "C#"
-    
+    platforms { "x64" }
     framework ("4.5.2")
         
     defines { 
@@ -19,12 +20,14 @@ project "DesktopCharacter"
          "./**.cs", 
          "./**.xaml", 
          "./**.config",
-         "./**.png" 
+         "./DesktopCharacter/Res/**.*"
     }
     
     excludes  { 
         "DesktopCharacter/obj/**.*",
-        "DesktopCharacter/bin/**.*" 
+        "DesktopCharacter/bin/**.*",
+        "./packages/**.*",
+        "./live2dfordll/**.*" 
     }
     
     links { 
@@ -71,18 +74,33 @@ project "DesktopCharacter"
         "packages/DynamicExpresso.Core.1.3.0.0/lib/net40/DynamicExpresso.Core.dll",
     }
 
+    configuration { "**.png" }
+    buildaction ( "Copy" )
     
-    filter "files:**.png"
-    do
-        buildaction ( "Resource" )
-    end
+    configuration { "**.moc" }
+    buildaction ( "Copy" )
     
+    configuration { "**.mtn" }
+    buildaction ( "Copy" )
+    
+    configuration { "**.json" }
+    buildaction ( "Copy" )
+
+    configuration { "**.fx" }
+    buildaction ( "Copy" )            
     
     configuration { "Debug*" }
         defines { "DEBUG" }
         flags   { "Symbols" }
+        links { 
+            "live2dfordll/Lib/Debug/BabumiGraphics.dll",
+            "live2dfordll/Lib/Debug/Live2D for DLL.dll",
+            "live2dfordll/Lib/Debug/SharpGL.WPF.dll",
+            "live2dfordll/Lib/Debug/SharpGL.SceneGraph.dll",
+            "live2dfordll/Lib/Debug/SharpGL.dll"
+        }
         postbuildcommands   { 
-            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
+            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
          }
 
