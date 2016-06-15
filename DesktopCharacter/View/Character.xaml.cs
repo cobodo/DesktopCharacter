@@ -85,13 +85,12 @@ namespace DesktopCharacter.View
         /// <param name="args">The <see cref="SharpGL.SceneGraph.OpenGLEventArgs"/> instance containing the event data.</param>
         private void OpenGLControl_OpenGLDraw(object sender, OpenGLEventArgs args)
         {
-#if DEBUG
             //!< Debugの時だけバージョンチェックをする
             if(RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
                 return; //!< GL4.3以下なので処理をしない
             }
-#endif
+
             OpenGL gl = args.OpenGL;
             GraphicsManager Manager = GraphicsManager.Instance;
             Manager.Device = args.OpenGL;
@@ -132,13 +131,11 @@ namespace DesktopCharacter.View
         {
             GraphicsManager.Instance.Device = args.OpenGL;
             GraphicsManager.Instance.Initialize();
-#if DEBUG
             //!< Debugの時だけバージョンチェックをする
             if (RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
                 return; //!< GL4.3以下なので処理をしない
             }
-#endif
             mLive2DManager.Load("Res/koharu", "koharu.model.json");
 
             mRenderTarget = new RenderTarget { Width = (uint)mScreenSize.X, Height = (uint)mScreenSize.Y };
@@ -156,7 +153,6 @@ namespace DesktopCharacter.View
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-#if DEBUG
             //!< Debugの時だけバージョンチェックをする
             if (RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
@@ -169,7 +165,6 @@ namespace DesktopCharacter.View
                 //!< アプリケーションを終了する
                 this.Close();
             }
-#endif
         }
     }
 }
