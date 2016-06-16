@@ -18,9 +18,15 @@
             <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <Canvas Width="250" Height="100">
-        <Image Source="../Res/Message.png" Width="250" Height="100"/>
-        <TextBlock x:Name="textBox" Text="{Binding Text}" Canvas.Left="10" Canvas.Top="22" TextWrapping="Wrap" Width="250"/>
-    </Canvas>
+    <TextBlock Text="こんにちは。こんばんは。おはようございます。ああああああああああああああああああああああああああああああああああああああ" FontSize="22px" TextWrapping="WrapWithOverflow">
+        <TextBlock.Background>
+            <ImageBrush 
+                ImageSource="../Res/BackgroundImage.jpg"
+                TileMode="Tile"
+                ViewportUnits="Absolute"
+                Viewport="0,0,128,128"
+                Opacity="0.7"
+            />
+        </TextBlock.Background>
+    </TextBlock>
 </UserControl>

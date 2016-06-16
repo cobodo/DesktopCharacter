@@ -43,7 +43,7 @@ namespace DesktopCharacter.View
             var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
             var characterVM = this.DataContext as ViewModel.CharacterViewModel;
-            characterVM.mTalkViewModel = this.TalkView.DataContext as ViewModel.TalkViewModel;
+            //characterVM.mTalkViewModel = this.TalkView.DataContext as ViewModel.TalkViewModel;
 
             mScreenSize = new System.Drawing.Point { X = (int)this.Width, Y = (int)this.Height };
             mBitmapSource = new WriteableBitmap(mScreenSize.X, mScreenSize.Y, 96, 96, PixelFormats.Bgra32, null);
