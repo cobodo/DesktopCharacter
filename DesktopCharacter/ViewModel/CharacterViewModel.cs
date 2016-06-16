@@ -32,8 +32,6 @@ namespace DesktopCharacter.ViewModel
         /// </summary>
         public void ClosedEvent()
         {
-            //!< threadを終了させる
-            mTalkViewModel.ClosedEvent();
         }
     }
 }

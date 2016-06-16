@@ -4,13 +4,12 @@ using System.Threading;
 using System.Collections.Concurrent;
 using DesktopCharacter.Model;
 using System.Reactive.Linq;
+using DesktopCharacter.Util.Thread;
 
 namespace DesktopCharacter.ViewModel
 {
     class TalkViewModel : Livet.ViewModel
     {
-        private ConcurrentQueue<string> mMessageQueue = new ConcurrentQueue<string>();
-        private BackgroundWorker mWorker;
 
         private string mText;
         public string Text
@@ -23,55 +22,30 @@ namespace DesktopCharacter.ViewModel
             }
         }
 
-        private CharacterTalkModel model = CharacterTalkModel.Instance;
+        private readonly SingleThreadExecutor _executor;
+
+        private readonly CharacterTalkModel _model = CharacterTalkModel.Instance;
 
         public TalkViewModel()
         {
             Util.WindowInstance.TalkInstance = this;
 
-            mWorker = new BackgroundWorker();
-            mWorker.DoWork += new DoWorkEventHandler(MessageWorker);
-            mWorker.RunWorkerAsync();
-            mWorker.WorkerSupportsCancellation = true;
-            model.TalkSubject.Subscribe(AddMessage);
-        }
-
-        private void MessageWorker(object sender, DoWorkEventArgs e)
-        {
-            while (!mWorker.CancellationPending)
-            {
-                string text;
-                if (GetMessageSafe( out text ))
-                {
-                    for ( int i = 0; i < text.Length; ++i )
-                    {
-                        Text += text[i];
-                        Thread.Sleep(50);
-                    }
-                    Thread.Sleep(200);
-                    Text = "";
-                }
-            }
-            e.Cancel = true;
-        }
-
-        private bool GetMessageSafe( out string value )
-        {
-            return mMessageQueue.TryDequeue( out value );
+            _executor = new SingleThreadExecutor();
+            _model.TalkSubject.Subscribe(AddMessage);
         }
 
         private void AddMessage( string text )
         {
-            mMessageQueue.Enqueue( text );
-        }
-
-        /// <summary>
-        /// 終了時に呼ばれるイベント
-        /// </summary>
-        public void ClosedEvent()
-        {
-            //!< threadを終了させる
-            mWorker.CancelAsync();
+            _executor.PostAction(() =>
+            {
+                foreach (var t in text)
+                {
+                    Text += t;
+                    Thread.Sleep(50);
+                }
+                Thread.Sleep(200);
+                Text = "";
+            });
         }
 
     }
