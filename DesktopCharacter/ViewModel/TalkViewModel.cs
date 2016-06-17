@@ -115,6 +115,20 @@ namespace DesktopCharacter.ViewModel
                 {
                     StoryBoard.Begin();
                 });
+
+                int waitTime = 2000;
+                foreach (var line in textArray)
+                {
+                    if (line.Length != 0)
+                    {
+                        waitTime += 1000;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                Thread.Sleep(waitTime);
             });
         }
 
@@ -160,7 +174,7 @@ namespace DesktopCharacter.ViewModel
                         break;
                     }
                     //先頭から一文字削除
-                    text = text.Substring(1, text.Length - 2);
+                    text = text.Substring(1, text.Length - 1);
                 }
                 //次の行
                 currentLine++;
