@@ -17,6 +17,28 @@
             <Setter Property="FontSize" Value="22px"/>
         </Style>
         <Storyboard x:Key="MessageTextFade">
+            <!--Begin Init-->
+            <DoubleAnimation Storyboard.TargetName="line1_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line1_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line2_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line2_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line3_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line3_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line4_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line4_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line5_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line5_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <!--End Init-->
             <!--Begin Line1-->
             <DoubleAnimation
                 Storyboard.TargetName="line1_fade_end"
@@ -115,11 +137,13 @@
     </UserControl.DataContext>
 
     <!--Begin Animation Trigger-->
+    
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="UserControl.Loaded">
             <BeginStoryboard Storyboard="{StaticResource MessageTextFade}"/>
         </EventTrigger>
     </UserControl.Triggers>
+    
     <!--End Animation Trigger-->
 
     <i:Interaction.Triggers>
@@ -127,7 +151,7 @@
             <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <StackPanel>
+    <StackPanel Width="{Binding Path=Width, Mode=OneWayToSource}">
         <StackPanel.Background>
             <ImageBrush 
                 ImageSource="../Res/BackgroundImage.jpg"
@@ -137,7 +161,7 @@
                 Opacity="0.7"
             />
         </StackPanel.Background>
-        <TextBlock Text="ほげほげほげほげほげほげほげ" Style="{DynamicResource MessageText}">
+        <TextBlock Text="{Binding Line1}" Style="{DynamicResource MessageText}">
             <TextBlock.OpacityMask>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <LinearGradientBrush.GradientStops>
@@ -147,7 +171,7 @@
                 </LinearGradientBrush>
             </TextBlock.OpacityMask>
         </TextBlock>
-        <TextBlock Text="ふがふがふがふがふがふがふが" Style="{DynamicResource MessageText}">
+        <TextBlock Text="{Binding Line2}" Style="{DynamicResource MessageText}">
             <TextBlock.OpacityMask>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <LinearGradientBrush.GradientStops>
@@ -157,7 +181,7 @@
                 </LinearGradientBrush>
             </TextBlock.OpacityMask>
         </TextBlock>
-        <TextBlock Text="ああああああああああああああああああああああああああ" Style="{DynamicResource MessageText}">
+        <TextBlock Text="{Binding Line3}" Style="{DynamicResource MessageText}">
             <TextBlock.OpacityMask>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <LinearGradientBrush.GradientStops>
@@ -167,7 +191,7 @@
                 </LinearGradientBrush>
             </TextBlock.OpacityMask>
         </TextBlock>
-        <TextBlock Text="いいいいいいいいいいいいいいいい" Style="{DynamicResource MessageText}">
+        <TextBlock Text="{Binding Line4}" Style="{DynamicResource MessageText}">
             <TextBlock.OpacityMask>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <LinearGradientBrush.GradientStops>
@@ -177,7 +201,7 @@
                 </LinearGradientBrush>
             </TextBlock.OpacityMask>
         </TextBlock>
-        <TextBlock Text="いいいいいい" Style="{DynamicResource MessageText}" Width="400">
+        <TextBlock Text="{Binding Line5}" Style="{DynamicResource MessageText}">
             <TextBlock.OpacityMask>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                     <LinearGradientBrush.GradientStops>
