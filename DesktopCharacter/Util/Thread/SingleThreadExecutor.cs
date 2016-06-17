@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NLog;
 
 namespace DesktopCharacter.Util.Thread
 {
@@ -15,6 +16,10 @@ namespace DesktopCharacter.Util.Thread
     {
         private readonly BackgroundWorker _worker;
         private readonly TaskQueue _queue;
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        public IExceptionHandler ExceptionHandler { get; set; }
 
         /// <summary>
         /// 現在Queueに積まれているタスクの数を返します。
@@ -42,13 +47,21 @@ namespace DesktopCharacter.Util.Thread
         {
             while (true)
             {
-                var action = _queue.Dequeue();
-                action.Invoke();
+                try
+                {
+                    var action = _queue.Dequeue();
+                    action.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    ExceptionHandler?.OnException(ex);
+                }
             }
         }
 
         //SingleThreadExecutorのタスクを管理するQueue
-        class TaskQueue
+        private class TaskQueue
         {
             private readonly Queue<Action> _taskQueue = new Queue<Action>();
             public int Count {
@@ -83,5 +96,10 @@ namespace DesktopCharacter.Util.Thread
                 }
             }
         }
+    }
+
+    interface IExceptionHandler
+    {
+        void OnException(Exception e);
     }
 }
