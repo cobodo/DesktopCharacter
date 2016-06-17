@@ -116,20 +116,25 @@ namespace DesktopCharacter.ViewModel
                     StoryBoard.Begin();
                 });
 
-                int waitTime = 2000;
-                foreach (var line in textArray)
-                {
-                    if (line.Length != 0)
-                    {
-                        waitTime += 1000;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                Thread.Sleep(waitTime);
+                Thread.Sleep(CalclateWaitTime(textArray));
             });
+        }
+
+        private int CalclateWaitTime(string[] textArray)
+        {
+            int waitTime = 2000;
+            foreach (var line in textArray)
+            {
+                if (line.Length != 0)
+                {
+                    waitTime += 1000;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return waitTime;
         }
 
         //与えられたテキストをウィンドウ内に収まるように配列に分割します
@@ -155,8 +160,16 @@ namespace DesktopCharacter.ViewModel
                 //現在の行が枠の外にでるまで
                 while (true)
                 {
+                    //改行文字なら一文字削除してループを抜けて改行
+                    if (text[0] == '\n')
+                    {
+                        array[currentLine] = line;
+                        text = text.Substring(1, text.Length - 1);
+                        break;
+                    }
+
                     //先頭から一文字取得
-                    line += text.Substring(0, 1);
+                    line += text[0];
                     var formattedText = new FormattedText(line, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Yu Gothic UI"), 22, Brushes.Black);
 
                     //幅を超えた
