@@ -18,6 +18,7 @@
         ShowInTaskbar="False"
         Topmost="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="400" Width="400"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF">
     <Window.DataContext>

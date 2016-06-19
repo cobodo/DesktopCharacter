@@ -26,16 +26,38 @@ namespace DesktopCharacter.View
     /// </summary>
     public partial class Character : Window
     {
+        /// <summary>
+        /// スクリーンサイズ
+        /// </summary>
         System.Drawing.Point mScreenSize;
-
+        /// <summary>
+        /// xamlに渡すための書き込み先ビットマップ
+        /// </summary>
         WriteableBitmap mBitmapSource;
+        /// <summary>
+        /// 書き込み範囲（newの節約のためここでインスタンス化させる）
+        /// </summary>
         Int32Rect mSourceRect;
-
+        /// <summary>
+        /// レンダリングターゲット（テクスチャーに描画させるため）
+        /// </summary>
         RenderTarget mRenderTarget;
+        /// <summary>
+        /// Texture -> Bitmapのカラー情報
+        /// </summary>
         Shader mComputeShader;
+        /// <summary>
+        /// GLSLで使うBitmapのカラー情報格納先
+        /// </summary>
         SSBObject mSSBObject;
-
+        /// <summary>
+        /// Live2Dの管理クラス
+        /// </summary>
         Manager mLive2DManager = new Manager();
+        /// <summary>
+        /// デスクトップマスコットを利用するために必要なバージョン
+        /// </summary>
+        static double RequiredVersion = 4.3;
 
         public Character()
         {
@@ -63,6 +85,12 @@ namespace DesktopCharacter.View
         /// <param name="args">The <see cref="SharpGL.SceneGraph.OpenGLEventArgs"/> instance containing the event data.</param>
         private void OpenGLControl_OpenGLDraw(object sender, OpenGLEventArgs args)
         {
+            //!< Debugの時だけバージョンチェックをする
+            if(RequiredVersion > GraphicsManager.Instance.GetVersion())
+            {
+                return; //!< GL4.3以下なので処理をしない
+            }
+
             OpenGL gl = args.OpenGL;
             GraphicsManager Manager = GraphicsManager.Instance;
             Manager.Device = args.OpenGL;
@@ -102,6 +130,12 @@ namespace DesktopCharacter.View
         private void OpenGLControl_OpenGLInitialized(object sender, OpenGLEventArgs args)
         {
             GraphicsManager.Instance.Device = args.OpenGL;
+            GraphicsManager.Instance.Initialize();
+            //!< Debugの時だけバージョンチェックをする
+            if (RequiredVersion > GraphicsManager.Instance.GetVersion())
+            {
+                return; //!< GL4.3以下なので処理をしない
+            }
             mLive2DManager.Load("Res/koharu", "koharu.model.json");
 
             mRenderTarget = new RenderTarget { Width = (uint)mScreenSize.X, Height = (uint)mScreenSize.Y };
@@ -115,6 +149,22 @@ namespace DesktopCharacter.View
             mComputeShader.Attach();
 
             GraphicsManager.Instance.SetRenderTarget(mRenderTarget);
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            //!< Debugの時だけバージョンチェックをする
+            if (RequiredVersion > GraphicsManager.Instance.GetVersion())
+            {
+                //!< GLのバージョンを表示してアプリケーションを終了する
+                MessageBox.Show(string.Format(
+                    "[ ERROR ]\nGL_VENDOR: {0} \nGL_RENDERER : {1} \nGL_VERSION : {2} \nOpenGLのバージョンが4.3以下です！コンピュートシェーダに対応していないため終了します",
+                    GraphicsManager.Instance.mVender,
+                    GraphicsManager.Instance.mRender,
+                    GraphicsManager.Instance.mVender));
+                //!< アプリケーションを終了する
+                this.Close();
+            }
         }
     }
 }
