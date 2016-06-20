@@ -102,4 +102,4 @@ Live2Dを使用したデスクトップマスコットアプリになります。
 
 * **用途 :** C#でOpenGL描画
 * **ライセンス :** MIT ライセンス
-* **ライセンス全文 :** [Licenses/Live2D.txt](Licenses/SharpGL.txt)
+* **ライセンス全文 :** [Licenses/SharpGL.txt](Licenses/SharpGL.txt)
