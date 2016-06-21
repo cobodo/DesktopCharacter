@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using BabumiGraphics.Graphics;
 using BabumiGraphics.Live2D;
 using BabumiGraphics;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
 
 namespace DesktopCharacter.View
 {
@@ -62,6 +64,11 @@ namespace DesktopCharacter.View
         public Character()
         {
             InitializeComponent();
+            var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
+            var pos = repo.FetchPosition();
+            Top = pos.PosY;
+            Left = pos.PosX;
+
             var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
             var characterVM = this.DataContext as ViewModel.CharacterViewModel;
@@ -76,6 +83,8 @@ namespace DesktopCharacter.View
         {
             base.OnMouseLeftButtonDown(e);
             DragMove();
+            var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
+            repo.Save((int)Left, (int)Top);
         }
 
         /// <summary>

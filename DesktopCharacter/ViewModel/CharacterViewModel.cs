@@ -24,7 +24,6 @@ namespace DesktopCharacter.ViewModel
 
         public CharacterViewModel()
         {
-            ServiceLocator.Instance.InitializeServiceLocator();
         }
 
         /// <summary>

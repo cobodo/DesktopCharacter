@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using NLog;
+using DesktopCharacter.Model.Locator;
 
 namespace DesktopCharacter
 {
@@ -27,6 +28,7 @@ namespace DesktopCharacter
                 }
             };
             base.OnStartup(e);
+            ServiceLocator.Instance.InitializeServiceLocator();
         }
     }
 }

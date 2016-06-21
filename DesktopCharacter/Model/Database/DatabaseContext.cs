@@ -16,6 +16,8 @@ namespace DesktopCharacter.Model.Database
         public DbSet<CodicUser> CodicUser { get; set; }
         public DbSet<TwitterUser> TwitterUser { get; set; }
         public DbSet<TwitterNotificationFilter> TwitterNotificationFilter { get; set; }
+        public DbSet<WindowPosition> WindowPosition { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<DatabaseContext>(modelBuilder);
