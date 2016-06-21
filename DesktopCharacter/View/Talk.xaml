@@ -9,18 +9,207 @@
              xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="250">
+    
+    <UserControl.Resources>
+        <Style x:Key="MessageText" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="FontSize" Value="22px"/>
+        </Style>
+        <Storyboard x:Key="MessageTextFade">
+            <!--Begin Init-->
+            <DoubleAnimation Storyboard.TargetName="line1_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line1_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line2_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line2_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line3_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line3_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line4_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line4_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line5_fade_end" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <DoubleAnimation Storyboard.TargetName="line5_fade_start" Storyboard.TargetProperty="Offset"
+                From="0" To="0" BeginTime="0:0:00" Duration="0:0:00"/>
+            <!--End Init-->
+            <!--Begin Line1-->
+            <DoubleAnimation
+                Storyboard.TargetName="line1_fade_end"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:00"
+                Duration="0:0:01"
+                />
+            <DoubleAnimation
+                Storyboard.TargetName="line1_fade_start"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:00.2"
+                Duration="0:0:01"
+                />
+            <!--End Line1-->
+            <!--Begin Line2-->
+            <DoubleAnimation
+                Storyboard.TargetName="line2_fade_end"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:01"
+                Duration="0:0:01"
+                />
+            <DoubleAnimation
+                Storyboard.TargetName="line2_fade_start"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:01.2"
+                Duration="0:0:01"
+                />
+            <!--End Line2-->
+            <!--Begin Line3-->
+            <DoubleAnimation
+                Storyboard.TargetName="line3_fade_end"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:02"
+                Duration="0:0:01"
+                />
+            <DoubleAnimation
+                Storyboard.TargetName="line3_fade_start"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:02.2"
+                Duration="0:0:01"
+                />
+            <!--End Line3-->
+            <!--Begin Line4-->
+            <DoubleAnimation
+                Storyboard.TargetName="line4_fade_end"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:03"
+                Duration="0:0:01"
+                />
+            <DoubleAnimation
+                Storyboard.TargetName="line4_fade_start"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:03.2"
+                Duration="0:0:01"
+                />
+            <!--End Line4-->
+            <!--Begin Line5-->
+            <DoubleAnimation
+                Storyboard.TargetName="line5_fade_end"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:04"
+                Duration="0:0:01"
+                />
+            <DoubleAnimation
+                Storyboard.TargetName="line5_fade_start"
+                Storyboard.TargetProperty="Offset"
+                From="0"
+                To="1"
+                BeginTime="0:0:04.2"
+                Duration="0:0:01"
+                />
+            <!--End Line5-->
+            </Storyboard>
+    </UserControl.Resources>
+    
     <UserControl.DataContext>
         <vm:TalkViewModel></vm:TalkViewModel>
     </UserControl.DataContext>
+
+    <!--Begin Animation Trigger-->
+    
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UserControl.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource MessageTextFade}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    
+    <!--End Animation Trigger-->
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <Canvas Width="250" Height="100">
-        <Image Source="../Res/Message.png" Width="250" Height="100"/>
-        <TextBlock x:Name="textBox" Text="{Binding Text}" Canvas.Left="10" Canvas.Top="22" TextWrapping="Wrap" Width="250"/>
-    </Canvas>
+    <StackPanel Width="{Binding Path=Width, Mode=OneWayToSource}">
+        <StackPanel.Background>
+            <ImageBrush 
+                ImageSource="../Res/BackgroundImage.jpg"
+                TileMode="Tile"
+                ViewportUnits="Absolute"
+                Viewport="0,0,128,128"
+                Opacity="0.7"
+            />
+        </StackPanel.Background>
+        <TextBlock Text="{Binding Line1}" Style="{DynamicResource MessageText}">
+            <TextBlock.OpacityMask>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop x:Name="line1_fade_start" Offset="0" Color="White"/>
+                        <GradientStop x:Name="line1_fade_end" Offset="0" Color="Transparent"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </TextBlock.OpacityMask>
+        </TextBlock>
+        <TextBlock Text="{Binding Line2}" Style="{DynamicResource MessageText}">
+            <TextBlock.OpacityMask>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop x:Name="line2_fade_start" Offset="0" Color="White"/>
+                        <GradientStop x:Name="line2_fade_end" Offset="0" Color="Transparent"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </TextBlock.OpacityMask>
+        </TextBlock>
+        <TextBlock Text="{Binding Line3}" Style="{DynamicResource MessageText}">
+            <TextBlock.OpacityMask>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop x:Name="line3_fade_start" Offset="0" Color="White"/>
+                        <GradientStop x:Name="line3_fade_end" Offset="0" Color="Transparent"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </TextBlock.OpacityMask>
+        </TextBlock>
+        <TextBlock Text="{Binding Line4}" Style="{DynamicResource MessageText}">
+            <TextBlock.OpacityMask>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop x:Name="line4_fade_start" Offset="0" Color="White"/>
+                        <GradientStop x:Name="line4_fade_end" Offset="0" Color="Transparent"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </TextBlock.OpacityMask>
+        </TextBlock>
+        <TextBlock Text="{Binding Line5}" Style="{DynamicResource MessageText}">
+            <TextBlock.OpacityMask>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop x:Name="line5_fade_start" Offset="0" Color="White"/>
+                        <GradientStop x:Name="line5_fade_end" Offset="0" Color="Transparent"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </TextBlock.OpacityMask>
+        </TextBlock>
+    </StackPanel>
 </UserControl>

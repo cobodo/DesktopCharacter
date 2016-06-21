@@ -35,7 +35,7 @@ namespace DesktopCharacter.ViewModel.Menu
                 {
                     mTalkCommand = new ViewModelCommand(() =>
                     {
-                        DesktopCharacter.Model.CharacterTalkModel.Instance.Talk("バカなの？バカなの？バカなの？バカなの？");
+                        DesktopCharacter.Model.CharacterTalkModel.Instance.Talk("バカなの？バカなの？バカなの？バカなの？aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     });
                 }
                 return mTalkCommand;

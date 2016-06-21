@@ -77,6 +77,9 @@ project "DesktopCharacter"
     configuration { "**.png" }
     buildaction ( "Copy" )
     
+    configuration { "**.jpg" }
+    buildaction ( "Copy" )
+    
     configuration { "**.moc" }
     buildaction ( "Copy" )
     

@@ -47,7 +47,7 @@
           <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
         <Image x:Name="Image" Width="400" Height="400"></Image>
-        <v:Talk x:Name="TalkView" Margin="81,-15,169,245"></v:Talk>
+        <v:Talk Margin="0,257,0,0"></v:Talk>
         <sharpGL:OpenGLControl 
             OpenGLDraw="OpenGLControl_OpenGLDraw" OpenGLInitialized="OpenGLControl_OpenGLInitialized" Width="0" Height="0"
             RenderContextType="FBO" />
