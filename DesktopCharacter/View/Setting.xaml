@@ -29,6 +29,9 @@
             <TabItem Header="Codic">
                 <st:CodicTab x:Name="CodicSettingTab"></st:CodicTab>
             </TabItem>
+            <TabItem Header="google service">
+                <st:GoogleServiceTab x:Name="GoogleServiceTab"></st:GoogleServiceTab>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
