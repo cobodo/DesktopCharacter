@@ -83,6 +83,11 @@ namespace DesktopCharacter.View
         {
             base.OnMouseLeftButtonDown(e);
             DragMove();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
             var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
             repo.Save((int)Left, (int)Top);
         }
