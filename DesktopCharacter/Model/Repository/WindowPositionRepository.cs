@@ -19,15 +19,13 @@ namespace DesktopCharacter.Model.Repository
         /// <returns>保存されているウィンドウの位置</returns>
         public WindowPosition FetchPosition()
         {
-            /*
             using (var context = new DatabaseContext())
             {
                 var position = context.WindowPosition.FirstOrDefault(p => p.Id == 1) ??
                                      new WindowPosition(0, 0);
                 logger.Info("[FetchPosition] id={0}, x={1}, y={2}", position.Id, position.PosX, position.PosY);
                 return position;
-            }*/
-            return null;
+            }
         }
 
         /// <summary>
@@ -41,7 +39,7 @@ namespace DesktopCharacter.Model.Repository
             {
                 var pos = new WindowPosition(x, y);
                 logger.Info("[Save] id={0}, x={1}, y={2}", pos.Id, pos.PosX, pos.PosY);
-                //context.WindowPosition.AddOrUpdate(pos);
+                context.WindowPosition.AddOrUpdate(pos);
                 context.SaveChanges();
             }
         }
