@@ -244,4 +244,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-/Live2DForDLL/Dependency/Live2D_SDK_OpenGL
+Extension/Dependency/Live2D_SDK_OpenGL
+/Extension/Lib
