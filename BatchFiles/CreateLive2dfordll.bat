@@ -5,7 +5,7 @@ SET EnableNuGetPackageRestore=true
 call %NUGET% restore "%~dp0../Extension/Live2DWrapping/Live2DWrapping.sln"
 call %MSBUILD% "%~dp0../Extension/Live2DWrapping/Live2DWrapping.sln" /t:Build /p:Platform=x64 /property:Configuration=Debug
 
-call %MSBUILD% "%~dp0../Extension/Generater/Generater.sln" /t:Build /p:Platform=Any CPU /property:Configuration=Debug
+call %MSBUILD% "%~dp0../Extension/Generater/Generater.sln" /t:Build /p:Platform="Any CPU" /property:Configuration=Debug
 
 call %MSBUILD% "%~dp0../Extension/Live2DforDLL/Live2DforDLL.sln" /t:Build /p:Platform=x64 /property:Configuration=Debug
 
