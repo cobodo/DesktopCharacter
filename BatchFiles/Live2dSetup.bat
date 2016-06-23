@@ -1,11 +1,11 @@
 echo on
 
-SET SDKPath=F:\Live2D_SDK_OpenGL_2.0.08_2_jp
+SET SDKPath=%1
 SET Platform=x64
 SET VsVersion=120
-SET Output=%~dp0..\live2dfordll\Dependency
+SET Output=%~dp0..\Extension\Dependency
 
 echo %Output%
-call python ..\tool\Live2dSetup.py %SDKPath% %Platform% %VsVersion% %Output%
+call python %~dp0..\tool\Live2dSetup.py %SDKPath% %Platform% %VsVersion% %Output%
 
 pause
