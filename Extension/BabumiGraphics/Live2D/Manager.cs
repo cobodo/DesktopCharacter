@@ -19,25 +19,31 @@ namespace BabumiGraphics.Live2D
 
         private List<Tuple<string, bool>> mRegisterAnimationQueue = new List<Tuple<string, bool>>();
 
+        string ResourceDir { get; set; }
+        string ResourceName { get; set; }
+
         public Manager()
         {
             Live2DWrapping.init();
         }
 
-        public void Load( string prefix, string modeljson )
+        public void Load( string resoruceDir, string resoruceName, string modeljson )
         {
+            ResourceDir = resoruceDir;
+            ResourceName = resoruceName;
+
             mAnimationQueue = new Live2DMotionQueueManager();
 
             JsonObject modelObject = new JsonObject();
             JsonObject physicsObject = null;
             //!< ModelJsonの読み込み
-            modelObject.LoadJson(prefix + "\\" + modeljson);
+            modelObject.LoadJson(ResourceDir + "\\" + ResourceName + "\\" + modeljson);
             
             {
                 var data = modelObject.LoadObject;
                 //!< モデル読み込み
                 {
-                    mModel.LoadModel(prefix, data.model, data.textures);
+                    mModel.LoadModel(ResourceDir + "\\" + ResourceName, data.model, data.textures);
                 }
                 //!< アニメーション読み込み
                 {
@@ -46,7 +52,7 @@ namespace BabumiGraphics.Live2D
                         //System.Console.WriteLine(t.Keys);
                         foreach (var file in (dynamic[])motion.Value)
                         {
-                            string path = prefix + "\\" + file.file;
+                            string path = ResourceDir + "\\" + ResourceName + "\\" + file.file;
                             var animation = new Live2DAnimation();
                             animation.loadMotion(path);
                             mAnimationContainer.Add(Path.GetFileNameWithoutExtension(path), animation);
@@ -57,7 +63,7 @@ namespace BabumiGraphics.Live2D
                 if (data.physics != "")
                 {
                     physicsObject = new JsonObject();
-                    physicsObject.LoadJson(prefix + "\\" + data.physics);
+                    physicsObject.LoadJson(ResourceDir + "\\" + ResourceName + "\\" + data.physics);
                 }
             }
 
