@@ -102,8 +102,6 @@ project "DesktopCharacter"
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
-            'set fname_new=$(TargetName)_merge$(TargetExt)',
-            '"C:\\Program Files (x86)\\Microsoft\\ILMerge\\ILMerge.exe" /wildcards /out:%fname_new% $(TargetFileName) *.dll',
          }
 
     configuration { "Release*" }
@@ -111,8 +109,6 @@ project "DesktopCharacter"
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
-            'set fname_new=$(TargetName)_merge$(TargetExt)',
-            '"C:¥Program Files¥Microsoft¥ILMerge¥ILMerge" /wildcards /out:%fname_new% $(TargetFileName) *.dll',
          }
 
 
