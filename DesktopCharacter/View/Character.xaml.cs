@@ -150,7 +150,7 @@ namespace DesktopCharacter.View
             {
                 return; //!< GL4.3以下なので処理をしない
             }
-            mLive2DManager.Load("Res/koharu", "koharu.model.json");
+            mLive2DManager.Load( "Res", "koharu", "koharu.model.json");
 
             mRenderTarget = new RenderTarget { Width = (uint)mScreenSize.X, Height = (uint)mScreenSize.Y };
             mRenderTarget.Create();
@@ -175,7 +175,7 @@ namespace DesktopCharacter.View
                     "[ ERROR ]\nGL_VENDOR: {0} \nGL_RENDERER : {1} \nGL_VERSION : {2} \nOpenGLのバージョンが4.3以下です！コンピュートシェーダに対応していないため終了します",
                     GraphicsManager.Instance.mVender,
                     GraphicsManager.Instance.mRender,
-                    GraphicsManager.Instance.mVender));
+                    GraphicsManager.Instance.mVersion));
                 //!< アプリケーションを終了する
                 this.Close();
             }
