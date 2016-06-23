@@ -9,6 +9,8 @@ import shutil
 # 引数3 : vsVersion
 # 引数4 : Live2DForDLLの依存フォルダーのパス
 
+print( "check" )
+
 sdkPath = sys.argv[ 1 ]
 platform = sys.argv[ 2 ]
 vsVersion = sys.argv[ 3 ]

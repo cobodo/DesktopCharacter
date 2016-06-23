@@ -246,3 +246,5 @@ paket-files/
 *.sln.iml
 Extension/Dependency/Live2D_SDK_OpenGL
 /Extension/Lib
+/Extension/Live2DWrapping/*.sln
+/Extension/Live2DWrapping/*.vcxproj
