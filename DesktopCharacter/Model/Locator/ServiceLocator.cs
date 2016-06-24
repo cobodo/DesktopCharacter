@@ -43,6 +43,7 @@ namespace DesktopCharacter.Model.Locator
             RegisterByConfigBaseScope<TwitterService>(() => new TwitterService());
             RegisterByConfigBaseScope<CodicRepository>(() => new CodicRepository());
             RegisterByPrototypeScope<WindowPositionRepository>(() => new WindowPositionRepository());
+            RegisterByConfigBaseScope<CharacterDataRepository>(() => new CharacterDataRepository());
             logger.Info("=== End RegistFactories ===");
         }
 

@@ -20,6 +20,8 @@ using BabumiGraphics.Live2D;
 using BabumiGraphics;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Database.Domain;
+using System.IO;
 
 namespace DesktopCharacter.View
 {
@@ -60,14 +62,44 @@ namespace DesktopCharacter.View
         /// デスクトップマスコットを利用するために必要なバージョン
         /// </summary>
         static double RequiredVersion = 4.3;
+        /// <summary>
+        /// Live2Dのリソースディレクトリパス
+        /// </summary>
+        static string Live2DResoruceDir = "Res/Live2D";
+        /// <summary>
+        /// ロードするデータ名
+        /// </summary>
+        string LoadDataName { get; set; }
 
         public Character()
         {
             InitializeComponent();
-            var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
-            var pos = repo.FetchPosition();
-            Top = pos.PosY;
-            Left = pos.PosX;
+            //!< 保存したPositionを取り出し設定する
+            {
+                var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
+                var pos = repo.FetchPosition();
+                Top = pos.PosY;
+                Left = pos.PosX;
+            }
+            //!< Live2Dディレクトリにランダムから選出する
+            //!< フォルダーがもしない場合はそのこと通知して終了する
+            {
+                var repo = ServiceLocator.Instance.GetInstance<CharacterDataRepository>();
+                LoadDataName = repo.GetDataName();
+                if (LoadDataName == null)
+                {
+                    string[] dirs = Directory.GetDirectories(Live2DResoruceDir);
+                    if (dirs.Length == 0)
+                    {                 //!< GLのバージョンを表示してアプリケーションを終了する
+                        MessageBox.Show(string.Format("[ ERROR ]\n{0}のパスにLive2Dのモデルデータが入っていない可能性があります。確認してみてください。", Live2DResoruceDir));
+                        //!< アプリケーションを終了する
+                        this.Close();
+                    }
+                    LoadDataName = System.IO.Path.GetFileName(dirs[new System.Random().Next(dirs.Length - 1)]);
+                    //!< 次回からこちらをロードする
+                    repo.Save(new CharacterData(LoadDataName));
+                }
+            }
 
             var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
@@ -150,7 +182,7 @@ namespace DesktopCharacter.View
             {
                 return; //!< GL4.3以下なので処理をしない
             }
-            mLive2DManager.Load( "Res", "koharu", "koharu.model.json");
+            mLive2DManager.Load(Live2DResoruceDir, LoadDataName, string.Format("{0}.model.json", LoadDataName));
 
             mRenderTarget = new RenderTarget { Width = (uint)mScreenSize.X, Height = (uint)mScreenSize.Y };
             mRenderTarget.Create();
