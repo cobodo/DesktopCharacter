@@ -27,7 +27,7 @@ project "DesktopCharacter"
         "DesktopCharacter/obj/**.*",
         "DesktopCharacter/bin/**.*",
         "./packages/**.*",
-        "./live2dfordll/**.*" 
+        "./Extension/**.*" 
     }
     
     links { 
@@ -96,22 +96,22 @@ project "DesktopCharacter"
         defines { "DEBUG" }
         flags   { "Symbols" }
         links { 
-            "live2dfordll/Lib/Debug/BabumiGraphics.dll",
-            "live2dfordll/Lib/Debug/Live2D for DLL.dll",
-            "live2dfordll/Lib/Debug/SharpGL.WPF.dll",
-            "live2dfordll/Lib/Debug/SharpGL.SceneGraph.dll",
-            "live2dfordll/Lib/Debug/SharpGL.dll"
+            "Extension/Lib/Debug/BabumiGraphics.dll",
+            "Extension/Lib/Debug/Live2D for DLL.dll",
+            "Extension/Lib/Debug/SharpGL.WPF.dll",
+            "Extension/Lib/Debug/SharpGL.SceneGraph.dll",
+            "Extension/Lib/Debug/SharpGL.dll"
         }
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
-            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
+            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
          }
 
     configuration { "Release*" }
         optimize "On"
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
-            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"'
+            'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
          }
 
 
