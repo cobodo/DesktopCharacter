@@ -69,7 +69,7 @@ namespace DesktopCharacter.Model.Graphics
             lock (thisLock)
             {
                 _live2DManager.DeleteModel();
-                _live2DManager.Load(_babumiConfig.Live2DResourceDir, name, string.Format("{0}.model.json", name));
+                _live2DManager.Load(_babumiConfig.Live2DResourceDir, _babumiConfig.Live2DModelDir, name, string.Format("{0}.model.json", name));
                 var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
                 //!< 次回からこちらをロードする
                 _babumiConfig.Name = name;

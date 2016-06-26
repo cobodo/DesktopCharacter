@@ -53,7 +53,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
     {
         private BabumiConfig _babumiConfig;
         /// <summary>
-        /// ListViewの一覧に出るコレクション要素
+        /// 読み込みファイル一覧
         /// </summary>
         private ObservableCollection<CharacterName> _listCollection;
         public ObservableCollection<CharacterName> ListCollection

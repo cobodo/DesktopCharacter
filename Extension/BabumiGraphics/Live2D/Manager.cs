@@ -21,29 +21,33 @@ namespace BabumiGraphics.Live2D
 
         string ResourceDir { get; set; }
         string ResourceName { get; set; }
+        string ModelRootDir { get; set; }
 
         public Manager()
         {
             Live2DWrapping.init();
         }
 
-        public void Load( string resoruceDir, string resoruceName, string modeljson )
+        public void Load( string resoruceDir, string modelRootDir, string resoruceName, string modeljson )
         {
             ResourceDir = resoruceDir;
             ResourceName = resoruceName;
+            ModelRootDir = modelRootDir;
 
             mAnimationQueue = new Live2DMotionQueueManager();
 
             JsonObject modelObject = new JsonObject();
             JsonObject physicsObject = null;
+
+            string LoadPath = ResourceDir + "\\" + ResourceName + "\\" + ModelRootDir;
             //!< ModelJsonの読み込み
-            modelObject.LoadJson(ResourceDir + "\\" + ResourceName + "\\" + modeljson);
+            modelObject.LoadJson(LoadPath + "\\" + modeljson);
             
             {
                 var data = modelObject.LoadObject;
                 //!< モデル読み込み
                 {
-                    mModel.LoadModel(ResourceDir + "\\" + ResourceName, data.model, data.textures);
+                    mModel.LoadModel(LoadPath, data.model, data.textures);
                 }
                 //!< アニメーション読み込み
                 {
@@ -52,7 +56,7 @@ namespace BabumiGraphics.Live2D
                         //System.Console.WriteLine(t.Keys);
                         foreach (var file in (dynamic[])motion.Value)
                         {
-                            string path = ResourceDir + "\\" + ResourceName + "\\" + file.file;
+                            string path = LoadPath + "\\" + file.file;
                             var animation = new Live2DAnimation();
                             animation.loadMotion(path);
                             mAnimationContainer.Add(Path.GetFileNameWithoutExtension(path), animation);
@@ -60,10 +64,10 @@ namespace BabumiGraphics.Live2D
                     }
                 }
                 //<! 物理ファイルを読み込む
-                if (data.physics != "")
+                if (data.IsDefined("physics"))
                 {
                     physicsObject = new JsonObject();
-                    physicsObject.LoadJson(ResourceDir + "\\" + ResourceName + "\\" + data.physics);
+                    physicsObject.LoadJson(LoadPath + "\\" + data.physics);
                 }
             }
 
