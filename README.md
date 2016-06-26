@@ -103,3 +103,9 @@ Live2Dを使用したデスクトップマスコットアプリになります。
 * **用途 :** C#でOpenGL描画
 * **ライセンス :** MIT ライセンス
 * **ライセンス全文 :** [Licenses/SharpGL.txt](Licenses/SharpGL.txt)
+
+### [Premake](https://github.com/premake/premake-core)
+
+* **用途 :** ソリューション作成
+* **ライセンス :** BSD ライセンス
+* **ライセンス全文 :** [Licenses/BSD.txt](Licenses/BSD.txt)
