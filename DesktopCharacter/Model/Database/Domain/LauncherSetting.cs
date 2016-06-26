@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesktopCharacter.Model.Domain
+namespace DesktopCharacter.Model.Database.Domain
 {
     /// <summary>
     /// ランチャーの設定

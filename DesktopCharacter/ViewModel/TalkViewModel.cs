@@ -30,7 +30,7 @@ namespace DesktopCharacter.ViewModel
 
         private readonly SingleThreadExecutor _executor;
 
-        private readonly CharacterTalkModel _model = CharacterTalkModel.Instance;
+        private readonly CharacterNotify _model = CharacterNotify.Instance;
         public double Width { get; set; }
 
         private string _line1 = "";
@@ -91,12 +91,10 @@ namespace DesktopCharacter.ViewModel
 
         public Storyboard StoryBoard { get; set; }
 
-        private CharacterTalkModel model = CharacterTalkModel.Instance;
+        private CharacterNotify model = CharacterNotify.Instance;
 
         public TalkViewModel()
         {
-            Util.WindowInstance.TalkInstance = this;
-
             _executor = new SingleThreadExecutor();
             _model.TalkSubject.Subscribe(AddMessage);
         }
