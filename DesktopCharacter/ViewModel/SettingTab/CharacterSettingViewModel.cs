@@ -32,7 +32,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 mIsSelected = value;
                 if (mIsSelected)
                 {
-                    CharacterPropertyNotify.Instance.CharacterLoad(_fileName);
+                    CharacterNotify.Instance.CharacterLoad(_fileName);
                 }
                 this.RaisePropertyChanged("IsSelected");
             }

@@ -53,8 +53,8 @@ namespace DesktopCharacter.Model.Graphics
 
         public Live2DManaged()
         {
-            CharacterPropertyNotify.Instance.CharacterLoadSubject.Subscribe(CharacterLoad);
-            CharacterPropertyNotify.Instance.SetAnimationSubject.Subscribe(SetAnimation);
+            CharacterNotify.Instance.CharacterLoadSubject.Subscribe(CharacterLoad);
+            CharacterNotify.Instance.SetAnimationSubject.Subscribe(SetAnimation);
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             _babumiConfig = repo.GetConfig();
         }
