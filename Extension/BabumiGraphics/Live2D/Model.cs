@@ -13,6 +13,10 @@ namespace BabumiGraphics.Live2D
     {
         public Live2Model ModelObject = new Live2Model();
 
+        private List<Texture2D> _cacheTextureList = new List<Texture2D>();
+
+        public bool IsLoadComplete { get; set; }
+
         public void LoadModel( string prefix, dynamic modelPath, dynamic textures )
         {
             ModelObject.craeteModel(prefix + "\\" + modelPath);
@@ -26,9 +30,22 @@ namespace BabumiGraphics.Live2D
                     tex.Create();
                     tex.Bind();
                     ModelObject.setTexture(i, tex.SetImage(bitmap));
+                    _cacheTextureList.Add(tex);
                 }
             }
             ModelObject.setPremultipliedAlpha(false);
+            IsLoadComplete = true;
+        }
+
+        public void Delete()
+        {
+            ModelObject.deleteModel();
+            //!< テクスチャーを解放
+            foreach( var tex in _cacheTextureList)
+            {
+                tex.Delete();
+            }
+            IsLoadComplete = false;
         }
 
         public void Update(int Width, int Height )

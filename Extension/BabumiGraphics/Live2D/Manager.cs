@@ -112,6 +112,18 @@ namespace BabumiGraphics.Live2D
         }
 
         /// <summary>
+        /// モデル解放
+        /// </summary>
+        public void DeleteModel()
+        {
+            if (mModel.IsLoadComplete)
+            {
+                mModel.Delete();
+            }
+            mAnimationContainer.Delete();
+        }
+
+        /// <summary>
         /// アニメーションセット
         /// </summary>
         /// <param name="name">アニメーション名</param>

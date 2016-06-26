@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DesktopCharacter.View.SettingTab
 {
     /// <summary>
-    /// TalkTab.xaml の相互作用ロジック
+    /// Interaction logic for CharacterTab.xaml
     /// </summary>
-    public partial class TalkTab : UserControl
+    public partial class CharacterTab : UserControl
     {
-        public TalkTab()
+        public CharacterTab()
         {
             InitializeComponent();
         }

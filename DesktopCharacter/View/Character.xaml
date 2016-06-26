@@ -35,10 +35,6 @@
             <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </l:InteractionMessageTrigger>
         
-        <i:EventTrigger EventName="Closed">
-            <l:DataContextDisposeAction/>
-            <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
-        </i:EventTrigger>
     </i:Interaction.Triggers> 
 
     <Grid>

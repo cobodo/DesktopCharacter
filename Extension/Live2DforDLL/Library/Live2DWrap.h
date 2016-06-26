@@ -67,6 +67,11 @@ namespace Live2DWrap
 
         void craeteModel(System::String^ str);
 
+        /// <summary>
+        /// ���f����폜
+        /// </summary>
+        void deleteModel();
+
         void setTexture(int textureNo, unsigned int glTexture);
 
         void setPremultipliedAlpha(bool r);
@@ -120,6 +125,11 @@ namespace Live2DWrap
         void loadMotion(System::String^ filepath);
 
         /// <summary>
+        /// ���[�V��������
+        /// </summary>
+        void deleteMotion();
+
+        /// <summary>
         /// :
         /// </summary>
         void updateParamExe(Live2DWrap::Live2Model^ model, long long timeMSec, float weight);
@@ -166,6 +176,11 @@ namespace Live2DWrap
         Live2DMotionQueueManager(Live2DWrap::Live2DMotionQueueManager^ _0);
 
         ~Live2DMotionQueueManager();
+
+        /// <summary>
+        /// ���[�V�����Ǘ����
+        /// </summary>
+        void deleteMotionManager();
 
         /// <summary>
         /// :

@@ -26,6 +26,11 @@ public:
 	* @param .moc ファイル
 	*/
 	void craeteModel( const char* str );
+
+	/*!
+	*  @brief  モデルを削除
+	*/
+	void deleteModel();
 	/*
 	* @brief 
 	* @param texture番号
@@ -109,6 +114,11 @@ public:
 	void loadMotion( const char* filepath );
 
 	/*!
+	*  @brief  モーションを解放
+	*/
+	void deleteMotion();
+
+	/*!
 	*  @brief:	  
 	*  @param: 	  live2d::ALive2DModel * model
 	*  @param: 	  long long timeMSec
@@ -162,6 +172,10 @@ public:
 	~Live2DMotionQueueManager();
 
 public:
+	/*!
+	*  @brief モーション管理解放
+	*/
+	void deleteMotionManager();
 	/*!
 	*  @brief:	   
 	*  @param: 	  AMotion * motion

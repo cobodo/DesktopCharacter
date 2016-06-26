@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="DesktopCharacter.View.SettingTab.CharacterTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
+             xmlns:SettingVM="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <UserControl.DataContext>
+        <SettingVM:CharacterSettingViewModel></SettingVM:CharacterSettingViewModel>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding ListCollection}" Grid.Column="1" Margin="0,0,0,25">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding FileName}">
+                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="モデルリスト" />
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="リロード" Command="{Binding ReloadCommand}" Height="25" Grid.Column="1" VerticalAlignment="Bottom"  ></Button>
+    </Grid>
+</UserControl>

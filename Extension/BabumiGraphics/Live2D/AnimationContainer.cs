@@ -17,6 +17,15 @@ namespace BabumiGraphics.Live2D
             AnimationDict.Add(name, animation);
         }
 
+        public void Delete()
+        {
+            foreach ( var animation in AnimationDict )
+            {
+                animation.Value.deleteMotion();
+            }
+            AnimationDict.Clear();
+        }
+
         /// <summary>
         /// アニメーションコンテナにアニメーション名が含まれていればその中のランダムなものを再生する
         /// </summary>

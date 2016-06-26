@@ -33,7 +33,7 @@ namespace DesktopCharacter.View
             base.OnSourceInitialized(e);
             var vm = DataContext as SettingViewModel;
             vm.LauncherSetting = LauncehrTab.DataContext as LauncherSettingViewModel;
-            vm.TalkSetting = TalkTab.DataContext as TalkSettingViewModel;
+            vm.CharacterSetting = CharacterTab.DataContext as CharacterSettingViewModel;
             vm.TwitterSetting = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
             vm.CodicSettingTab =  CodicSettingTab.DataContext as CodicSettingTabViewModel;
             
