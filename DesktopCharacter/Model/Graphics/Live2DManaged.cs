@@ -65,16 +65,12 @@ namespace DesktopCharacter.Model.Graphics
         /// <param name="name">キャラクター名</param>
         public void CharacterLoad( string name )
         {
-            Object thisLock = new Object();
-            lock (thisLock)
-            {
-                _live2DManager.DeleteModel();
-                _live2DManager.Load(_babumiConfig.Live2DResourceDir, _babumiConfig.Live2DModelDir, name, string.Format("{0}.model.json", name));
-                var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-                //!< 次回からこちらをロードする
-                _babumiConfig.Name = name;
-                repo.Save(_babumiConfig);
-            }
+            _live2DManager.DeleteModel();
+            _live2DManager.Load(_babumiConfig.Live2DResourceDir, _babumiConfig.Live2DModelDir, name, string.Format("{0}.model.json", name));
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            //!< 次回からこちらをロードする
+            _babumiConfig.Name = name;
+            repo.Save(_babumiConfig);
         }
 
         /// <summary>
