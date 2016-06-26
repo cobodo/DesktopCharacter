@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesktopCharacter.Util
+namespace DesktopCharacter.Util.Web
 {
     class ParameterBuild
     {

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace DesktopCharacter.Model
 {
-    class CharacterPropertyNotify
+    class CharacterNotify
     {
+        public Subject<string> TalkSubject { get; } = new Subject<string>();
+
         public Subject<string> CharacterLoadSubject { get; } = new Subject<string>();
 
         public Subject<string> SetAnimationSubject { get; } = new Subject<string>();
@@ -16,9 +18,9 @@ namespace DesktopCharacter.Model
         /// <summary>
         /// CharacterPropertyNotifyのインスタンス
         /// </summary>
-        public static CharacterPropertyNotify Instance { get; } = new CharacterPropertyNotify();
+        public static CharacterNotify Instance { get; } = new CharacterNotify();
 
-        private CharacterPropertyNotify()
+        private CharacterNotify()
         {
 
         }
@@ -39,6 +41,15 @@ namespace DesktopCharacter.Model
         public void SetAnimation(string name)
         {
             SetAnimationSubject.OnNext(name);
+        }
+
+        /// <summary>
+        /// Characterに発言をさせる
+        /// </summary>
+        /// <param name="text">発言させる内容</param>
+        public void Talk(string text)
+        {
+            TalkSubject.OnNext(text);
         }
     }
 }

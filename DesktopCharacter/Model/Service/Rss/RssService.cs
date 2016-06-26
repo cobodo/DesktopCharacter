@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace DesktopCharacter.Model.RssFunction
+namespace DesktopCharacter.Model.Service.Rss
 {
     //RSS渡せば喋ります(現在RSS1.0非対応)
     class RssService
@@ -18,7 +18,7 @@ namespace DesktopCharacter.Model.RssFunction
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
                 foreach (SyndicationItem items in feed.Items)
                 {
-                    DesktopCharacter.Model.CharacterTalkModel.Instance.Talk("タイトル:" + items.Title.Text);
+                    DesktopCharacter.Model.CharacterNotify.Instance.Talk("タイトル:" + items.Title.Text);
                 }
             }
         }
