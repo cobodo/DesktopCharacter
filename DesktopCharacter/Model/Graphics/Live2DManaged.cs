@@ -14,9 +14,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace DesktopCharacter.Model
+namespace DesktopCharacter.Model.Graphics
 {
-    class CharacterManaged
+    class Live2DManaged
     {
         /// <summary>
         /// スクリーンサイズ
@@ -47,18 +47,16 @@ namespace DesktopCharacter.Model
         /// </summary>
         private Manager _live2DManager = new Manager();
         /// <summary>
-        /// デスクトップマスコットを利用するために必要なバージョン
+        /// ばぶみのコンフィグ
         /// </summary>
-        public static double RequiredVersion = 4.3;
-        /// <summary>
-        /// Live2Dのリソースディレクトリパス
-        /// </summary>
-        public static string Live2DResoruceDir = "Res/Live2D";
+        private BabumiConfig _babumiConfig;
 
-        public CharacterManaged()
+        public Live2DManaged()
         {
             CharacterPropertyNotify.Instance.CharacterLoadSubject.Subscribe(CharacterLoad);
             CharacterPropertyNotify.Instance.SetAnimationSubject.Subscribe(SetAnimation);
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            _babumiConfig = repo.GetConfig();
         }
 
         /// <summary>
@@ -71,10 +69,11 @@ namespace DesktopCharacter.Model
             lock (thisLock)
             {
                 _live2DManager.DeleteModel();
-                _live2DManager.Load(Live2DResoruceDir, name, string.Format("{0}.model.json", name));
-                var repo = ServiceLocator.Instance.GetInstance<CharacterDataRepository>();
+                _live2DManager.Load(_babumiConfig.Live2DResourceDir, name, string.Format("{0}.model.json", name));
+                var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
                 //!< 次回からこちらをロードする
-                repo.Save(new CharacterData(name));
+                _babumiConfig.Name = name;
+                repo.Save(_babumiConfig);
             }
         }
 
@@ -94,29 +93,12 @@ namespace DesktopCharacter.Model
         /// <param name="screenSize">スクリーンサイズ</param>
         public void Initialize(System.Drawing.Point screenSize)
         {
-            //!< Live2Dディレクトリにランダムから選出する
-            //!< フォルダーがもしない場合はそのこと通知して終了する    
-            var repo = ServiceLocator.Instance.GetInstance<CharacterDataRepository>();
-            var loadDataName = repo.GetDataName();
-            if (loadDataName == null)
-            {
-                string[] dirs = Directory.GetDirectories(Live2DResoruceDir);
-                if (dirs.Length == 0)
-                {                 //!< GLのバージョンを表示してアプリケーションを終了する
-                    MessageBox.Show(string.Format("[ ERROR ]\n{0}のパスにLive2Dのモデルデータが入っていない可能性があります。確認してみてください。", Live2DResoruceDir));
-                    //!< アプリケーションを終了する
-                    //this.Close();
-                }
-                loadDataName = System.IO.Path.GetFileName(dirs[new System.Random().Next(dirs.Length - 1)]);
-                //!< 次回からこちらをロードする
-                repo.Save(new CharacterData(loadDataName));
-            }
             //!< スクリーンサイズ設定
             _screenSize = screenSize;
             //!< キャラクターをロードする
-            CharacterLoad(loadDataName);
+            CharacterLoad(_babumiConfig.Name);
             //!< Debugの時だけバージョンチェックをする
-            if (RequiredVersion > GraphicsManager.Instance.GetVersion())
+            if (_babumiConfig.RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
                 return; //!< GL4.3以下なので処理をしない
             }
@@ -142,10 +124,8 @@ namespace DesktopCharacter.Model
         /// <returns></returns>
         public WriteableBitmap Draw()
         {
-
-
             //!< Debugの時だけバージョンチェックをする
-            if (RequiredVersion > GraphicsManager.Instance.GetVersion())
+            if (_babumiConfig.RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
                 return null; //!< GL4.3以下なので処理をしない
             }

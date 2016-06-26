@@ -23,6 +23,7 @@ using DesktopCharacter.Model.Database.Domain;
 using SharpGL;
 using System.Windows.Media;
 using DesktopCharacter.Model;
+using DesktopCharacter.Model.Graphics;
 
 namespace DesktopCharacter.ViewModel
 {
@@ -39,7 +40,7 @@ namespace DesktopCharacter.ViewModel
         /// <summary>
         /// モデル描画をまとめたModel層
         /// </summary>
-        private CharacterManaged _model = new CharacterManaged();
+        private Live2DManaged _model = new Live2DManaged();
         /// <summary>
         /// マスコット画像のイメージ
         /// </summary>

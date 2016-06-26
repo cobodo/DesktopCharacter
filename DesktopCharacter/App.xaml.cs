@@ -7,6 +7,8 @@ using System.Threading;
 using System.Windows;
 using NLog;
 using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Database.Domain;
 
 namespace DesktopCharacter
 {
@@ -29,6 +31,25 @@ namespace DesktopCharacter
             };
             base.OnStartup(e);
             ServiceLocator.Instance.InitializeServiceLocator();
+
+            //!< プロジェクトのコンフィグファイルを読み込む
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            try
+            {
+                repo.Save("Babumi.config");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show( string.Format( "[ERROR]\n{0}", exception.Message ) );
+                Environment.Exit(0);
+            }
+        }
+
+        protected override void OnExit(System.Windows.ExitEventArgs e)
+        {
+            //!< プロジェクトのコンフィグファイルを読み込む
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            repo.ExportXML("Babumi.config"); 
         }
     }
 }

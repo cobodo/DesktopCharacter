@@ -1,4 +1,7 @@
 ﻿using DesktopCharacter.Model;
+using DesktopCharacter.Model.Database.Domain;
+using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
 using Livet.Commands;
 using System;
 using System.Collections.Generic;
@@ -48,6 +51,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
 
     class CharacterSettingViewModel : Livet.ViewModel
     {
+        private BabumiConfig _babumiConfig;
         /// <summary>
         /// ListViewの一覧に出るコレクション要素
         /// </summary>
@@ -60,13 +64,15 @@ namespace DesktopCharacter.ViewModel.SettingTab
         public CharacterSettingViewModel()
         {
             _listCollection = new ObservableCollection<CharacterName>();
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            _babumiConfig = repo.GetConfig();
             Reload();
         }
 
         private void Reload()
         {
             _listCollection.Clear();
-            string[] dirs = Directory.GetDirectories(CharacterManaged.Live2DResoruceDir);
+            string[] dirs = Directory.GetDirectories(_babumiConfig.Live2DResourceDir);
             if (dirs.Length == 0)
             {
                 return;

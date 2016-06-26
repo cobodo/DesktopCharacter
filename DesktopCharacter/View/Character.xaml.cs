@@ -13,11 +13,6 @@ namespace DesktopCharacter.View
     /// </summary>
     public partial class Character : Window
     {
-        /// <summary>
-        /// デスクトップマスコットを利用するために必要なバージョン
-        /// </summary>
-        static double RequiredVersion = 4.3;
-
         public Character()
         {
             InitializeComponent();
@@ -51,7 +46,8 @@ namespace DesktopCharacter.View
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             //!< Debugの時だけバージョンチェックをする
-            if (RequiredVersion > GraphicsManager.Instance.GetVersion())
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            if (repo.GetConfig().RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
                 //!< GLのバージョンを表示してアプリケーションを終了する
                 MessageBox.Show(string.Format(
@@ -60,7 +56,7 @@ namespace DesktopCharacter.View
                     GraphicsManager.Instance.mRender,
                     GraphicsManager.Instance.mVersion));
                 //!< アプリケーションを終了する
-                this.Close();
+                Environment.Exit(0);
             }
         }
     }
