@@ -30,9 +30,9 @@ namespace Generater
             options.Headers.Add("Live2DWrap.h");
             options.Libraries.Add("Live2DWrapping.lib");
             options.addIncludeDirs("../../../Live2DWrapping");
-#if DEBUG
+#if (DEBUG)
             options.addLibraryDirs("../../../Lib/Debug");
-#else
+#elif (NDEBUG)
             options.addLibraryDirs("../../../Lib/Release");
 #endif
         }
