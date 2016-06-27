@@ -2,7 +2,7 @@
 
 solution "Live2DforDLL"
     configurations { "Debug", "Release" }
-    platforms { "x64", "Any CPU" }
+    platforms { "x64" }
     location ("./")
     startproject "BabumiGraphics"
 
@@ -17,7 +17,6 @@ project "Live2DforDLL"
     libdirs { '$(SolutionDir)..\\Lib\\$(Configuration)\\' }
     links { "Live2DWrapping.lib", "opengl32.lib" }
     defines { "_WINDLL", "_MBCS" }
-    removeplatforms { "Any CPU" }
     clr "On"
     
     prebuildcommands {  
