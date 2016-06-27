@@ -12,8 +12,9 @@ project "Generater"
     language "C#"
     platforms { "Any CPU" }
     framework ("4.5.2")
+    defines { "DEBUG", "TRACE" }
     targetdir "bin\\$(Configuration)\\"
-
+    removeplatforms { "x64" }
 
     files {
          "./**.cs", 

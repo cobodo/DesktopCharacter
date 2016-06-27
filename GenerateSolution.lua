@@ -73,7 +73,7 @@ project "DesktopCharacter"
         "packages/CalcBinding.2.2.5.1/lib/net45/CalcBinding.dll",
         "packages/DynamicExpresso.Core.1.3.0.0/lib/net40/DynamicExpresso.Core.dll",
         "Extension/Lib/$(Configuration)/BabumiGraphics.dll",
-        "Extension/Lib/$(Configuration)/Live2DforDLL.dll",
+        "Extension/Lib/$(Configuration)/Live2D for DLL.dll",
         "Extension/Lib/$(Configuration)/SharpGL.WPF.dll",
         "Extension/Lib/$(Configuration)/SharpGL.SceneGraph.dll",
         "Extension/Lib/$(Configuration)/SharpGL.dll",
