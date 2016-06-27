@@ -72,6 +72,11 @@ project "DesktopCharacter"
         "packages/System.Data.SQLite.Linq.1.0.99.0/lib/net451/System.Data.SQLite.Linq.dll",
         "packages/CalcBinding.2.2.5.1/lib/net45/CalcBinding.dll",
         "packages/DynamicExpresso.Core.1.3.0.0/lib/net40/DynamicExpresso.Core.dll",
+        "Extension/Lib/$(Configuration)/BabumiGraphics.dll",
+        "Extension/Lib/$(Configuration)/Live2DforDLL.dll",
+        "Extension/Lib/$(Configuration)/SharpGL.WPF.dll",
+        "Extension/Lib/$(Configuration)/SharpGL.SceneGraph.dll",
+        "Extension/Lib/$(Configuration)/SharpGL.dll",
     }
 
     configuration { "**.png" }
@@ -79,40 +84,26 @@ project "DesktopCharacter"
     
     configuration { "**.jpg" }
     buildaction ( "Copy" )
-    
-    configuration { "**.moc" }
-    buildaction ( "Copy" )
-    
-    configuration { "**.mtn" }
-    buildaction ( "Copy" )
-    
-    configuration { "**.json" }
-    buildaction ( "Copy" )
 
     configuration { "**.fx" }
     buildaction ( "Copy" ) 
     
     configuration { "Debug*" }
-        defines { "DEBUG" }
+        defines { "DEBUG", "TRACE" }
         flags   { "Symbols" }
-        links { 
-            "Extension/Lib/Debug/BabumiGraphics.dll",
-            "Extension/Lib/Debug/Live2DforDLL.dll",
-            "Extension/Lib/Debug/SharpGL.WPF.dll",
-            "Extension/Lib/Debug/SharpGL.SceneGraph.dll",
-            "Extension/Lib/Debug/SharpGL.dll"
-        }
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
          }
 
     configuration { "Release*" }
+        defines { "NDEBUG" }
         optimize "On"
         postbuildcommands   { 
-            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
+            'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
          }
+
 
 
         
