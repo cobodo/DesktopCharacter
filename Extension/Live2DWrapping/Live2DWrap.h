@@ -27,6 +27,13 @@ public:
 	*/
 	void craeteModel( const char* str );
 
+	/*
+	* @brief
+	* @param const void* ptr - データ
+	* @param int size - データサイズ
+	*/
+	void craeteModel( void* ptr, int size );
+
 	/*!
 	*  @brief  モデルを削除
 	*/
@@ -112,6 +119,13 @@ public:
 	*  @return:   void
 	*/
 	void loadMotion( const char* filepath );
+
+	/*
+	* @brief
+	* @param const void* ptr - データ
+	* @param int size - データサイズ
+	*/
+	void loadMotion( void* ptr, int size );
 
 	/*!
 	*  @brief  モーションを解放

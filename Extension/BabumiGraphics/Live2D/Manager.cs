@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BabumiGraphics.Utility;
+using System.Runtime.InteropServices;
 
 namespace BabumiGraphics.Live2D
 {
@@ -19,35 +20,27 @@ namespace BabumiGraphics.Live2D
 
         private List<Tuple<string, bool>> mRegisterAnimationQueue = new List<Tuple<string, bool>>();
 
-        string ResourceDir { get; set; }
-        string ResourceName { get; set; }
-        string ModelRootDir { get; set; }
-
         public Manager()
         {
             Live2DWrapping.init();
         }
 
-        public void Load( string resoruceDir, string modelRootDir, string resoruceName, string modeljson )
+        public void Load( string modeljson )
         {
-            ResourceDir = resoruceDir;
-            ResourceName = resoruceName;
-            ModelRootDir = modelRootDir;
-
             mAnimationQueue = new Live2DMotionQueueManager();
 
             JsonObject modelObject = new JsonObject();
             JsonObject physicsObject = null;
 
-            string LoadPath = ResourceDir + "\\" + ResourceName + "\\" + ModelRootDir;
+            string loadPath = System.IO.Path.GetDirectoryName(modeljson);
             //!< ModelJsonの読み込み
-            modelObject.LoadJson(LoadPath + "\\" + modeljson);
+            modelObject.LoadJson( modeljson );
             
             {
                 var data = modelObject.LoadObject;
                 //!< モデル読み込み
                 {
-                    mModel.LoadModel(LoadPath, data.model, data.textures);
+                    mModel.LoadModel(loadPath, data.model, data.textures);
                 }
                 //!< アニメーション読み込み
                 {
@@ -56,10 +49,17 @@ namespace BabumiGraphics.Live2D
                         //System.Console.WriteLine(t.Keys);
                         foreach (var file in (dynamic[])motion.Value)
                         {
-                            string path = LoadPath + "\\" + file.file;
-                            var animation = new Live2DAnimation();
-                            animation.loadMotion(path);
-                            mAnimationContainer.Add(Path.GetFileNameWithoutExtension(path), animation);
+                            //!< 2byte文字をLive2D側が読み込めない様子...
+                            using (var fs = new FileStream(Path.Combine(loadPath, file.file), FileMode.Open))
+                            {
+                                byte[] readBuffer = new byte[fs.Length];
+                                fs.Read(readBuffer, 0, (int)fs.Length);
+                                IntPtr dest = Marshal.AllocHGlobal((int)fs.Length);
+                                Marshal.Copy(readBuffer, 0, dest, (int)fs.Length);
+                                var animation = new Live2DAnimation();
+                                animation.loadMotion(dest, (int)fs.Length);
+                                mAnimationContainer.Add(Path.GetFileNameWithoutExtension(Path.Combine(loadPath, file.file)), animation);
+                            }
                         }
                     }
                 }
@@ -67,7 +67,7 @@ namespace BabumiGraphics.Live2D
                 if (data.IsDefined("physics"))
                 {
                     physicsObject = new JsonObject();
-                    physicsObject.LoadJson(LoadPath + "\\" + data.physics);
+                    physicsObject.LoadJson(loadPath + "\\" + data.physics);
                 }
             }
 

@@ -47,7 +47,17 @@ namespace DesktopCharacter.View
         {
             //!< Debugの時だけバージョンチェックをする
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-            if (repo.GetConfig().RequiredVersion > GraphicsManager.Instance.GetVersion())
+            var setting = repo.GetConfig();
+            //!< 起動時に例外処理をしているので必ずnullではないと思うのだけど...
+            if (setting == null)
+            {
+                //!< GLのバージョンを表示してアプリケーションを終了する
+                MessageBox.Show("Configファイルを正しく読み込めてない可能性があるため終了します");
+                //!< アプリケーションを終了する
+                Environment.Exit(0);
+            }
+            //!< OpenGLのバージョンチェック
+            if ( setting.RequiredVersion > GraphicsManager.Instance.GetVersion())
             {
                 //!< GLのバージョンを表示してアプリケーションを終了する
                 MessageBox.Show(string.Format(

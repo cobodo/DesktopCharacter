@@ -63,13 +63,13 @@ namespace DesktopCharacter.Model.Graphics
         /// キャラクターのロード
         /// </summary>
         /// <param name="name">キャラクター名</param>
-        public void CharacterLoad( string name )
+        public void CharacterLoad( string modelJsonPath )
         {
             _live2DManager.DeleteModel();
-            _live2DManager.Load(_babumiConfig.Live2DResourceDir, _babumiConfig.Live2DModelDir, name, string.Format("{0}.model.json", name));
+            _live2DManager.Load(modelJsonPath);
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             //!< 次回からこちらをロードする
-            _babumiConfig.Name = name;
+            _babumiConfig.ModelJsonPath = modelJsonPath;
             repo.Save(_babumiConfig);
         }
 
@@ -92,7 +92,7 @@ namespace DesktopCharacter.Model.Graphics
             //!< スクリーンサイズ設定
             _screenSize = screenSize;
             //!< キャラクターをロードする
-            CharacterLoad(_babumiConfig.Name);
+            CharacterLoad(_babumiConfig.ModelJsonPath);
             //!< Debugの時だけバージョンチェックをする
             if (_babumiConfig.RequiredVersion > GraphicsManager.Instance.GetVersion())
             {

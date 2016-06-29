@@ -67,6 +67,8 @@ namespace Live2DWrap
 
         void craeteModel(System::String^ str);
 
+        void craeteModel(::System::IntPtr ptr, int size);
+
         /// <summary>
         /// ���f����폜
         /// </summary>
@@ -123,6 +125,8 @@ namespace Live2DWrap
         /// :
         /// </summary>
         void loadMotion(System::String^ filepath);
+
+        void loadMotion(::System::IntPtr ptr, int size);
 
         /// <summary>
         /// ���[�V��������

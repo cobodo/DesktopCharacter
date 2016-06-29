@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Live2DWrap;
 using System.Drawing;
 using BabumiGraphics.Graphics;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace BabumiGraphics.Live2D
 {
@@ -19,11 +21,20 @@ namespace BabumiGraphics.Live2D
 
         public void LoadModel( string prefix, dynamic modelPath, dynamic textures )
         {
-            ModelObject.craeteModel(prefix + "\\" + modelPath);
+            //!< 2byte文字をLive2D側が読み込めない様子...
+            using (var fs = new FileStream(Path.Combine(prefix, modelPath), FileMode.Open))
+            {
+                byte[] readBuffer = new byte[fs.Length];
+                fs.Read(readBuffer, 0, (int)fs.Length);
+                IntPtr dest = Marshal.AllocHGlobal((int)fs.Length);
+                Marshal.Copy(readBuffer, 0, dest, (int)fs.Length);
+                ModelObject.craeteModel(dest, (int)fs.Length);
+            }
 
+            //!< テクスチャー読み込み
             for (int i = 0; i < ((object[])textures).Length; ++i)
             {
-                using (Bitmap bitmap = new Bitmap(prefix + "\\" + textures[ i ]))
+                using (Bitmap bitmap = new Bitmap(Path.Combine( prefix, textures[ i ])))
                 {
                     //  Create a new texture and bind it.
                     var tex = new Texture2D();

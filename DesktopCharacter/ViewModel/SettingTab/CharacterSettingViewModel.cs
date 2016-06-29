@@ -15,9 +15,10 @@ namespace DesktopCharacter.ViewModel.SettingTab
 {
     class CharacterName : Livet.NotificationObject
     {
-        public CharacterName(string name)
+        public CharacterName(string name, string modelJsonPath)
         {
             _fileName = name;
+            _modelJsonPath = modelJsonPath;
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 mIsSelected = value;
                 if (mIsSelected)
                 {
-                    CharacterPropertyNotify.Instance.CharacterLoad(_fileName);
+                    CharacterPropertyNotify.Instance.CharacterLoad(_modelJsonPath);
                 }
                 this.RaisePropertyChanged("IsSelected");
             }
@@ -46,6 +47,13 @@ namespace DesktopCharacter.ViewModel.SettingTab
         {
             get { return _fileName; }
             set { _fileName = value; this.RaisePropertyChanged("FileName"); }
+        }
+
+        private string _modelJsonPath;
+        public string ModelJsonPath
+        {
+            get { return _modelJsonPath; }
+            set { _modelJsonPath = value; this.RaisePropertyChanged("ModelJsonPath"); }
         }
     }
 
@@ -77,9 +85,18 @@ namespace DesktopCharacter.ViewModel.SettingTab
             {
                 return;
             }
-            foreach (var name in dirs)
+            foreach (var directory in dirs)
             {
-                _listCollection.Add(new CharacterName(System.IO.Path.GetFileName(name)));
+                //!< 下の階層ファイルを検索して*.model.jsonのパスを探す
+                string[] files = System.IO.Directory.GetFiles(directory, "*", System.IO.SearchOption.AllDirectories);
+                foreach( var file in files)
+                {
+                    if ( file.Contains( ".model.json" ) )
+                    {
+                        _listCollection.Add(new CharacterName(System.IO.Path.GetFileName(directory), file));
+                        break;
+                    }
+                }
             }
         }
 

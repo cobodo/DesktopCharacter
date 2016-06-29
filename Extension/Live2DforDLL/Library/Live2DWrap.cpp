@@ -82,6 +82,12 @@ void Live2DWrap::Live2Model::craeteModel(System::String^ str)
     ((::Live2Model*)NativePtr)->craeteModel(arg0);
 }
 
+void Live2DWrap::Live2Model::craeteModel(::System::IntPtr ptr, int size)
+{
+    auto arg0 = (void*)ptr;
+    ((::Live2Model*)NativePtr)->craeteModel(arg0, size);
+}
+
 void Live2DWrap::Live2Model::deleteModel()
 {
     ((::Live2Model*)NativePtr)->deleteModel();
@@ -181,6 +187,12 @@ void Live2DWrap::Live2DAnimation::loadMotion(System::String^ filepath)
     auto _arg0 = clix::marshalString<clix::E_UTF8>(filepath);
     auto arg0 = _arg0.c_str();
     ((::Live2DAnimation*)NativePtr)->loadMotion(arg0);
+}
+
+void Live2DWrap::Live2DAnimation::loadMotion(::System::IntPtr ptr, int size)
+{
+    auto arg0 = (void*)ptr;
+    ((::Live2DAnimation*)NativePtr)->loadMotion(arg0, size);
 }
 
 void Live2DWrap::Live2DAnimation::deleteMotion()

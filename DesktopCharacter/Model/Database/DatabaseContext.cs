@@ -17,7 +17,6 @@ namespace DesktopCharacter.Model.Database
         public DbSet<TwitterUser> TwitterUser { get; set; }
         public DbSet<TwitterNotificationFilter> TwitterNotificationFilter { get; set; }
         public DbSet<WindowPosition> WindowPosition { get; set; }
-        public DbSet<BabumiConfig> BabumiConfig { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
