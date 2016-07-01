@@ -26,24 +26,27 @@ namespace DesktopCharacter.Model.Database.Domain
             Live2DResourceDir = live2DResourceDir;
         }
 
-        protected bool Equals(BabumiConfig other)
+        public static BabumiConfig DefaultConfig()
         {
-            return ModelJsonPath == other.ModelJsonPath
-                && RequiredVersion == other.RequiredVersion
-                && Live2DResourceDir == other.Live2DResourceDir;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((BabumiConfig)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return ModelJsonPath.GetHashCode();
+            try
+            {
+                var fileList = Util.File.DirectoryUtility.GetFileList("Res/Live2D", ".model.json");
+                if (fileList.Count != 0)
+                {
+                    //!< デフォルトのコンフィグを作成する
+                    return new BabumiConfig
+                    {
+                        RequiredVersion = 4.2,
+                        Live2DResourceDir = "Res/Live2D",
+                        ModelJsonPath = fileList.FirstOrDefault(),
+                    };
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

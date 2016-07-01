@@ -3,6 +3,7 @@ using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
 using Livet.Commands;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,6 +60,10 @@ namespace DesktopCharacter.ViewModel.SettingTab
 
     class CharacterSettingViewModel : Livet.ViewModel
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// ばぶみのコンフィグファイル
+        /// </summary>
         private BabumiConfig _babumiConfig;
         /// <summary>
         /// 読み込みファイル一覧
@@ -80,23 +85,22 @@ namespace DesktopCharacter.ViewModel.SettingTab
         private void Reload()
         {
             _listCollection.Clear();
-            string[] dirs = Directory.GetDirectories(_babumiConfig.Live2DResourceDir);
-            if (dirs.Length == 0)
+
+            try
             {
-                return;
-            }
-            foreach (var directory in dirs)
-            {
-                //!< 下の階層ファイルを検索して*.model.jsonのパスを探す
-                string[] files = System.IO.Directory.GetFiles(directory, "*", System.IO.SearchOption.AllDirectories);
-                foreach( var file in files)
+                var fileList = Util.File.DirectoryUtility.GetFileList(_babumiConfig.Live2DResourceDir, ".model.json");
+                if (fileList.Count != 0)
                 {
-                    if ( file.Contains( ".model.json" ) )
+                    foreach (var file in fileList)
                     {
-                        _listCollection.Add(new CharacterName(System.IO.Path.GetFileName(directory), file));
-                        break;
+                        //!< name.model.jsonなので二回繰り返すとファイル名がもってこれる
+                        _listCollection.Add(new CharacterName(Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(file)), file));
                     }
                 }
+            }
+            catch (Exception)
+            {
+                logger.Error( "モデルファイルリスト読込中にエラーが発生しました" );
             }
         }
 
