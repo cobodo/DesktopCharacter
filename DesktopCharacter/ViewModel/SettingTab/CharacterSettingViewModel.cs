@@ -34,7 +34,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 mIsSelected = value;
                 if (mIsSelected)
                 {
-                    CharacterPropertyNotify.Instance.CharacterLoad(_modelJsonPath);
+                    CharacterNotify.Instance.CharacterLoad(_modelJsonPath);
                 }
                 this.RaisePropertyChanged("IsSelected");
             }
