@@ -97,7 +97,7 @@ project "DesktopCharacter"
         flags   { "Symbols" }
         links { 
             "Extension/Lib/Debug/BabumiGraphics.dll",
-            "Extension/Lib/Debug/Live2D for DLL.dll",
+            "Extension/Lib/Debug/Live2DforDLL.dll",
             "Extension/Lib/Debug/SharpGL.WPF.dll",
             "Extension/Lib/Debug/SharpGL.SceneGraph.dll",
             "Extension/Lib/Debug/SharpGL.dll"

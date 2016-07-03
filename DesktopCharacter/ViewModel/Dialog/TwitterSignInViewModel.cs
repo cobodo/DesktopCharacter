@@ -80,7 +80,7 @@ namespace DesktopCharacter.ViewModel.Dialog
                 _callback.Invoke(twitterUser);
                 CloseAction();
             }
-            catch(TwitterException e)
+            catch(TwitterException)
             {
                 PinCode = "";
                 Message= "認証失敗";

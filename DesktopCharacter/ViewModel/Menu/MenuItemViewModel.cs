@@ -104,7 +104,7 @@ namespace DesktopCharacter.ViewModel.Menu
                             Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
                         }
                     } 
-                    catch(NullReferenceException e)
+                    catch(NullReferenceException)
                     {
                         MessageBox.Show("Coidcのアクセストークンが設定されていません");
                     }
