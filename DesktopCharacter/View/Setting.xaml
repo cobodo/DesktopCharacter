@@ -8,6 +8,7 @@
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:messaging="http://schemas.livet-mvvm.net/2011/wpf"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Setting" Height="400" Width="400">
     <i:Interaction.Triggers>
@@ -17,8 +18,8 @@
     </i:Interaction.Triggers>
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TabItem Header="トーク">
-                <st:TalkTab x:Name="TalkTab"></st:TalkTab>
+            <TabItem Header="キャラクター設定">
+                <st:CharacterTab x:Name="CharacterTab"></st:CharacterTab>
             </TabItem>
             <TabItem Header="ランチャー">
                 <st:LauncehrTab x:Name="LauncehrTab"></st:LauncehrTab>

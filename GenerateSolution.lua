@@ -90,7 +90,7 @@ project "DesktopCharacter"
     buildaction ( "Copy" )
 
     configuration { "**.fx" }
-    buildaction ( "Copy" )            
+    buildaction ( "Copy" ) 
     
     configuration { "Debug*" }
         defines { "DEBUG" }
@@ -105,6 +105,7 @@ project "DesktopCharacter"
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
+            'copy "$(ProjectDir)Babumi.config" "$(ProjectDir)$(OutDir)Babumi.config"',
          }
 
     configuration { "Release*" }
@@ -112,6 +113,7 @@ project "DesktopCharacter"
         postbuildcommands   { 
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x86\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
+            'copy "$(ProjectDir)Babumi.config" "$(ProjectDir)$(OutDir)Babumi.config"',
          }
 
 

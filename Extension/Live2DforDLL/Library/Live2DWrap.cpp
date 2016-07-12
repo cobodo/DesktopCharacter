@@ -82,6 +82,17 @@ void Live2DWrap::Live2Model::craeteModel(System::String^ str)
     ((::Live2Model*)NativePtr)->craeteModel(arg0);
 }
 
+void Live2DWrap::Live2Model::craeteModel(::System::IntPtr ptr, int size)
+{
+    auto arg0 = (void*)ptr;
+    ((::Live2Model*)NativePtr)->craeteModel(arg0, size);
+}
+
+void Live2DWrap::Live2Model::deleteModel()
+{
+    ((::Live2Model*)NativePtr)->deleteModel();
+}
+
 void Live2DWrap::Live2Model::setTexture(int textureNo, unsigned int glTexture)
 {
     ((::Live2Model*)NativePtr)->setTexture(textureNo, glTexture);
@@ -178,6 +189,17 @@ void Live2DWrap::Live2DAnimation::loadMotion(System::String^ filepath)
     ((::Live2DAnimation*)NativePtr)->loadMotion(arg0);
 }
 
+void Live2DWrap::Live2DAnimation::loadMotion(::System::IntPtr ptr, int size)
+{
+    auto arg0 = (void*)ptr;
+    ((::Live2DAnimation*)NativePtr)->loadMotion(arg0, size);
+}
+
+void Live2DWrap::Live2DAnimation::deleteMotion()
+{
+    ((::Live2DAnimation*)NativePtr)->deleteMotion();
+}
+
 void Live2DWrap::Live2DAnimation::updateParamExe(Live2DWrap::Live2Model^ model, long long timeMSec, float weight)
 {
     auto arg0 = (::Live2Model*)model->NativePtr;
@@ -244,6 +266,11 @@ Live2DWrap::Live2DMotionQueueManager::Live2DMotionQueueManager()
 {
     __ownsNativeInstance = true;
     NativePtr = new ::Live2DMotionQueueManager();
+}
+
+void Live2DWrap::Live2DMotionQueueManager::deleteMotionManager()
+{
+    ((::Live2DMotionQueueManager*)NativePtr)->deleteMotionManager();
 }
 
 int Live2DWrap::Live2DMotionQueueManager::startMotion(Live2DWrap::Live2DAnimation^ motion, bool autoDelete)

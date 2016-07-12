@@ -12,6 +12,7 @@
         xmlns:menuView="clr-namespace:DesktopCharacter.View.Menu"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
+        xmlns:behavior="clr-namespace:DesktopCharacter.Util.Behavior"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
@@ -22,9 +23,7 @@
         Title="MainWindow" Height="400" Width="400"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF">
     <Window.DataContext>
-        <vm:CharacterViewModel>
-
-        </vm:CharacterViewModel>
+        <vm:CharacterViewModel></vm:CharacterViewModel>
     </Window.DataContext>
 
     <i:Interaction.Triggers>
@@ -36,20 +35,17 @@
             <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </l:InteractionMessageTrigger>
         
-        <i:EventTrigger EventName="Closed">
-            <l:DataContextDisposeAction/>
-            <l:LivetCallMethodAction MethodName="ClosedEvent" MethodTarget="{Binding Mode=OneWay}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers> 
 
     <Grid>
         <Grid.ContextMenu>
           <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
-        <Image x:Name="Image" Width="400" Height="400"></Image>
+        <Image x:Name="Image" Source="{Binding Source}" Width="400" Height="400"></Image>
         <v:Talk Margin="0,257,0,0"></v:Talk>
         <sharpGL:OpenGLControl 
-            OpenGLDraw="OpenGLControl_OpenGLDraw" OpenGLInitialized="OpenGLControl_OpenGLInitialized" Width="0" Height="0"
-            RenderContextType="FBO" />
+            Width="0" Height="0" RenderContextType="FBO" 
+            behavior:SharpGLBehavior.OpenGLDrawCommand="{Binding DrawCommand}"
+            behavior:SharpGLBehavior.OpenGLInitializeCommand="{Binding InitializeCommand}"/>
     </Grid>
 </Window>

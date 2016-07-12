@@ -26,6 +26,18 @@ public:
 	* @param .moc ファイル
 	*/
 	void craeteModel( const char* str );
+
+	/*
+	* @brief
+	* @param const void* ptr - データ
+	* @param int size - データサイズ
+	*/
+	void craeteModel( void* ptr, int size );
+
+	/*!
+	*  @brief  モデルを削除
+	*/
+	void deleteModel();
 	/*
 	* @brief 
 	* @param texture番号
@@ -108,6 +120,18 @@ public:
 	*/
 	void loadMotion( const char* filepath );
 
+	/*
+	* @brief
+	* @param const void* ptr - データ
+	* @param int size - データサイズ
+	*/
+	void loadMotion( void* ptr, int size );
+
+	/*!
+	*  @brief  モーションを解放
+	*/
+	void deleteMotion();
+
 	/*!
 	*  @brief:	  
 	*  @param: 	  live2d::ALive2DModel * model
@@ -162,6 +186,10 @@ public:
 	~Live2DMotionQueueManager();
 
 public:
+	/*!
+	*  @brief モーション管理解放
+	*/
+	void deleteMotionManager();
 	/*!
 	*  @brief:	   
 	*  @param: 	  AMotion * motion

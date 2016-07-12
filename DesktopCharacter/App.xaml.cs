@@ -7,6 +7,9 @@ using System.Threading;
 using System.Windows;
 using NLog;
 using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Database.Domain;
+using System.IO;
 
 namespace DesktopCharacter
 {
@@ -29,6 +32,45 @@ namespace DesktopCharacter
             };
             base.OnStartup(e);
             ServiceLocator.Instance.InitializeServiceLocator();
+
+            //!< プロジェクトのコンフィグファイルを読み込む
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            try
+            {
+                repo.Save("Babumi.config");
+            }
+            catch (Exception exception) when (exception is FileNotFoundException)
+            {
+                MessageBox.Show(string.Format("コンフィグファイルがないようなので自動作成します。 \n"));
+                //!< Configファイルを自動作成してみてアプリケーションを再起動を試みる
+                var config = BabumiConfig.DefaultConfig();
+                if ( config != null )
+                {
+                    repo.Save(config);
+                    repo.ExportXML("Babumi.config");
+                    System.Windows.Forms.Application.Restart();
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("Res/Live2D以下のフォルダにモデルデータがないためコンフィグファイルの作成に失敗しました\n"));
+                }
+                //例外が発生したら必ず終了する
+                Environment.Exit(0);
+            }
+            catch(Exception exception)
+            {
+                //!< 致命的エラーなので終了する
+                MessageBox.Show(string.Format("[ERROR]\n{0}", exception.Message));
+                //例外が発生したら必ず終了する
+                Environment.Exit(0);
+            }
+        }
+
+        protected override void OnExit(System.Windows.ExitEventArgs e)
+        {
+            //!< プロジェクトのコンフィグファイルを読み込む
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            repo.ExportXML("Babumi.config"); 
         }
     }
 }

@@ -30,6 +30,17 @@ void Live2Model::craeteModel( const char* str )
 	mLive2DModel = Live2DModelWinGL::loadModel( str );
 }
 
+void Live2Model::craeteModel( void* ptr, int size )
+{
+	mLive2DModel = Live2DModelWinGL::loadModel( ptr, size );
+}
+
+void Live2Model::deleteModel()
+{
+	delete mLive2DModel;
+	mLive2DModel = nullptr;
+}
+
 void Live2Model::setTexture( int textureNo, unsigned int glTexture )
 {
 	mLive2DModel->setTexture( textureNo, glTexture );
@@ -105,6 +116,17 @@ void Live2DAnimation::loadMotion( const char* filepath )
 	mMotion = live2d::Live2DMotion::loadMotion( filepath );
 }
 
+void Live2DAnimation::loadMotion( void* ptr, int size )
+{
+	mMotion = live2d::Live2DMotion::loadMotion( ptr, size );
+}
+
+void Live2DAnimation::deleteMotion()
+{
+	delete mMotion;
+	mMotion = nullptr;
+}
+
 void Live2DAnimation::updateParamExe( Live2Model*  model, long long timeMSec, float weight )
 {
 	mMotion->updateParamExe( model->getModel(), timeMSec, weight, nullptr );
@@ -141,6 +163,10 @@ Live2DMotionQueueManager::Live2DMotionQueueManager() : mMotionManager()
 }
 
 Live2DMotionQueueManager::~Live2DMotionQueueManager() 
+{
+}
+
+void Live2DMotionQueueManager::deleteMotionManager()
 {
 	delete mMotionManager;
 	mMotionManager = nullptr;
