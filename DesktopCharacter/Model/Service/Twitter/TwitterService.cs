@@ -62,52 +62,52 @@ namespace DesktopCharacter.Model.Service.Twitter
                     case EventCode.Favorite:
                         if (user.Filter.Favorite)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にふぁぼられました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にふぁぼられました");
                         }
                         break;
                     case EventCode.Unfavorite:
                         if (user.Filter.Unfavorite)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にあんふぁぼされました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にあんふぁぼされました");
                         }
                         break;
                     case EventCode.Follow:
                         if (user.Filter.Follow)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にフォローされました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にフォローされました");
                         }
                         break;
 
                     case EventCode.Unfollow:
                         if (user.Filter.Unfollow)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にフォロー解除されました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にフォロー解除されました");
                         }
                         break;
 
                     case EventCode.Block:
                         if (user.Filter.Block)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にブロックされました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にブロックされました");
                         }
                         break;
 
                     case EventCode.Unblock:
                         if (user.Filter.Unblock)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にブロック解除されました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にブロック解除されました");
                         }
                         break;
                     case EventCode.ListMemberAdded:
                         if (user.Filter.ListAdded)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にリスト追加されました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にリスト追加されました");
                         }
                         break;
                     case EventCode.ListMemberRemoved:
                         if (user.Filter.ListRemoved)
                         {
-                            CharacterTalkModel.Instance.Talk(em.Source.Name + "にリストから外されました");
+                            CharacterNotify.Instance.Talk(em.Source.Name + "にリストから外されました");
                         }
                         break;
                 }
@@ -117,11 +117,11 @@ namespace DesktopCharacter.Model.Service.Twitter
                 var sm = (StatusMessage)m;
                 if (IsMentionStatus(sm, user))
                 {
-                    CharacterTalkModel.Instance.Talk(sm.Status.User.Name + "からメンション");
+                    CharacterNotify.Instance.Talk(sm.Status.User.Name + "からメンション");
                 }
                 if (IsRetweet(sm, user))
                 {
-                    CharacterTalkModel.Instance.Talk(sm.Status.User.Name + "にRTされました");
+                    CharacterNotify.Instance.Talk(sm.Status.User.Name + "にRTされました");
                 }
             }
             if (m.Type == MessageType.DirectMesssage)
@@ -129,7 +129,7 @@ namespace DesktopCharacter.Model.Service.Twitter
                 var dm = (DirectMessageMessage)m;
                 if (dm.DirectMessage.Sender.Id != user.UserId && user.Filter.DirectMessage)
                 {
-                    CharacterTalkModel.Instance.Talk(dm.DirectMessage.Sender.Name + "からDM");
+                    CharacterNotify.Instance.Talk(dm.DirectMessage.Sender.Name + "からDM");
                 }
             }
         }

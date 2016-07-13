@@ -1,5 +1,4 @@
-﻿using DesktopCharacter.Model.Domain;
-using DesktopCharacter.Model.Repository;
+﻿using DesktopCharacter.Model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
