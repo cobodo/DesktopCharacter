@@ -87,6 +87,15 @@ project "DesktopCharacter"
 
     configuration { "**.fx" }
     buildaction ( "Copy" ) 
+        
+    configuration { "**.moc" }
+    buildaction ( "Copy" )
+     
+    configuration { "**.mtn" }
+    buildaction ( "Copy" )    
+    
+    configuration { "**.json" }
+    buildaction ( "Copy" )
     
     configuration { "Debug*" }
         defines { "DEBUG", "TRACE" }
