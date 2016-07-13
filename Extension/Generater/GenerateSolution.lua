@@ -12,10 +12,7 @@ project "Generater"
     language "C#"
     platforms { "Any CPU" }
     framework ("4.5.2")
-    defines { "DEBUG", "TRACE" }
-
     targetdir "bin\\$(Configuration)\\"
-    --dependson {"Live2DWrapping"}    
     removeplatforms { "x64" }
 
     files {
@@ -46,8 +43,16 @@ project "Generater"
         "../Dependency/CppSharp/CppSharp.Parser.CSharp.dll",
         "../Dependency/CppSharp/CppSharp.Runtime.dll",
     }
-    --buildoptions{'"copy "$(SolutionDir)..\\Dependency\\CppSharp\\" "$(ProjectDir)bin\\$(Configuration)\\"'}
+    
     postbuildcommands {  
         'copy "$(SolutionDir)..\\Dependency\\CppSharp\\" "$(ProjectDir)bin\\$(Configuration)\\"'
     }
+    
+    configuration { "Debug*" }
+        defines { "DEBUG", "TRACE" }
+        flags   { "Symbols" }
+        
+    configuration { "Release*" }
+        defines { "NDEBUG" }
+        optimize "On"
         

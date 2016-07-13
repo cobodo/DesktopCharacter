@@ -2,7 +2,7 @@
 
 solution "Live2DforDLL"
     configurations { "Debug", "Release" }
-    platforms { "x64", "Any CPU" }
+    platforms { "x64" }
     location ("./")
     startproject "BabumiGraphics"
 
@@ -12,14 +12,11 @@ project "Live2DforDLL"
     language "C++"
     platforms { "x64" }  
     toolset "v120"
-    buildoptions { "/clr" }
     targetdir "$(SolutionDir)..\\Lib\\$(Configuration)\\"
     includedirs { "$(ProjectDir)", "$(SolutionDir)..\\" }
     libdirs { '$(SolutionDir)..\\Lib\\$(Configuration)\\' }
     links { "Live2DWrapping.lib", "opengl32.lib" }
     defines { "_WINDLL", "_MBCS" }
-    --dependson {"Generater"}
-    removeplatforms { "Any CPU" }
     clr "On"
     
     prebuildcommands {  
@@ -38,6 +35,14 @@ project "Live2DforDLL"
         "./obj/**.*",
         "./bin/**.*",
      }
-     configuration { "Debug" }
+    
+    configuration { "Debug*" }
+        defines { "DEBUG", "TRACE" }
+        flags   { "Symbols" }
         buildoptions { "/MDd" }
+        
+    configuration { "Release*" }
+        defines { "NDEBUG" }
+        buildoptions { "/MD" }
+        optimize "On"
         

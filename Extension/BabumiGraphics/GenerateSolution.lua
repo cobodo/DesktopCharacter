@@ -12,10 +12,10 @@ project "BabumiGraphics"
     language "C#"
     platforms { "x64" }
     framework ("4.5.2")
-    defines { "DEBUG", "TRACE" }
-    --dependson {"Live2D for DLL"}
     removeplatforms { "Any CPU" }
-        
+    links {  "../Lib/$(Configuration)/Live2DforDLL.dll" }
+    targetdir "..\\Lib\\$(Configuration)\\"
+    
     files {
          "./**.cs", 
          "./**.xaml", 
@@ -40,17 +40,18 @@ project "BabumiGraphics"
         "System.Runtime.Serialization",
         "Microsoft.CSharp",
         "PresentationFramework",
-        "../Dependency/SharpGL/SharpGL.dll",
-        "../Dependency/SharpGL/SharpGL.SceneGraph.dll",
-        "../Dependency/SharpGL/SharpGL.WPF.dll",
+        "../Dependency/SharpGL/$(Configuration)/SharpGL.dll",
+        "../Dependency/SharpGL/$(Configuration)/SharpGL.SceneGraph.dll",
+        "../Dependency/SharpGL/$(Configuration)/SharpGL.WPF.dll",
     }
     
     configuration { "Debug*" }
         defines { "DEBUG", "TRACE" }
         flags   { "Symbols" }
-        links {  "../Lib/Debug/Live2DforDLL.dll" }
-        targetdir "..\\Lib\\Debug\\"
+
         
     configuration { "Release*" }
+        defines { "NDEBUG" }
         optimize "On"
+        
         

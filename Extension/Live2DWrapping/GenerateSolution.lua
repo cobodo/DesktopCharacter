@@ -38,5 +38,13 @@ project "Live2DWrapping"
          '"live2d_opengl.lib"',
          '/LIBPATH:'..'"$(SolutionDir)..\\Dependency\\Live2D_SDK_OpenGL\\lib\\$(Configuration)"'
      }
-     configuration { "Debug" }
+    
+    configuration { "Debug*" }
+        defines { "DEBUG", "TRACE" }
+        flags   { "Symbols" }
         buildoptions { "/MDd" }
+        
+    configuration { "Release*" }
+        defines { "NDEBUG" }
+        buildoptions { "/MD" }
+        optimize "On"
