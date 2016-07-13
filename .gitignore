@@ -250,3 +250,11 @@ Extension/Dependency/Live2D_SDK_OpenGL
 *.vcxproj
 *.sdf
 *.filters
+
+# Live2D Resources
+DesktopCharacter/Res/**/*.model.json
+DesktopCharacter/Res/**/*.physics.json
+DesktopCharacter/Res/**/*.moc
+DesktopCharacter/Res/**/sounds/*
+DesktopCharacter/Res/**/motions/*
+DesktopCharacter/Res/**/expressions/*
