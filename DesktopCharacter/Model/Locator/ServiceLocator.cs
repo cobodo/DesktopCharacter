@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Service.TimeSignal;
 using DesktopCharacter.Model.Service.Twitter;
 using NLog;
 
@@ -44,6 +45,9 @@ namespace DesktopCharacter.Model.Locator
             RegisterByConfigBaseScope<CodicRepository>(() => new CodicRepository());
             RegisterByPrototypeScope<WindowPositionRepository>(() => new WindowPositionRepository());
             RegisterByApplicationScope<BabumiConfigRepository>(() => new BabumiConfigRepository());
+            RegisterByApplicationScope<ITimeSignalService>(() => new CompositeTimeSignalService(
+                    new SimpleTimeSignalService())
+                );
             logger.Info("=== End RegistFactories ===");
         }
 
