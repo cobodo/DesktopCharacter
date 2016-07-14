@@ -19,6 +19,10 @@ namespace DesktopCharacter.Model.Graphics
     class Live2DManaged
     {
         /// <summary>
+        /// 初期化済みかどうか
+        /// </summary>
+        public bool Initialized { get; private set; } = false;
+        /// <summary>
         /// スクリーンサイズ
         /// </summary>
         private System.Drawing.Point _screenSize;
@@ -89,6 +93,8 @@ namespace DesktopCharacter.Model.Graphics
         /// <param name="screenSize">スクリーンサイズ</param>
         public void Initialize(System.Drawing.Point screenSize)
         {
+            //!< 初期化
+            Initialized = true;
             //!< スクリーンサイズ設定
             _screenSize = screenSize;
             //!< キャラクターをロードする
@@ -112,6 +118,18 @@ namespace DesktopCharacter.Model.Graphics
             _computeShader.Attach();
 
             GraphicsManager.Instance.SetRenderTarget(_renderTarget);
+        }
+
+        /// <summary>
+        /// グラフィックスオブジェクト削除
+        /// 再初期化ができる
+        /// </summary>
+        public void Destory()
+        {
+            Initialized = false;
+            _sssbObject.Destory();
+            _renderTarget.Destory();
+            _computeShader.Destory();
         }
 
         /// <summary>

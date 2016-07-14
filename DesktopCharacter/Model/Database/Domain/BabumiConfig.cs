@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace DesktopCharacter.Model.Database.Domain
 {
@@ -14,16 +15,20 @@ namespace DesktopCharacter.Model.Database.Domain
         public string ModelJsonPath { get; set; }
         public double RequiredVersion { get; set; }
         public string Live2DResourceDir { get; set; }
+        public bool Topmost { get; set; }
+        public Point WindowSize { get; set; }
 
         public BabumiConfig()
         {
         }
 
-        public BabumiConfig(string modelJsonPath, double requiredVersion, string live2DResourceDir, string live2DModelDir)
+        public BabumiConfig(string modelJsonPath, double requiredVersion, string live2DResourceDir, string live2DModelDir, bool topmost, Point windowSize)
         {
             ModelJsonPath = modelJsonPath;
             RequiredVersion = requiredVersion;
             Live2DResourceDir = live2DResourceDir;
+            Topmost = topmost;
+            WindowSize = windowSize;
         }
 
         public static BabumiConfig DefaultConfig()
@@ -39,6 +44,8 @@ namespace DesktopCharacter.Model.Database.Domain
                         RequiredVersion = 4.2,
                         Live2DResourceDir = "Res/Live2D",
                         ModelJsonPath = fileList.FirstOrDefault(),
+                        Topmost = true,
+                        WindowSize = new Point{ X = 400, Y = 400 },
                     };
                 }
                 return null;

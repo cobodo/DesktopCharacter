@@ -10,6 +10,7 @@
         xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
         xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate" 
         xmlns:menuView="clr-namespace:DesktopCharacter.View.Menu"
+        xmlns:util="clr-namespace:DesktopCharacter.Util.Messenger.Action"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
         xmlns:behavior="clr-namespace:DesktopCharacter.Util.Behavior"
@@ -19,7 +20,6 @@
         ShowInTaskbar="False"
         Topmost="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="400" Width="400"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF">
     <Window.DataContext>
@@ -34,7 +34,23 @@
         <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
             <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </l:InteractionMessageTrigger>
-        
+
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
+        </i:EventTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="TopmostMessage" Messenger="{Binding Messenger}">
+            <util:TopmostAction InvokeActionOnlyWhenWindowIsActive="False"/>
+        </l:InteractionMessageTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="WindowResizeMessage" Messenger="{Binding Messenger}">
+            <util:ResizeAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="InfoMessage" Messenger="{Binding Messenger}">
+            <l:InformationDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False"/>
+        </l:InteractionMessageTrigger>
+
     </i:Interaction.Triggers> 
 
     <Grid>

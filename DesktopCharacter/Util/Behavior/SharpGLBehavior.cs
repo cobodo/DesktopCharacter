@@ -79,11 +79,13 @@ namespace DesktopCharacter.Util.Behavior
             }
 
             Func<OpenGLControl, ICommand> GetCommand = (obj) => { return (ICommand)obj.GetValue(OpenGLDrawCommandProperty); };
+
+            GraphicsManager.Instance.Device = args.OpenGL;
+
             var command = GetCommand.Invoke(control);
             if (command.CanExecute(sender))
             {
-                GraphicsManager.Instance.Device = args.OpenGL;
-                GraphicsManager.Instance.Initialize();
+                
 
                 command.Execute(sender);
             }
@@ -98,12 +100,13 @@ namespace DesktopCharacter.Util.Behavior
             }
 
             Func<OpenGLControl, ICommand> GetCommand = (obj) => { return (ICommand)obj.GetValue(OpenGLInitializeCommandProperty); };
+
+            GraphicsManager.Instance.Device = args.OpenGL;
+            GraphicsManager.Instance.Initialize();
+
             var command = GetCommand.Invoke(control);
             if (command.CanExecute(sender))
             {
-                GraphicsManager.Instance.Device = args.OpenGL;
-                GraphicsManager.Instance.Initialize();
-
                 command.Execute(sender);
             }
         }

@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopCharacter.Util.Messenger.Message;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
@@ -74,11 +75,37 @@ namespace DesktopCharacter.ViewModel.SettingTab
             get { return this._listCollection; }
         }
 
+        private double _characterScaleRate;
+        public double CharacterScaleRate
+        {
+            set
+            {
+                _characterScaleRate = value;
+                this.RaisePropertyChanged("CharacterScaleRate");
+            }
+            get { return _characterScaleRate; }
+        }
+
+        private bool _topmostFlag;
+        public bool TopmostFlag
+        {
+            set
+            {
+                _topmostFlag = _babumiConfig.Topmost = value;
+                this.RaisePropertyChanged("TopmostFlag");
+                CharacterNotify.Instance.TopMostMessage(_topmostFlag);
+                var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+                repo.Save(_babumiConfig);
+            }
+            get { return _topmostFlag; }
+        }
+
         public CharacterSettingViewModel()
         {
             _listCollection = new ObservableCollection<CharacterName>();
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             _babumiConfig = repo.GetConfig();
+            _topmostFlag = _babumiConfig.Topmost;
             Reload();
         }
 

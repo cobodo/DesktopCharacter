@@ -24,19 +24,20 @@ using SharpGL;
 using System.Windows.Media;
 using DesktopCharacter.Model;
 using DesktopCharacter.Model.Graphics;
+using DesktopCharacter.Util.Messenger.Message;
 
 namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {
         /// <summary>
-        /// TalkVMのインスタンス
+        /// 初期化フラグ
         /// </summary>
-        public TalkViewModel TalkViewModel { private get; set; }
+        private bool _initialized = false;
         /// <summary>
         /// スクリーンサイズ
         /// </summary>
-        public System.Drawing.Point ScreenSize { private get; set; }
+        private System.Drawing.Point _screenSize;
         /// <summary>
         /// モデル描画をまとめたModel層
         /// </summary>
@@ -57,7 +58,7 @@ namespace DesktopCharacter.ViewModel
 
         public CharacterViewModel()
         {
-
+            CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
         }
 
         private ViewModelCommand mDrawCommand;
@@ -69,6 +70,15 @@ namespace DesktopCharacter.ViewModel
                 {
                     mDrawCommand = new ViewModelCommand( () =>
                     {
+                        //!< キャラクターVMの初期化が終わるまで遅延させる
+                        if (!_initialized)
+                        {
+                            return;
+                        }
+                        if (!_model.Initialized)
+                        {
+                            _model.Initialize(_screenSize);
+                        }
                         Source = _model.Draw();
                     });
                 }
@@ -85,11 +95,62 @@ namespace DesktopCharacter.ViewModel
                 {
                     mInitializeCommand = new ViewModelCommand(() =>
                     {
-                        _model.Initialize(ScreenSize);
+                        //!< ここでモデルの初期化はしない
+                        //!< 描画コマンドの実行時にはスクリーンサイズが取得できているのでそちらで行う
+                        //!< コマンドとして定義している理由は、ビヘイビアでDeviceの初期化を行っているため
+                        return; 
                     });
                 }
                 return mInitializeCommand;
             }
+        }
+
+        public void Initialize()
+        {
+            //!< 初期化フラグOn
+            _initialized = true;
+            //!< コンフィグファイルを読み込む
+            {
+                var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+                var setting = repo.GetConfig();
+                //!< Windowsサイズを設定する
+                _screenSize = setting.WindowSize;
+                //!< Windowの最前面かどうかをコンフィグから設定
+                TopMostMessageSend(setting.Topmost);
+                //!< 起動時に例外処理をしているので必ずnullではないと思うのだけど...
+                if (setting == null)
+                {
+                    //!< GLのバージョンを表示してアプリケーションを終了する
+                    Messenger.Raise(new InformationMessage(
+                        "Configファイルを正しく読み込めてない可能性があるため終了します",
+                        "Information",
+                        MessageBoxImage.Information,
+                        "InfoMessage"));
+                    //!< アプリケーションを終了する
+                    Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                }
+                //!< OpenGLのバージョンチェック
+                if (setting.RequiredVersion > GraphicsManager.Instance.GetVersion())
+                {
+                    //!< GLのバージョンを表示してアプリケーションを終了する
+                    Messenger.Raise(new InformationMessage(
+                        string.Format("GL_VENDOR: {0} \nGL_RENDERER : {1} \nGL_VERSION : {2} \nOpenGLのバージョンが4.3以下です！\nコンピュートシェーダに対応していないため終了します",
+                        GraphicsManager.Instance.mVender,
+                        GraphicsManager.Instance.mRender,
+                        GraphicsManager.Instance.mVersion),
+                        "Error",
+                        MessageBoxImage.Error,
+                        "InfoMessage"));
+                    //!< アプリケーションを終了する
+                    Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                }
+            }
+        }
+
+        public void TopMostMessageSend( bool topmost )
+        {
+            //!< Windowの最前面かどうかをコンフィグから設定
+            Messenger.Raise(new TopmostMessage("TopmostMessage", topmost));
         }
     }
 }
