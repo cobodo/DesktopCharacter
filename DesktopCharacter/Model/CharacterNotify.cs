@@ -15,6 +15,8 @@ namespace DesktopCharacter.Model
 
         public Subject<string> SetAnimationSubject { get; } = new Subject<string>();
 
+        public Subject<bool> TopMostMessageSubject { get; } = new Subject<bool>();
+
         /// <summary>
         /// CharacterPropertyNotifyのインスタンス
         /// </summary>
@@ -50,6 +52,15 @@ namespace DesktopCharacter.Model
         public void Talk(string text)
         {
             TalkSubject.OnNext(text);
+        }
+
+        /// <summary>
+        /// ウィンドウを常に上にするかどうかの切り替えメッセージを送る
+        /// </summary>
+        /// <param name="topmost">最前面フラグ</param>
+        public void TopMostMessage( bool topmost)
+        {
+            TopMostMessageSubject.OnNext(topmost);
         }
     }
 }
