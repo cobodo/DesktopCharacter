@@ -16,11 +16,18 @@ namespace DesktopCharacter.Util.Messenger.Action
         protected override void InvokeAction(InteractionMessage message)
         {
             var msg = message as ReszieMessage;
-
+            
             if (msg != null)
             {
                 this.AssociatedObject.Width = msg.WindowSize.X;
                 this.AssociatedObject.Height = msg.WindowSize.Y;
+            }
+
+            var character = this.AssociatedObject as Character;
+            if ( character != null )
+            {
+                character.Image.Width = msg.WindowSize.X;
+                character.Image.Height = msg.WindowSize.Y;
             }
         }
     }

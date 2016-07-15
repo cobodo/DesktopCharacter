@@ -59,6 +59,7 @@ namespace DesktopCharacter.ViewModel
         public CharacterViewModel()
         {
             CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
+            CharacterNotify.Instance.WindowSizeMessageSubject.Subscribe(WindowSizeChange);
         }
 
         private ViewModelCommand mDrawCommand;
@@ -147,10 +148,17 @@ namespace DesktopCharacter.ViewModel
             }
         }
 
-        public void TopMostMessageSend( bool topmost )
+        private void TopMostMessageSend( bool topmost )
         {
             //!< Windowの最前面かどうかをコンフィグから設定
             Messenger.Raise(new TopmostMessage("TopmostMessage", topmost));
+        }
+
+        private void WindowSizeChange( System.Drawing.Point windowSize )
+        {
+            Messenger.Raise(new ReszieMessage("WindowResizeMessage", windowSize));
+            _screenSize = windowSize;
+            _model.Destory();
         }
     }
 }

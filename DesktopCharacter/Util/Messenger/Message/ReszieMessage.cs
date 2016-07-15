@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 
 namespace DesktopCharacter.Util.Messenger.Message
 {
@@ -22,7 +22,7 @@ namespace DesktopCharacter.Util.Messenger.Message
             this.WindowSize = windowSize;
         }
 
-        protected override Freezable CreateInstanceCore()
+        protected override System.Windows.Freezable CreateInstanceCore()
         {
             return new ReszieMessage(MessageKey);
         }
@@ -32,7 +32,7 @@ namespace DesktopCharacter.Util.Messenger.Message
             get { return (Point)GetValue(WindowSizeProperty); }
             set { SetValue(WindowSizeProperty, value); }
         }
-        public static readonly DependencyProperty WindowSizeProperty = DependencyProperty.Register(nameof(WindowSize), typeof(Point), typeof(ReszieMessage), new PropertyMetadata(null));
+        public static readonly System.Windows.DependencyProperty WindowSizeProperty = System.Windows.DependencyProperty.Register(nameof(WindowSize), typeof(Point), typeof(ReszieMessage), new System.Windows.PropertyMetadata(null));
 
     }
 }

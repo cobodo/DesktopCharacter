@@ -105,7 +105,7 @@ namespace DesktopCharacter.Model.Graphics
                 return; //!< GL4.3以下なので処理をしない
             }
             _bitmapSource = new WriteableBitmap(_screenSize.X, _screenSize.Y, 96, 96, PixelFormats.Bgra32, null);
-            _sourceRect = new Int32Rect(0, 0, _screenSize.X, _screenSize.Y);
+            _sourceRect = new Int32Rect(0, 0, _screenSize.X - 20, _screenSize.Y - 20);
 
             _renderTarget = new RenderTarget { Width = (uint)_screenSize.X, Height = (uint)_screenSize.Y };
             _renderTarget.Create();
