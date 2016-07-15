@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DesktopCharacter.Model
 {
@@ -16,6 +17,8 @@ namespace DesktopCharacter.Model
         public Subject<string> SetAnimationSubject { get; } = new Subject<string>();
 
         public Subject<bool> TopMostMessageSubject { get; } = new Subject<bool>();
+
+        public Subject<Point> WindowSizeMessageSubject { get; } = new Subject<Point>();
 
         /// <summary>
         /// CharacterPropertyNotifyのインスタンス
@@ -61,6 +64,15 @@ namespace DesktopCharacter.Model
         public void TopMostMessage( bool topmost)
         {
             TopMostMessageSubject.OnNext(topmost);
+        }
+
+        /// <summary>
+        /// ウィンドウサイズを変更する
+        /// </summary>
+        /// <param name="windowSize"></param>
+        public void WindowSizeMessage(Point windowSize)
+        {
+            WindowSizeMessageSubject.OnNext(windowSize);
         }
     }
 }

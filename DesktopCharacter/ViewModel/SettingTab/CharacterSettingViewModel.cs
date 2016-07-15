@@ -81,7 +81,10 @@ namespace DesktopCharacter.ViewModel.SettingTab
             set
             {
                 _characterScaleRate = value;
+                _babumiConfig.WindowSize = new System.Drawing.Point { X = (int)value, Y = (int)value };
                 this.RaisePropertyChanged("CharacterScaleRate");
+                CharacterNotify.Instance.WindowSizeMessage(_babumiConfig.WindowSize);
+                ConfigSave();
             }
             get { return _characterScaleRate; }
         }
@@ -94,10 +97,25 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 _topmostFlag = _babumiConfig.Topmost = value;
                 this.RaisePropertyChanged("TopmostFlag");
                 CharacterNotify.Instance.TopMostMessage(_topmostFlag);
-                var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-                repo.Save(_babumiConfig);
+                ConfigSave();
             }
             get { return _topmostFlag; }
+        }
+
+        private ViewModelCommand _reloadCommand;
+        public ViewModelCommand ReloadCommand
+        {
+            get
+            {
+                if (_reloadCommand == null)
+                {
+                    _reloadCommand = new ViewModelCommand(() =>
+                    {
+                        Reload();
+                    });
+                }
+                return _reloadCommand;
+            }
         }
 
         public CharacterSettingViewModel()
@@ -131,20 +149,10 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
-        private ViewModelCommand _reloadCommand;
-        public ViewModelCommand ReloadCommand
+        private void ConfigSave()
         {
-            get
-            {
-                if (_reloadCommand == null)
-                {
-                    _reloadCommand = new ViewModelCommand(() =>
-                    {
-                        Reload();
-                    });
-                }
-                return _reloadCommand;
-            }
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            repo.Save(_babumiConfig);
         }
     }
 }
