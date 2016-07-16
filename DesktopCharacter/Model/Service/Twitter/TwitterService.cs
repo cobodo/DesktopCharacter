@@ -8,6 +8,7 @@ using CoreTweet.Streaming;
 using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Service.Template;
 using DesktopCharacter.ViewModel;
 
 namespace DesktopCharacter.Model.Service.Twitter
@@ -15,6 +16,7 @@ namespace DesktopCharacter.Model.Service.Twitter
     public class TwitterService: IDisposable, IInitializable
     {
         private List<Twitter> _twitterList;
+        private ITemplateService _templateService;
 
         public void Dispose()
         {
@@ -26,6 +28,7 @@ namespace DesktopCharacter.Model.Service.Twitter
 
         public void Initialize()
         {
+            _templateService = ServiceLocator.Instance.GetInstance<ITemplateService>();
             var twitterRepository = ServiceLocator.Instance.GetInstance<TwitterRepository>();
             var twitterUsers = twitterRepository.FindAll();
             _twitterList = twitterUsers.Select(user => new Twitter(user)).ToList();
@@ -62,52 +65,68 @@ namespace DesktopCharacter.Model.Service.Twitter
                     case EventCode.Favorite:
                         if (user.Filter.Favorite)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にふぁぼられました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_FAVORITE, new {Event = em, User = user});
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
                     case EventCode.Unfavorite:
                         if (user.Filter.Unfavorite)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にあんふぁぼされました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_UNFAVORITE, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
                     case EventCode.Follow:
                         if (user.Filter.Follow)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にフォローされました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_FOLLOW, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
 
                     case EventCode.Unfollow:
                         if (user.Filter.Unfollow)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にフォロー解除されました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_UNFOLLOW, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
 
                     case EventCode.Block:
                         if (user.Filter.Block)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にブロックされました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_BLOCK, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
 
                     case EventCode.Unblock:
                         if (user.Filter.Unblock)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にブロック解除されました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_UNBLOCK, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
                     case EventCode.ListMemberAdded:
                         if (user.Filter.ListAdded)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にリスト追加されました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_MEMBER_ADDED, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
                     case EventCode.ListMemberRemoved:
                         if (user.Filter.ListRemoved)
                         {
-                            CharacterNotify.Instance.Talk(em.Source.Name + "にリストから外されました");
+                            var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_MEMBER_REMOVED, new { Event = em, User = user });
+                            CharacterNotify.Instance.Talk(str);
                         }
                         break;
                 }
@@ -117,11 +136,15 @@ namespace DesktopCharacter.Model.Service.Twitter
                 var sm = (StatusMessage)m;
                 if (IsMentionStatus(sm, user))
                 {
-                    CharacterNotify.Instance.Talk(sm.Status.User.Name + "からメンション");
+                    var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_MENTION, new { Event = sm, User = user });
+                    CharacterNotify.Instance.Talk(str);
                 }
                 if (IsRetweet(sm, user))
                 {
-                    CharacterNotify.Instance.Talk(sm.Status.User.Name + "にRTされました");
+                    var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_RT, new { Event = sm, User = user });
+                    CharacterNotify.Instance.Talk(str);
                 }
             }
             if (m.Type == MessageType.DirectMesssage)
@@ -129,7 +152,9 @@ namespace DesktopCharacter.Model.Service.Twitter
                 var dm = (DirectMessageMessage)m;
                 if (dm.DirectMessage.Sender.Id != user.UserId && user.Filter.DirectMessage)
                 {
-                    CharacterNotify.Instance.Talk(dm.DirectMessage.Sender.Name + "からDM");
+                    var str = _templateService.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE,
+                                TemplateVariables.TWITTER_DM, new { Event = dm, User = user });
+                    CharacterNotify.Instance.Talk(str);
                 }
             }
         }

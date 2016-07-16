@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Service.Template;
 using DesktopCharacter.Model.Service.TimeSignal;
 using DesktopCharacter.Model.Service.Twitter;
 using NLog;
@@ -48,6 +49,7 @@ namespace DesktopCharacter.Model.Locator
             RegisterByApplicationScope<ITimeSignalService>(() => new CompositeTimeSignalService(
                     new SimpleTimeSignalService())
                 );
+            RegisterByApplicationScope<ITemplateService>(() => new TemplateService());
             logger.Info("=== End RegistFactories ===");
         }
 
@@ -83,7 +85,8 @@ namespace DesktopCharacter.Model.Locator
                     return instance;
                 }
             }
-            throw new NullReferenceException("Instance not found.");
+            logger.Error("Instance not found. type={0}", typeof(T).FullName);
+            throw new NullReferenceException("Instance not found. type=" + typeof (T).FullName);
         }
 
         /// <summary>

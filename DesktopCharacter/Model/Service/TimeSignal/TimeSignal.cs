@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Service.Template;
 using NLog;
 
 namespace DesktopCharacter.Model.Service.TimeSignal
@@ -37,7 +38,9 @@ namespace DesktopCharacter.Model.Service.TimeSignal
     {
         public override void OnMessage(DateTime time)
         {
-            CharacterNotify.Instance.Talk(time.Hour + "時になったよ");
+            var service = ServiceLocator.Instance.GetInstance<ITemplateService>();
+            var message = service.ProcessTemplate(TemplateVariables.BABUMI_NAMESPACE, TemplateVariables.TIME_SIGNAL, time);
+            CharacterNotify.Instance.Talk(message);
         }
     }
 
