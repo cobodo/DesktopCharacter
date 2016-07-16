@@ -4,33 +4,33 @@ solution "DesktopCharacter"
     configurations { "Debug", "Release" }
     platforms { "x64" }
     location ("./")
-    
+
 project "DesktopCharacter"
     location ("./DesktopCharacter")
     kind "WindowedApp"
     language "C#"
     platforms { "x64" }
     framework ("4.5.2")
-        
-    defines { 
-        "TRACE" 
+
+    defines {
+        "TRACE"
     }
 
     files {
-         "./**.cs", 
-         "./**.xaml", 
+         "./**.cs",
+         "./**.xaml",
          "./**.config",
          "./DesktopCharacter/Res/**.*"
     }
-    
-    excludes  { 
+
+    excludes  {
         "DesktopCharacter/obj/**.*",
         "DesktopCharacter/bin/**.*",
         "./packages/**.*",
-        "./Extension/**.*" 
+        "./Extension/**.*"
     }
-    
-    links { 
+
+    links {
         "System",
         "System.Data",
         "System.Core",
@@ -72,6 +72,8 @@ project "DesktopCharacter"
         "packages/System.Data.SQLite.Linq.1.0.99.0/lib/net451/System.Data.SQLite.Linq.dll",
         "packages/CalcBinding.2.2.5.1/lib/net45/CalcBinding.dll",
         "packages/DynamicExpresso.Core.1.3.0.0/lib/net40/DynamicExpresso.Core.dll",
+        "packages/Microsoft.AspNet.Razor.3.0.0/lib/net45/System.Web.Razor.dll",
+        "packages/RazorEngine.3.8.2/lib/net45/RazorEngine.dll",
         "Extension/Lib/$(Configuration)/BabumiGraphics.dll",
         "Extension/Lib/$(Configuration)/Live2DforDLL.dll",
         "Extension/Lib/$(Configuration)/SharpGL.WPF.dll",
@@ -81,26 +83,26 @@ project "DesktopCharacter"
 
     configuration { "**.png" }
     buildaction ( "Copy" )
-    
+
     configuration { "**.jpg" }
     buildaction ( "Copy" )
 
     configuration { "**.fx" }
-    buildaction ( "Copy" ) 
-        
+    buildaction ( "Copy" )
+
     configuration { "**.moc" }
     buildaction ( "Copy" )
-     
+
     configuration { "**.mtn" }
-    buildaction ( "Copy" )    
-    
+    buildaction ( "Copy" )
+
     configuration { "**.json" }
     buildaction ( "Copy" )
-    
+
     configuration { "Debug*" }
         defines { "DEBUG", "TRACE" }
         flags   { "Symbols" }
-        postbuildcommands   { 
+        postbuildcommands   {
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
          }
@@ -108,11 +110,7 @@ project "DesktopCharacter"
     configuration { "Release*" }
         defines { "NDEBUG" }
         optimize "On"
-        postbuildcommands   { 
+        postbuildcommands   {
             'copy "$(SolutionDir)packages\\System.Data.SQLite.Core.1.0.99.0\\build\\net451\\x64\\SQLite.Interop.dll" "$(ProjectDir)$(OutDir)SQLite.Interop.dll"',
             'copy "$(ProjectDir)NLog.config" "$(ProjectDir)$(OutDir)NLog.config"',
          }
-
-
-
-        

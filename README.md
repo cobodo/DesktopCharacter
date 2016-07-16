@@ -109,3 +109,9 @@ Live2Dを使用したデスクトップマスコットアプリになります。
 * **用途 :** ソリューション作成
 * **ライセンス :** BSD ライセンス
 * **ライセンス全文 :** [Licenses/BSD.txt](Licenses/BSD.txt)
+
+### [RazorEngine](http://antaris.github.io/RazorEngine/)
+
+* **用途 :** セリフのテンプレートエンジン
+* **ライセンス :** Apache License Version 2.0
+* **ライセンス全文 :** [Licenses/Apache.txt](Licenses/Apache.txt)
