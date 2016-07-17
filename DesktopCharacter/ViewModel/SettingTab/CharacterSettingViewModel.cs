@@ -97,7 +97,6 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 {
                     Messenger.Raise(new CloseMessage(true, e.Message, "Error"));
                 }
-                ConfigSave();
             }
             get { return _zoomLevel; }
         }
@@ -110,7 +109,6 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 _topmostFlag = _babumiConfig.Topmost = value;
                 this.RaisePropertyChanged("TopmostFlag");
                 CharacterNotify.Instance.TopMostMessage(_topmostFlag);
-                ConfigSave();
             }
             get { return _topmostFlag; }
         }
@@ -163,7 +161,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
-        private void ConfigSave()
+        public void OnClose()
         {
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             repo.Save(_babumiConfig);

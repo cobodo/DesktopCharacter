@@ -24,6 +24,7 @@ namespace DesktopCharacter.ViewModel
         {
             TwitterSetting.OnClose();
             CodicSettingTab.OnClose();
+            CharacterSetting.OnClose();
 
             ServiceLocator.Instance.ClearConfigBaseContext();
         }
