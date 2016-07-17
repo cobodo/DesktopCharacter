@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Util.Messenger.Message;
+using DesktopCharacter.Util.Converter;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
@@ -36,6 +37,11 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 if (mIsSelected)
                 {
                     CharacterNotify.Instance.CharacterLoad(_modelJsonPath);
+                    //!< 次回からこちらをロードする
+                    var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+                    var config = repo.GetConfig();
+                    config.ModelJsonPath = _modelJsonPath;
+                    repo.Save(config);
                 }
                 this.RaisePropertyChanged("IsSelected");
             }
@@ -75,18 +81,25 @@ namespace DesktopCharacter.ViewModel.SettingTab
             get { return this._listCollection; }
         }
 
-        private double _characterScaleRate;
-        public double CharacterScaleRate
+        private int _zoomLevel;
+        public int ZoomLevel
         {
             set
             {
-                _characterScaleRate = value;
-                _babumiConfig.WindowSize = new System.Drawing.Point { X = (int)value, Y = (int)value };
+                _zoomLevel = _babumiConfig.ZoomLevel = value;
+                _babumiConfig.AddZoomLevel(value);
                 this.RaisePropertyChanged("CharacterScaleRate");
-                CharacterNotify.Instance.WindowSizeMessage(_babumiConfig.WindowSize);
+                try
+                {
+                    CharacterNotify.Instance.WindowResizeMessage(_babumiConfig.ZoomLevel);
+                }
+                catch (Exception e)
+                {
+                    Messenger.Raise(new CloseMessage(true, e.Message, "Error"));
+                }
                 ConfigSave();
             }
-            get { return _characterScaleRate; }
+            get { return _zoomLevel; }
         }
 
         private bool _topmostFlag;
@@ -124,6 +137,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             _babumiConfig = repo.GetConfig();
             _topmostFlag = _babumiConfig.Topmost;
+            _zoomLevel = _babumiConfig.ZoomLevel;
             Reload();
         }
 
