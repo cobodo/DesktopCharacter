@@ -25,7 +25,7 @@
             <GroupBox Header="キャラの状態">
                 <StackPanel>
                     <TextBlock Grid.Column="0" Text="キャラクターの大きさ" FontSize="14" Width="auto" Height="24" Margin="5, 5, 5, 0" HorizontalAlignment="Left" />
-                    <Slider Maximum="500" Minimum="300" Value="{Binding CharacterScaleRate}" Margin="5, 0, 5, 0"/>
+                    <Slider Maximum="2" Minimum="-2" Value="{Binding ZoomLevel}" Margin="5, 0, 5, 0"/>
                     <CheckBox Content="キャラクターを常に上にする" Margin="4, 10, 5, 0" IsChecked="{Binding TopmostFlag}"/>
                 </StackPanel>
             </GroupBox>

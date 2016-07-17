@@ -34,7 +34,7 @@
         <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
             <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </l:InteractionMessageTrigger>
-
+        
         <i:EventTrigger EventName="ContentRendered">
             <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
         </i:EventTrigger>
@@ -48,17 +48,21 @@
         </l:InteractionMessageTrigger>
 
         <l:InteractionMessageTrigger MessageKey="InfoMessage" Messenger="{Binding Messenger}">
-            <l:InformationDialogInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False"/>
+            <util:CloseAction InvokeActionOnlyWhenWindowIsActive="False"/>
         </l:InteractionMessageTrigger>
-
-    </i:Interaction.Triggers> 
+        
+    </i:Interaction.Triggers>
+    
+    <i:Interaction.Behaviors>
+        <behavior:MouseWheelBeavior IsBindKey="true" BindKey="control" Command="{Binding ScaleChangeCommand}" />
+    </i:Interaction.Behaviors>
 
     <Grid>
         <Grid.ContextMenu>
           <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
         <Image x:Name="Image" Source="{Binding Source}" Width="400" Height="400"></Image>
-        <v:Talk Margin="0,257,0,0"></v:Talk>
+        <v:Talk x:Name="Talk" Margin="0,257,0,0"></v:Talk>
         <sharpGL:OpenGLControl 
             Width="0" Height="0" RenderContextType="FBO" 
             behavior:SharpGLBehavior.OpenGLDrawCommand="{Binding DrawCommand}"
