@@ -59,6 +59,7 @@ namespace BabumiGraphics.Live2D
                                 var animation = new Live2DAnimation();
                                 animation.loadMotion(dest, (int)fs.Length);
                                 mAnimationContainer.Add(Path.GetFileNameWithoutExtension(Path.Combine(loadPath, file.file)), animation);
+                                Marshal.FreeHGlobal(dest);
                             }
                         }
                     }
@@ -124,7 +125,8 @@ namespace BabumiGraphics.Live2D
             {
                 mModel.Delete();
             }
-            mAnimationContainer.Delete();
+            mAnimationQueue?.deleteMotionManager();
+            mAnimationContainer?.Delete();
         }
 
         /// <summary>

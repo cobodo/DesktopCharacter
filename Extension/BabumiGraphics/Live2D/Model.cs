@@ -29,6 +29,7 @@ namespace BabumiGraphics.Live2D
                 IntPtr dest = Marshal.AllocHGlobal((int)fs.Length);
                 Marshal.Copy(readBuffer, 0, dest, (int)fs.Length);
                 ModelObject.craeteModel(dest, (int)fs.Length);
+                Marshal.FreeHGlobal(dest);
             }
 
             //!< テクスチャー読み込み

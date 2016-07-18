@@ -72,17 +72,9 @@ namespace BabumiGraphics.Graphics
 
         public void Destory()
         {
-            uint[] frameBuffer = new uint[1];
-            frameBuffer[0] = FrameBufferID;
-            Device.DeleteBuffers(1, frameBuffer);
-
-            uint[] depthBuffer = new uint[1];
-            depthBuffer[0] = DepthBufferID;
-            Device.DeleteBuffers(1, depthBuffer);
-
-            uint[] texture = new uint[1];
-            texture[0] = TextureID;
-            Device.DeleteTextures( 1, texture );
+            Device.DeleteRenderbuffersEXT(1, new[] { FrameBufferID });
+            Device.DeleteRenderbuffersEXT(1, new[] { DepthBufferID });
+            Device.DeleteTextures(1, new[] { TextureID });
         }
     }
 }
