@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
              xmlns:SettingVM="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
+             xmlns:properties="clr-namespace:DesktopCharacter.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <UserControl.DataContext>
@@ -24,11 +25,11 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="200" DisplayMemberBinding="{Binding FileName}">
-                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="モデルリスト" />
+                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="{x:Static properties:Resources.CharacterTab_ModelList}" />
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="リロード" Command="{Binding ReloadCommand}" Height="25" Grid.Column="1" VerticalAlignment="Bottom"  ></Button>
+        <Button Content="{x:Static properties:Resources.CharacterTab_Reload}" Command="{Binding ReloadCommand}" Height="25" Grid.Column="1" VerticalAlignment="Bottom"  ></Button>
     </Grid>
 </UserControl>

@@ -9,6 +9,7 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.Tool.Timer"
         xmlns:v="clr-namespace:DesktopCharacter.View"
+        xmlns:properties="clr-namespace:DesktopCharacter.Properties"
         Title="TimerSetting" Height="300" Width="300">
     <Window.DataContext>
         <vm:TimerSettingViewModel></vm:TimerSettingViewModel>
@@ -26,8 +27,8 @@
     
     <Grid>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="90,80,0,0" TextWrapping="Wrap" Text="{Binding TimerCount, StringFormat={}{0:00000}}" VerticalAlignment="Top" Width="120"/>
-        <CheckBox x:Name="Message60" Content="終了一分前にお知らせする" HorizontalAlignment="Left" Margin="90,127,0,0" VerticalAlignment="Top" IsChecked="{Binding Message_60}"/>
-        <CheckBox x:Name="Message30" Content="終了30秒前にお知らせする" HorizontalAlignment="Left" Margin="90,153,0,0" VerticalAlignment="Top" IsChecked="{Binding Message_30}"/>
-        <Button x:Name="Start" Content="スタート" Command="{Binding StartCommand}" HorizontalAlignment="Left" Margin="106,188,0,0" VerticalAlignment="Top" Width="75"/>
+        <CheckBox x:Name="Message60" Content="{x:Static properties:Resources.TimerSetting_FinishNotify}" HorizontalAlignment="Left" Margin="90,127,0,0" VerticalAlignment="Top" IsChecked="{Binding Message_60}"/>
+        <CheckBox x:Name="Message30" Content="{x:Static properties:Resources.TimerSetting_30SecondsAgoNotify}" HorizontalAlignment="Left" Margin="90,153,0,0" VerticalAlignment="Top" IsChecked="{Binding Message_30}"/>
+        <Button x:Name="Start" Content="{x:Static properties:Resources.TimerSetting_Start}" Command="{Binding StartCommand}" HorizontalAlignment="Left" Margin="106,188,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

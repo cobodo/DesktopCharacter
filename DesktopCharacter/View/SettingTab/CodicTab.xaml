@@ -7,6 +7,7 @@
         xmlns:SettingVM="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
         xmlns:Behavior="clr-namespace:DesktopCharacter.Util.Behavior"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:properties="clr-namespace:DesktopCharacter.Properties"
         mc:Ignorable="d"
         Height="300" Width="300">
     <UserControl.DataContext>
@@ -23,9 +24,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Content="Codic ログイン" Command="{Binding CodicPageOpenCommand}" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="{x:Static properties:Resources.CodicTab_Login}" Command="{Binding CodicPageOpenCommand}" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox Text="{Binding TokenTextBox, UpdateSourceTrigger=PropertyChanged}" Behavior:PlaceHolderBehavior.PlaceHolderText="{Binding GuideTextBox}" HorizontalAlignment="Left" Margin="30,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
-        <Label Content="記法の設定" HorizontalAlignment="Left" Margin="30,144,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static properties:Resources.CodicTab_Syntax}" HorizontalAlignment="Left" Margin="30,144,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="comboBox" 
                   ItemsSource="{Binding Source={StaticResource CasingList}}"
                   HorizontalAlignment="Left" 

@@ -9,6 +9,7 @@
              xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
              xmlns:converter="clr-namespace:DesktopCharacter.Util.Converter"
              xmlns:v="clr-namespace:DesktopCharacter.View.Dialog"
+             xmlns:properties="clr-namespace:DesktopCharacter.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -24,7 +25,7 @@
     </i:Interaction.Triggers>
 
         <Grid>
-        <Button x:Name="AuthButton" Content="新規アカウント"
+        <Button x:Name="AuthButton" Content="{x:Static properties:Resources.TwitterSettingTab_NewAcuunt}"
                 Command="{Binding CreateAccount}"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="10,10,0,0"/>
@@ -39,43 +40,43 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <GroupBox Header="設定" Margin="165,30,10,10"
+        <GroupBox Header="{x:Static properties:Resources.TwitterSettingTab_Headder}" Margin="165,30,10,10"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <StackPanel>
-                <CheckBox Content="いいね"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_Fav}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Favorite, FallbackValue=False, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="いいね解除"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_UnFav}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Unfavorite, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="リツイート"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_RT}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Retweet, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="メンション" 
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_Metion}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Mention, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="フォロワーが増えた"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_Follow}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Follow, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="フォロワーが減った"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_UnFollow}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Unfollow, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="ブロックされた"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_Block}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Block, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="ブロック解除された"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_UnBlock}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.Unblock, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="リストに追加された"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_ListAdded}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.ListAdded, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="リストから削除された"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_ListRemoved}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.ListRemoved, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <CheckBox Content="ダイレクトメッセージ"
+                <CheckBox Content="{x:Static properties:Resources.TwitterSettingTab_DirectMessage}"
                           IsChecked="{Binding SelectedTwitterUser.Filter.DirectMessage, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
-                <Button Content="削除"
+                <Button Content="{x:Static properties:Resources.TwitterSettingTab_Erace}"
                         Command="{Binding DeleteAccount}"
                         IsEnabled="{Binding SelectedTwitterUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
             </StackPanel>

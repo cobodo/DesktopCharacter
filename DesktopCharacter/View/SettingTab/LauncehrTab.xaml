@@ -4,14 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
+             xmlns:properties="clr-namespace:DesktopCharacter.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid x:Name="LauncherGrid" Margin="0">
         <DataGrid x:Name="dataGrid">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="index"/>
-                <DataGridTextColumn Header="ショートカット名"/>
-                <DataGridTextColumn Header="パス" Width="Auto"/>
+                <DataGridTextColumn Header="{x:Static properties:Resources.LauncherTab_Index}"/>
+                <DataGridTextColumn Header="{x:Static properties:Resources.LauncherTab_ShortcutPath}"/>
+                <DataGridTextColumn Header="{x:Static properties:Resources.LauncherTab_Path}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
 

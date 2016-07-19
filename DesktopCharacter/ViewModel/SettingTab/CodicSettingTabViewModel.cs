@@ -42,7 +42,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
         {
             var coidcRepository = ServiceLocator.Instance.GetInstance<CodicRepository>();
             _codicUser = coidcRepository.Load();
-            GuideTextBox = "Token貼り付けて";
+            GuideTextBox = Properties.Resources.CodicTab_TokenGuide;
             CasingItem = _codicUser?.Casing ?? "";
             TokenTextBox = _codicUser?.Token ?? "";
         }

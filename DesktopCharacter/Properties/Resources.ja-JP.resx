@@ -118,114 +118,111 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CharacterTab_ModelList" xml:space="preserve">
-    <value />
+    <value>モデルリスト</value>
   </data>
   <data name="CharacterTab_Reload" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CodicTab_Hyphen" xml:space="preserve">
-    <value />
+    <value>リロード</value>
   </data>
   <data name="CodicTab_Login" xml:space="preserve">
-    <value />
+    <value>Codig ログイン</value>
   </data>
   <data name="CodicTab_Syntax" xml:space="preserve">
-    <value />
+    <value>記法の設定</value>
   </data>
   <data name="CodicTab_TokenGuide" xml:space="preserve">
-    <value />
+    <value>Token貼り付けて</value>
   </data>
   <data name="LauncherTab_Index" xml:space="preserve">
-    <value />
+    <value>インデックス</value>
   </data>
   <data name="LauncherTab_Path" xml:space="preserve">
-    <value />
+    <value>パス名</value>
   </data>
   <data name="LauncherTab_ShortcutPath" xml:space="preserve">
-    <value />
+    <value>ショートカットパス名</value>
   </data>
   <data name="MenuItem_Exit" xml:space="preserve">
-    <value />
+    <value>終了</value>
   </data>
   <data name="MenuItem_Setting" xml:space="preserve">
-    <value />
+    <value>設定</value>
   </data>
   <data name="MenuItem_Talk" xml:space="preserve">
-    <value />
+    <value>トーク</value>
   </data>
   <data name="MenuItem_Tool" xml:space="preserve">
-    <value />
+    <value>ツール</value>
   </data>
   <data name="MenuItem_Tool_Timer" xml:space="preserve">
-    <value />
+    <value>タイマー</value>
   </data>
   <data name="MenuItem_Tool_Tranlate" xml:space="preserve">
-    <value />
+    <value>翻訳</value>
   </data>
   <data name="Setting_CharancterSetting" xml:space="preserve">
-    <value />
+    <value>キャラクター設定</value>
   </data>
   <data name="Setting_Codic" xml:space="preserve">
-    <value />
+    <value>Codic</value>
   </data>
   <data name="Setting_Launcher" xml:space="preserve">
-    <value />
+    <value>ランチャー</value>
   </data>
   <data name="Setting_Twitter" xml:space="preserve">
-    <value />
+    <value>Twitter</value>
   </data>
   <data name="TimerSetting_30SecondsAgoNotify" xml:space="preserve">
-    <value />
+    <value>終了30秒前にお知らせする</value>
   </data>
   <data name="TimerSetting_FinishNotify" xml:space="preserve">
-    <value />
+    <value>終了一分前にお知らせする</value>
   </data>
   <data name="TimerSetting_Start" xml:space="preserve">
-    <value />
+    <value>スタート</value>
   </data>
   <data name="TwitterSettingTab_Block" xml:space="preserve">
-    <value />
+    <value>ブロックされた</value>
   </data>
   <data name="TwitterSettingTab_DirectMessage" xml:space="preserve">
-    <value />
+    <value>ダイレクトメッセージ</value>
   </data>
   <data name="TwitterSettingTab_Erace" xml:space="preserve">
-    <value />
+    <value>削除</value>
   </data>
   <data name="TwitterSettingTab_Fav" xml:space="preserve">
-    <value />
+    <value>いいね</value>
   </data>
   <data name="TwitterSettingTab_Follow" xml:space="preserve">
-    <value />
+    <value>フォロワーが増えた</value>
   </data>
   <data name="TwitterSettingTab_Headder" xml:space="preserve">
-    <value />
+    <value>設定</value>
   </data>
   <data name="TwitterSettingTab_ListAdded" xml:space="preserve">
-    <value />
+    <value>リストに追加された</value>
   </data>
   <data name="TwitterSettingTab_ListRemoved" xml:space="preserve">
-    <value />
+    <value>リストから削除された</value>
   </data>
   <data name="TwitterSettingTab_Metion" xml:space="preserve">
-    <value />
+    <value>メンション</value>
   </data>
   <data name="TwitterSettingTab_NewAcuunt" xml:space="preserve">
-    <value />
+    <value>新規アカウント</value>
   </data>
   <data name="TwitterSettingTab_RT" xml:space="preserve">
-    <value />
+    <value>リツイート</value>
   </data>
   <data name="TwitterSettingTab_UnBlock" xml:space="preserve">
-    <value />
+    <value>ブロック解除された</value>
   </data>
   <data name="TwitterSettingTab_UnFav" xml:space="preserve">
-    <value />
+    <value>いいね解除</value>
   </data>
   <data name="TwitterSettingTab_UnFollow" xml:space="preserve">
-    <value />
+    <value>フォロワーが減った</value>
   </data>
   <data name="TwitterSingleDialg_Title" xml:space="preserve">
-    <value />
+    <value>Twitter認証</value>
   </data>
 </root>

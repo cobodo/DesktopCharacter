@@ -4,67 +4,392 @@
 //     ランタイム バージョン:4.0.30319.42000
 //
 //     このファイルへの変更は、以下の状況下で不正な動作の原因になったり、
-//     コードが再生成されるときに損失したりします
+//     コードが再生成されるときに損失したりします。
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DesktopCharacter.Properties
-{
-
-
+namespace DesktopCharacter.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
     /// </summary>
-    // このクラスは StronglyTypedResourceBuilder クラスによって ResGen
+    // このクラスは StronglyTypedResourceBuilder クラスが ResGen
     // または Visual Studio のようなツールを使用して自動生成されました。
     // メンバーを追加または削除するには、.ResX ファイルを編集して、/str オプションと共に
-    // ResGen を実行し直すか、または VS プロジェクトをリビルドします。
+    // ResGen を実行し直すか、または VS プロジェクトをビルドし直します。
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    public class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
-        ///   このクラスで使用されるキャッシュされた ResourceManager インスタンスを返します。
+        ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        public static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DesktopCharacter.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        public static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CharacterTab_ModelList {
+            get {
+                return ResourceManager.GetString("CharacterTab_ModelList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CharacterTab_Reload {
+            get {
+                return ResourceManager.GetString("CharacterTab_Reload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CodicTab_Hyphen {
+            get {
+                return ResourceManager.GetString("CodicTab_Hyphen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CodicTab_Login {
+            get {
+                return ResourceManager.GetString("CodicTab_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CodicTab_Syntax {
+            get {
+                return ResourceManager.GetString("CodicTab_Syntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CodicTab_TokenGuide {
+            get {
+                return ResourceManager.GetString("CodicTab_TokenGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherTab_Index {
+            get {
+                return ResourceManager.GetString("LauncherTab_Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherTab_Path {
+            get {
+                return ResourceManager.GetString("LauncherTab_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherTab_ShortcutPath {
+            get {
+                return ResourceManager.GetString("LauncherTab_ShortcutPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Exit {
+            get {
+                return ResourceManager.GetString("MenuItem_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Setting {
+            get {
+                return ResourceManager.GetString("MenuItem_Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Talk {
+            get {
+                return ResourceManager.GetString("MenuItem_Talk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Tool {
+            get {
+                return ResourceManager.GetString("MenuItem_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Tool_Timer {
+            get {
+                return ResourceManager.GetString("MenuItem_Tool_Timer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Tool_Tranlate {
+            get {
+                return ResourceManager.GetString("MenuItem_Tool_Tranlate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Setting_CharancterSetting {
+            get {
+                return ResourceManager.GetString("Setting_CharancterSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Setting_Codic {
+            get {
+                return ResourceManager.GetString("Setting_Codic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Setting_Launcher {
+            get {
+                return ResourceManager.GetString("Setting_Launcher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Setting_Twitter {
+            get {
+                return ResourceManager.GetString("Setting_Twitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TimerSetting_30SecondsAgoNotify {
+            get {
+                return ResourceManager.GetString("TimerSetting_30SecondsAgoNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TimerSetting_FinishNotify {
+            get {
+                return ResourceManager.GetString("TimerSetting_FinishNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TimerSetting_Start {
+            get {
+                return ResourceManager.GetString("TimerSetting_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_Block {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_DirectMessage {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_DirectMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_Erace {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_Erace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_Fav {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_Fav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_Follow {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_Follow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_Headder {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_Headder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_ListAdded {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_ListAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_ListRemoved {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_ListRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_Metion {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_Metion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_NewAcuunt {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_NewAcuunt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_RT {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_RT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_UnBlock {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_UnBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_UnFav {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_UnFav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSettingTab_UnFollow {
+            get {
+                return ResourceManager.GetString("TwitterSettingTab_UnFollow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSingleDialg_Title {
+            get {
+                return ResourceManager.GetString("TwitterSingleDialg_Title", resourceCulture);
             }
         }
     }

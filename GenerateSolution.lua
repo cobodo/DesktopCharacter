@@ -11,6 +11,7 @@ project "DesktopCharacter"
     language "C#"
     platforms { "x64" }
     framework ("4.5.2")
+    flags { "WPF" }
         
     defines { 
         "TRACE" 
@@ -20,14 +21,16 @@ project "DesktopCharacter"
          "./**.cs", 
          "./**.xaml", 
          "./**.config",
-         "./DesktopCharacter/Res/**.*"
+         "./**.resx",
+         "./**.settings",
+         "./DesktopCharacter/Res/**.*",
     }
     
     excludes  { 
         "DesktopCharacter/obj/**.*",
         "DesktopCharacter/bin/**.*",
         "./packages/**.*",
-        "./Extension/**.*" 
+        "./Extension/**.*"
     }
     
     links { 
