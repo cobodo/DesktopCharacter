@@ -46,7 +46,7 @@ namespace DesktopCharacter.Model.Locator
             RegisterByPrototypeScope<WindowPositionRepository>(() => new WindowPositionRepository());
             RegisterByApplicationScope<BabumiConfigRepository>(() => new BabumiConfigRepository());
             RegisterByApplicationScope<ITimeSignalService>(() => new CompositeTimeSignalService(
-                    new SimpleTimeSignalService())
+                    new Service.TimeSignal.Impl.SimpleTimeSignalService())
                 );
             logger.Info("=== End RegistFactories ===");
         }
