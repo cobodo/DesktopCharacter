@@ -55,6 +55,7 @@
     
     <i:Interaction.Behaviors>
         <behavior:MouseWheelBeavior IsBindKey="true" BindKey="control" Command="{Binding ScaleChangeCommand}" />
+        <behavior:MouseClickBeavior EnableDoubleClick="True" Command="{Binding MotionRunCommand}" />
     </i:Interaction.Behaviors>
 
     <Grid>
