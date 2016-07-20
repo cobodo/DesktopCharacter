@@ -7,8 +7,9 @@
         xmlns:local="clr-namespace:DesktopCharacter.View.Dialog"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.Dialog"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:properties="clr-namespace:DesktopCharacter.Properties"
         mc:Ignorable="d"
-        Title="Twitter認証"
+        Title="{x:Static properties:Resources.TwitterSingleDialg_Title}"
         Height="90" Width="300">
     <StackPanel>
         <TextBlock x:Name="Message" Text="{c:Binding Message}" VerticalAlignment="Stretch"/>

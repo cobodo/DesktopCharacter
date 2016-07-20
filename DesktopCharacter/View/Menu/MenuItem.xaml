@@ -10,7 +10,8 @@
              xmlns:v="clr-namespace:DesktopCharacter.View"
              xmlns:menuVM="clr-namespace:DesktopCharacter.View.Menu"
              xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
-             xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate" 
+             xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate"
+             xmlns:properties="clr-namespace:DesktopCharacter.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <ItemsControl.DataContext>
@@ -29,14 +30,14 @@
         </l:InteractionMessageTrigger>
     </i:Interaction.Triggers>
 
-    <MenuItem Header="ツール">
-        <MenuItem Header="タイマー" Command="{Binding TimerSettingOpenCommand}"/>
-        <MenuItem Header="翻訳" Command="{Binding CodicWindowOpenCommand}"/>
+    <MenuItem Header="{x:Static properties:Resources.MenuItem_Tool}">
+        <MenuItem Header="{x:Static properties:Resources.MenuItem_Tool_Timer}" Command="{Binding TimerSettingOpenCommand}"/>
+        <MenuItem Header="{x:Static properties:Resources.MenuItem_Tool_Tranlate}" Command="{Binding CodicWindowOpenCommand}"/>
     </MenuItem>
  
     <menuVM:LauncherMenu></menuVM:LauncherMenu>
     
-    <MenuItem Header="トーク" Command="{Binding TalkCommand}"/>
-    <MenuItem Header="設定" Command="{Binding SettingCommand}"/>
-    <MenuItem Header="終了" Command="{Binding CloseCommand}"/>
+    <MenuItem Header="{x:Static properties:Resources.MenuItem_Talk}" Command="{Binding TalkCommand}"/>
+    <MenuItem Header="{x:Static properties:Resources.MenuItem_Setting}" Command="{Binding SettingCommand}"/>
+    <MenuItem Header="{x:Static properties:Resources.MenuItem_Exit}" Command="{Binding CloseCommand}"/>
 </ContextMenu>

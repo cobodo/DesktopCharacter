@@ -8,6 +8,7 @@
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:messaging="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:properties="clr-namespace:DesktopCharacter.Properties"
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Setting" Height="400" Width="400">
@@ -18,16 +19,16 @@
     </i:Interaction.Triggers>
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TabItem Header="キャラクター設定">
+            <TabItem Header="{x:Static properties:Resources.Setting_CharancterSetting}">
                 <st:CharacterTab x:Name="CharacterTab"></st:CharacterTab>
             </TabItem>
-            <TabItem Header="ランチャー">
+            <TabItem Header="{x:Static properties:Resources.Setting_Launcher}">
                 <st:LauncehrTab x:Name="LauncehrTab"></st:LauncehrTab>
             </TabItem>
-            <TabItem Header="Twitter">
+            <TabItem Header="{x:Static properties:Resources.Setting_Twitter}">
                 <st:TwitterSettingsTab x:Name="TwitterSettingsTab"></st:TwitterSettingsTab>
             </TabItem>
-            <TabItem Header="Codic">
+            <TabItem Header="{x:Static properties:Resources.Setting_Codic}">
                 <st:CodicTab x:Name="CodicSettingTab"></st:CodicTab>
             </TabItem>
         </TabControl>
