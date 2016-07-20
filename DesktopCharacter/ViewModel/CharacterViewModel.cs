@@ -141,6 +141,22 @@ namespace DesktopCharacter.ViewModel
             }
         }
 
+        private Livet.Commands.ListenerCommand<object> _motionRunCommand;
+        public Livet.Commands.ListenerCommand<object> MotionRunCommand
+        {
+            get
+            {
+                if (_motionRunCommand == null)
+                {
+                    _motionRunCommand = new ListenerCommand<object>((object sender) =>
+                    {
+                        System.Console.WriteLine(sender);
+                    });
+                }
+                return _motionRunCommand;
+            }
+        }
+
         public CharacterViewModel()
         {
             CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
