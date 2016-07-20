@@ -18,7 +18,7 @@ namespace DesktopCharacter.ViewModel.Dialog
     class TwitterSignInViewModel : Livet.ViewModel
     {
         public string PinCode { get; set; } = "";
-        private string _message = "ブラウザで表示されたPINコードを入力";
+        private string _message = Properties.Resources.TwitterSingnIn_InputPINCode;
         public string Message
         {
             get { return _message; }
@@ -64,7 +64,7 @@ namespace DesktopCharacter.ViewModel.Dialog
         private async void OnSubmit()
         {
             IsProcessing = true;
-            this.Message = "認証中";
+            this.Message = Properties.Resources.TwitterSingin_Authentication;
 
             var tokensAsync = _oAuthSession.GetTokensAsync(PinCode);
             try
@@ -83,7 +83,7 @@ namespace DesktopCharacter.ViewModel.Dialog
             catch(TwitterException)
             {
                 PinCode = "";
-                Message= "認証失敗";
+                Message= Properties.Resources.TwitterSingin_FailedAuth;
             }
             finally
             {

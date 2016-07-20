@@ -106,7 +106,7 @@ namespace DesktopCharacter.ViewModel.Menu
                     } 
                     catch(NullReferenceException)
                     {
-                        MessageBox.Show("Coidcのアクセストークンが設定されていません");
+                        MessageBox.Show(Properties.Resources.MenuItem_ErrorCoidcAccesToken);
                     }
                 }));
             }

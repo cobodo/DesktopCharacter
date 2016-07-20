@@ -61,7 +61,43 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Cannot find Babumi.config. Making config file automatically! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string App_ConfigCreateNotify {
+            get {
+                return ResourceManager.GetString("App_ConfigCreateNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   [ERROR]\nCouldn&apos;t find Resource files in Res/Live2D に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string App_Live2DFolderNotFound {
+            get {
+                return ResourceManager.GetString("App_Live2DFolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   [ERROR]\nCouldn&apos;t find Resource files in Res/Live2D に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string App_Live2DModelNotFound {
+            get {
+                return ResourceManager.GetString("App_Live2DModelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error from loading model file lists! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CharacterSetting_ErrorLoadModelFileList {
+            get {
+                return ResourceManager.GetString("CharacterSetting_ErrorLoadModelFileList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Model lists に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CharacterTab_ModelList {
             get {
@@ -70,7 +106,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Reload に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CharacterTab_Reload {
             get {
@@ -79,16 +115,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CodicTab_Hyphen {
-            get {
-                return ResourceManager.GetString("CodicTab_Hyphen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Login に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CodicTab_Login {
             get {
@@ -97,7 +124,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Setting notation に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CodicTab_Syntax {
             get {
@@ -106,7 +133,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Paste TOKEN に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CodicTab_TokenGuide {
             get {
@@ -115,7 +142,16 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Add... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Launcher_Add {
+            get {
+                return ResourceManager.GetString("Launcher_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Index に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LauncherTab_Index {
             get {
@@ -124,7 +160,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Pass に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LauncherTab_Path {
             get {
@@ -133,7 +169,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Shortcut Name に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LauncherTab_ShortcutPath {
             get {
@@ -142,7 +178,16 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   There&apos;s no setting for Codic access token! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_ErrorCoidcAccesToken {
+            get {
+                return ResourceManager.GetString("MenuItem_ErrorCoidcAccesToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Close に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MenuItem_Exit {
             get {
@@ -151,7 +196,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Settings に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MenuItem_Setting {
             get {
@@ -160,7 +205,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Talk に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MenuItem_Talk {
             get {
@@ -169,7 +214,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Tools に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MenuItem_Tool {
             get {
@@ -178,7 +223,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Timer に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MenuItem_Tool_Timer {
             get {
@@ -187,7 +232,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Translate に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MenuItem_Tool_Tranlate {
             get {
@@ -196,7 +241,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Character setting に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Setting_CharancterSetting {
             get {
@@ -205,7 +250,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Codic に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Setting_Codic {
             get {
@@ -214,7 +259,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Launcher に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Setting_Launcher {
             get {
@@ -223,7 +268,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Twitter に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Setting_Twitter {
             get {
@@ -232,7 +277,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Notice before 30 seconds に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TimerSetting_30SecondsAgoNotify {
             get {
@@ -241,7 +286,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Notice before 1 minute に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TimerSetting_FinishNotify {
             get {
@@ -250,7 +295,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Start に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TimerSetting_Start {
             get {
@@ -259,7 +304,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Block に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_Block {
             get {
@@ -268,7 +313,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   DirectMessage に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_DirectMessage {
             get {
@@ -277,7 +322,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Delete Account に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_Erace {
             get {
@@ -286,7 +331,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Favorite に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_Fav {
             get {
@@ -295,7 +340,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Follow に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_Follow {
             get {
@@ -304,7 +349,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Settings に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_Headder {
             get {
@@ -313,7 +358,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   ListAdded に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_ListAdded {
             get {
@@ -322,7 +367,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   ListRemoved に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_ListRemoved {
             get {
@@ -331,7 +376,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Mention に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_Metion {
             get {
@@ -340,7 +385,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   New Account に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_NewAcuunt {
             get {
@@ -349,7 +394,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Retweet に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_RT {
             get {
@@ -358,7 +403,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Unblock に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_UnBlock {
             get {
@@ -367,7 +412,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Unfavorite に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_UnFav {
             get {
@@ -376,7 +421,7 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Unfollow に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSettingTab_UnFollow {
             get {
@@ -385,11 +430,38 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///    に類似しているローカライズされた文字列を検索します。
+        ///   Processing the authentication に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSingin_Authentication {
+            get {
+                return ResourceManager.GetString("TwitterSingin_Authentication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to Auth に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSingin_FailedAuth {
+            get {
+                return ResourceManager.GetString("TwitterSingin_FailedAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Twitter Authentication に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TwitterSingleDialg_Title {
             get {
                 return ResourceManager.GetString("TwitterSingleDialg_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Input PIN Code in Browser に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TwitterSingnIn_InputPINCode {
+            get {
+                return ResourceManager.GetString("TwitterSingnIn_InputPINCode", resourceCulture);
             }
         }
     }

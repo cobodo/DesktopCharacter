@@ -100,7 +100,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
             catch (Exception)
             {
-                logger.Error( "モデルファイルリスト読込中にエラーが発生しました" );
+                logger.Error(Properties.Resources.CharacterSetting_ErrorLoadModelFileList);
             }
         }
 
