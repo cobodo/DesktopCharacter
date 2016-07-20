@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesktopCharacter.Model.Database;
 using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.Twitter;
 using DesktopCharacter.View.Dialog;
 using DesktopCharacter.ViewModel.Dialog;
-using Livet;
 using Livet.Commands;
 using Livet.Messaging;
 

@@ -1,21 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using CoreTweet;
-using DesktopCharacter.Model.Database.Domain;
-using DesktopCharacter.Model.Locator;
-using DesktopCharacter.Model.Repository;
-using DesktopCharacter.Model.Service.Twitter;
 using DesktopCharacter.ViewModel.Dialog;
 
 namespace DesktopCharacter.View.Dialog

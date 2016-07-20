@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading;
-using System.Collections.Concurrent;
 using DesktopCharacter.Model;
 using System.Reactive.Linq;
 using DesktopCharacter.Util.Thread;

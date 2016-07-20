@@ -3,7 +3,6 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using DesktopCharacter.Model.Database;
 using DesktopCharacter.Model.Database.Domain;
-using DesktopCharacter.Model.Service.Twitter;
 
 namespace DesktopCharacter.Model.Repository
 {

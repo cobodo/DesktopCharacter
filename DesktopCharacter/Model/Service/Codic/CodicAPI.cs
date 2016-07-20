@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using DesktopCharacter.Util;
 using Newtonsoft.Json;
 using DesktopCharacter.Model.Service.Codic.Format;
-using System.Threading;
-using System.Reactive.Threading.Tasks;
 using System.Reactive.Linq;
 
 namespace DesktopCharacter.Model.Service.Codic

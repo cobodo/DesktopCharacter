@@ -1,16 +1,10 @@
 ﻿using BabumiGraphics.Graphics;
-using Livet.Commands;
 using NLog;
 using SharpGL.SceneGraph;
 using SharpGL.WPF;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interactivity;
 
 namespace DesktopCharacter.Util.Behavior
 {

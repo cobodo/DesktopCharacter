@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoreTweet.Streaming;
 using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
-using DesktopCharacter.ViewModel;
 
 namespace DesktopCharacter.Model.Service.Twitter
 {
