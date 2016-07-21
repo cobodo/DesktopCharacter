@@ -29,10 +29,10 @@ lib = "lib"
 
 # パス確認
 print( "path check" )
-print( "sdkPath = %s" ) % ( sdkPath )
-print( "platform = %s" ) % ( platform )
-print( "vsVersion = %s" ) % ( vsVersion )
-print( "outputPath = %s" ) % ( outputPath )
+print(( "sdkPath = %s" ) % ( sdkPath ))
+print(( "platform = %s" ) % ( platform ))
+print(( "vsVersion = %s" ) % ( vsVersion ))
+print(( "outputPath = %s" ) % ( outputPath ))
 
 # すでにフォルダーがある場合は一回削除してからコピー開始
 if os.path.isdir(outputPath + "\\" + Live2DFolder):
