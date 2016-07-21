@@ -28,12 +28,6 @@ namespace DesktopCharacter.View
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-            DragMove();
-        }
-
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
