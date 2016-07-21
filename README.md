@@ -1,5 +1,25 @@
 ## About this Project
-Using Live2D to make desktop mascot program
+Using Live2D to make desktop mascot program.
+
+Efficiency of your work in that there are cute characters will go up.
+
+let's together Babumi!
+
+## Demo
+![DesktopCharacterDemo](demo.gif)
+
+## Project Setup
+[Project Setup wiki](https://github.com/Babumi/DesktopCharacter/wiki/%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
+
+## Install
+comming soon...
+
+## Contributing
+Please report to Issues if you find any problems.
+
+Also, Please proposed if there is a hope as a desktop mascot function.
+
+Pull requests are welcome.
 
 ## Libraries
 Using these libraries
@@ -30,7 +50,7 @@ Using these libraries
 
 ### [EventSource4Net](https://github.com/erizet/EventSource4Net)
 * Purpose : SSE Client
-* License : Unknown
+* License : [WTFPL](https://github.com/erizet/EventSource4Net/issues/2)
 
 ### [slf4Net](https://github.com/erizet/EventSource4Net)
 * Purpose : From EventSource4Net's library
@@ -78,3 +98,6 @@ Using these libraries
 ### [Premake](https://github.com/premake/premake-core)
 * Purpose : Making the solution
 * License : BSD License([Licenses/BSD.txt](Licenses/BSD.txt))
+
+## License
+This software is licensed under the MIT License.
