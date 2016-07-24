@@ -26,8 +26,8 @@ namespace DesktopCharacter.Util.Messenger.Action
             var character = this.AssociatedObject as Character;
             if ( character != null )
             {
-            //    character.Image.Width = msg.WindowSize.X;
-            //    character.Image.Height = msg.WindowSize.Y;
+                character.Image.Width = msg.WindowSize.X;
+                character.Image.Height = msg.WindowSize.Y;
             }
         }
     }
