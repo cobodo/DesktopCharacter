@@ -60,7 +60,7 @@ namespace DesktopCharacter.Util.Behavior
                 return;
             }
 
-            var point = args.GetPosition(control);
+            Math.Point point = new Math.Point(args.GetPosition(control));
 
             if (!EnableDoubleClick && clickEvent.ClickCount > 0)
             {

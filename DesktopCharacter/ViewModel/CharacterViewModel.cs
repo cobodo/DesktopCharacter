@@ -25,11 +25,13 @@ using DesktopCharacter.Model;
 using DesktopCharacter.Model.Graphics;
 using DesktopCharacter.Util.Messenger.Message;
 using DesktopCharacter.Util.Math;
+using DesktopCharacter.Model.Service.Action;
 
 namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {
+        private CharacterAction _characterAction;
         /// <summary>
         /// 初期化フラグ
         /// </summary>
@@ -150,7 +152,7 @@ namespace DesktopCharacter.ViewModel
                 {
                     _motionRunCommand = new ListenerCommand<object>((object sender) =>
                     {
-                        System.Console.WriteLine(sender);
+                        _characterAction.Action(_screenSize, (Util.Math.Point)sender);
                     });
                 }
                 return _motionRunCommand;
@@ -162,6 +164,7 @@ namespace DesktopCharacter.ViewModel
             CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
             CharacterNotify.Instance.WindowSizeMessageSubject.Subscribe(WindowSizeChange);
             _babumiConfigRepository = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            _characterAction = new CharacterAction();
         }
 
         public void Initialize()

@@ -16,6 +16,18 @@ namespace DesktopCharacter.Util.Math
 
         }
 
+        public Point(System.Drawing.Point pt)
+        {
+            X = pt.X;
+            Y = pt.Y;
+        }
+
+        public Point(System.Windows.Point pt)
+        {
+            X = pt.X;
+            Y = pt.Y;
+        }
+
         public Point( Point pt)
         {
             X = pt.X;
