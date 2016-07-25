@@ -34,7 +34,11 @@ namespace BabumiGraphics.Live2D
         public Live2DAnimation GetAnimation( string name )
         {
             var animationSelect = AnimationDict.Where(e => e.Key.Contains(name)).ToList();
-            return animationSelect[mRandom.Next(animationSelect.Count)].Value;
+            if (animationSelect.Any())
+            {
+                return animationSelect[mRandom.Next(animationSelect.Count)].Value;
+            }
+            return GetAnimation(""); //!< ランダム指定で返す
         }
     }
 }
