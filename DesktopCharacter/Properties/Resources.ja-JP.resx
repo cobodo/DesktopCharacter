@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="App_ConfigCreateNotify" xml:space="preserve">
+    <value>コンフィグファイルがないようなので自動作成します。</value>
+  </data>
+  <data name="App_Live2DFolderNotFound" xml:space="preserve">
+    <value>Live2Dモデルのリソースフォルダーが見つかりませんでした</value>
+  </data>
+  <data name="App_Live2DModelNotFound" xml:space="preserve">
+    <value>モデルデータがないためコンフィグファイルの作成に失敗しました</value>
+  </data>
+  <data name="CharacterSetting_ErrorLoadModelFileList" xml:space="preserve">
+    <value>モデルファイルリスト読込中にエラーが発生しました</value>
+  </data>
   <data name="CharacterTab_ModelList" xml:space="preserve">
     <value>モデルリスト</value>
   </data>
@@ -140,6 +152,12 @@
   </data>
   <data name="LauncherTab_ShortcutPath" xml:space="preserve">
     <value>ショートカットパス名</value>
+  </data>
+  <data name="Launcher_Add" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="MenuItem_ErrorCoidcAccesToken" xml:space="preserve">
+    <value>Coidcのアクセストークンが設定されていません</value>
   </data>
   <data name="MenuItem_Exit" xml:space="preserve">
     <value>終了</value>
@@ -222,7 +240,16 @@
   <data name="TwitterSettingTab_UnFollow" xml:space="preserve">
     <value>フォロワーが減った</value>
   </data>
+  <data name="TwitterSingin_Authentication" xml:space="preserve">
+    <value>認証中</value>
+  </data>
+  <data name="TwitterSingin_FailedAuth" xml:space="preserve">
+    <value>認証失敗</value>
+  </data>
   <data name="TwitterSingleDialg_Title" xml:space="preserve">
     <value>Twitter認証</value>
+  </data>
+  <data name="TwitterSingnIn_InputPINCode" xml:space="preserve">
+    <value>ブラウザで表示されたPINコードを入力</value>
   </data>
 </root>

@@ -117,115 +117,139 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="App_ConfigCreateNotify" xml:space="preserve">
+    <value>Cannot find Babumi.config. Making config file automatically!</value>
+  </data>
+  <data name="App_Live2DFolderNotFound" xml:space="preserve">
+    <value>[ERROR]\nCouldn't find Resource files in Res/Live2D</value>
+  </data>
+  <data name="App_Live2DModelNotFound" xml:space="preserve">
+    <value>[ERROR]\nCouldn't find Resource files in Res/Live2D</value>
+  </data>
+  <data name="CharacterSetting_ErrorLoadModelFileList" xml:space="preserve">
+    <value>Error from loading model file lists!</value>
+  </data>
   <data name="CharacterTab_ModelList" xml:space="preserve">
-    <value />
+    <value>Model lists</value>
   </data>
   <data name="CharacterTab_Reload" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CodicTab_Hyphen" xml:space="preserve">
-    <value />
+    <value>Reload</value>
   </data>
   <data name="CodicTab_Login" xml:space="preserve">
-    <value />
+    <value>Login</value>
   </data>
   <data name="CodicTab_Syntax" xml:space="preserve">
-    <value />
+    <value>Setting notation</value>
   </data>
   <data name="CodicTab_TokenGuide" xml:space="preserve">
-    <value />
+    <value>Paste TOKEN</value>
   </data>
   <data name="LauncherTab_Index" xml:space="preserve">
-    <value />
+    <value>Index</value>
   </data>
   <data name="LauncherTab_Path" xml:space="preserve">
-    <value />
+    <value>Pass</value>
   </data>
   <data name="LauncherTab_ShortcutPath" xml:space="preserve">
-    <value />
+    <value>Shortcut Name</value>
+  </data>
+  <data name="Launcher_Add" xml:space="preserve">
+    <value>Add...</value>
+  </data>
+  <data name="MenuItem_ErrorCoidcAccesToken" xml:space="preserve">
+    <value>There's no setting for Codic access token!</value>
   </data>
   <data name="MenuItem_Exit" xml:space="preserve">
-    <value />
+    <value>Close</value>
   </data>
   <data name="MenuItem_Setting" xml:space="preserve">
-    <value />
+    <value>Settings</value>
   </data>
   <data name="MenuItem_Talk" xml:space="preserve">
-    <value />
+    <value>Talk</value>
   </data>
   <data name="MenuItem_Tool" xml:space="preserve">
-    <value />
+    <value>Tools</value>
   </data>
   <data name="MenuItem_Tool_Timer" xml:space="preserve">
-    <value />
+    <value>Timer</value>
   </data>
   <data name="MenuItem_Tool_Tranlate" xml:space="preserve">
-    <value />
+    <value>Translate</value>
   </data>
   <data name="Setting_CharancterSetting" xml:space="preserve">
-    <value />
+    <value>Character setting</value>
   </data>
   <data name="Setting_Codic" xml:space="preserve">
-    <value />
+    <value>Codic</value>
   </data>
   <data name="Setting_Launcher" xml:space="preserve">
-    <value />
+    <value>Launcher</value>
   </data>
   <data name="Setting_Twitter" xml:space="preserve">
-    <value />
+    <value>Twitter</value>
   </data>
   <data name="TimerSetting_30SecondsAgoNotify" xml:space="preserve">
-    <value />
+    <value>Notice before 30 seconds</value>
   </data>
   <data name="TimerSetting_FinishNotify" xml:space="preserve">
-    <value />
+    <value>Notice before 1 minute</value>
   </data>
   <data name="TimerSetting_Start" xml:space="preserve">
-    <value />
+    <value>Start</value>
   </data>
   <data name="TwitterSettingTab_Block" xml:space="preserve">
-    <value />
+    <value>Block</value>
   </data>
   <data name="TwitterSettingTab_DirectMessage" xml:space="preserve">
-    <value />
+    <value>DirectMessage</value>
   </data>
   <data name="TwitterSettingTab_Erace" xml:space="preserve">
-    <value />
+    <value>Delete Account</value>
   </data>
   <data name="TwitterSettingTab_Fav" xml:space="preserve">
-    <value />
+    <value>Favorite</value>
   </data>
   <data name="TwitterSettingTab_Follow" xml:space="preserve">
-    <value />
+    <value>Follow</value>
   </data>
   <data name="TwitterSettingTab_Headder" xml:space="preserve">
-    <value />
+    <value>Settings</value>
   </data>
   <data name="TwitterSettingTab_ListAdded" xml:space="preserve">
-    <value />
+    <value>ListAdded</value>
   </data>
   <data name="TwitterSettingTab_ListRemoved" xml:space="preserve">
-    <value />
+    <value>ListRemoved</value>
   </data>
   <data name="TwitterSettingTab_Metion" xml:space="preserve">
-    <value />
+    <value>Mention</value>
   </data>
   <data name="TwitterSettingTab_NewAcuunt" xml:space="preserve">
-    <value />
+    <value>New Account</value>
   </data>
   <data name="TwitterSettingTab_RT" xml:space="preserve">
-    <value />
+    <value>Retweet</value>
   </data>
   <data name="TwitterSettingTab_UnBlock" xml:space="preserve">
-    <value />
+    <value>Unblock</value>
   </data>
   <data name="TwitterSettingTab_UnFav" xml:space="preserve">
-    <value />
+    <value>Unfavorite</value>
   </data>
   <data name="TwitterSettingTab_UnFollow" xml:space="preserve">
-    <value />
+    <value>Unfollow</value>
+  </data>
+  <data name="TwitterSingin_Authentication" xml:space="preserve">
+    <value>Processing the authentication</value>
+  </data>
+  <data name="TwitterSingin_FailedAuth" xml:space="preserve">
+    <value>Failed to Auth</value>
   </data>
   <data name="TwitterSingleDialg_Title" xml:space="preserve">
-    <value />
+    <value>Twitter Authentication</value>
+  </data>
+  <data name="TwitterSingnIn_InputPINCode" xml:space="preserve">
+    <value>Input PIN Code in Browser</value>
   </data>
 </root>

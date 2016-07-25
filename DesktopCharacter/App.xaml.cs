@@ -41,21 +41,29 @@ namespace DesktopCharacter
             }
             catch (Exception exception) when (exception is FileNotFoundException)
             {
-                MessageBox.Show(string.Format("コンフィグファイルがないようなので自動作成します。 \n"));
+                MessageBox.Show(DesktopCharacter.Properties.Resources.App_ConfigCreateNotify);
                 //!< Configファイルを自動作成してみてアプリケーションを再起動を試みる
-                var config = BabumiConfig.DefaultConfig();
-                if ( config != null )
+                try
                 {
-                    repo.Save(config);
-                    repo.ExportXML("Babumi.config");
-                    System.Windows.Forms.Application.Restart();
+                    var config = BabumiConfig.DefaultConfig();
+                    if (config != null)
+                    {
+                        repo.Save(config);
+                        repo.ExportXML("Babumi.config");
+                        System.Windows.Forms.Application.Restart();
+                    }
+                    else
+                    {
+                        MessageBox.Show(DesktopCharacter.Properties.Resources.App_Live2DModelNotFound);
+                    }
+                    //例外が発生したら必ず終了する
+                    Environment.Exit(0);
                 }
-                else
+                catch(Exception ex) when (ex is DirectoryNotFoundException)
                 {
-                    MessageBox.Show(string.Format("Res/Live2D以下のフォルダにモデルデータがないためコンフィグファイルの作成に失敗しました\n"));
+                    MessageBox.Show(DesktopCharacter.Properties.Resources.App_Live2DFolderNotFound);
+                    Environment.Exit(0);
                 }
-                //例外が発生したら必ず終了する
-                Environment.Exit(0);
             }
             catch(Exception exception)
             {

@@ -33,7 +33,7 @@ namespace DesktopCharacter.ViewModel.Menu
         {
             this.mChildren = new ObservableCollection<LauncherMenuViewModel>(new LauncherMenuViewModel[] {
                 new LauncherMenuViewModel("notepad.exe", new ViewModelCommand( () => { Process.Start("notepad.exe"); }) ),
-                new LauncherMenuViewModel("追加", new ViewModelCommand(() =>
+                new LauncherMenuViewModel(Properties.Resources.Launcher_Add, new ViewModelCommand(() =>
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     openFileDialog.FilterIndex = 1;
