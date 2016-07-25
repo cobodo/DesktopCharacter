@@ -25,13 +25,12 @@ using DesktopCharacter.Model;
 using DesktopCharacter.Model.Graphics;
 using DesktopCharacter.Util.Messenger.Message;
 using DesktopCharacter.Util.Math;
-using DesktopCharacter.Model.Service.Action;
 
 namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {
-        private CharacterAction _characterAction;
+        private CharacterEmotion _characterEmotion;
         /// <summary>
         /// 初期化フラグ
         /// </summary>
@@ -152,7 +151,20 @@ namespace DesktopCharacter.ViewModel
                 {
                     _motionRunCommand = new ListenerCommand<object>((object sender) =>
                     {
-                        _characterAction.Action(_screenSize, (Util.Math.Point)sender);
+                        var emotion = _characterEmotion.GetEmotion(_screenSize, (Util.Math.Point)sender);
+                        CharacterNotify.Instance.SetAnimation(emotion.ToString());
+                        switch (emotion)
+                        {
+                            case CharacterEmotion.Type.Anger:
+                                CharacterNotify.Instance.Talk("激おこ");
+                                break;
+                            case CharacterEmotion.Type.Happy:
+                                CharacterNotify.Instance.Talk("嬉しい！");
+                                break;
+                            case CharacterEmotion.Type.Shy:
+                                CharacterNotify.Instance.Talk("恥ずかしいぃよ...");
+                                break;
+                        }
                     });
                 }
                 return _motionRunCommand;
@@ -164,7 +176,7 @@ namespace DesktopCharacter.ViewModel
             CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
             CharacterNotify.Instance.WindowSizeMessageSubject.Subscribe(WindowSizeChange);
             _babumiConfigRepository = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-            _characterAction = new CharacterAction();
+            _characterEmotion = new CharacterEmotion();
         }
 
         public void Initialize()
