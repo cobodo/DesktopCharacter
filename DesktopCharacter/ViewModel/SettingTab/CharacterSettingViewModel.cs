@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopCharacter.Util.Messenger.Message;
+using DesktopCharacter.Util.Converter;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
@@ -35,6 +37,11 @@ namespace DesktopCharacter.ViewModel.SettingTab
                 if (mIsSelected)
                 {
                     CharacterNotify.Instance.CharacterLoad(_modelJsonPath);
+                    //!< 次回からこちらをロードする
+                    var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+                    var config = repo.GetConfig();
+                    config.ModelJsonPath = _modelJsonPath;
+                    repo.Save(config);
                 }
                 this.RaisePropertyChanged("IsSelected");
             }
@@ -74,11 +81,61 @@ namespace DesktopCharacter.ViewModel.SettingTab
             get { return this._listCollection; }
         }
 
+        private int _zoomLevel;
+        public int ZoomLevel
+        {
+            set
+            {
+                _zoomLevel = _babumiConfig.ZoomLevel = value;
+                _babumiConfig.AddZoomLevel(value);
+                this.RaisePropertyChanged("CharacterScaleRate");
+                try
+                {
+                    CharacterNotify.Instance.WindowResizeMessage(_babumiConfig.ZoomLevel);
+                }
+                catch (Exception e)
+                {
+                    Messenger.Raise(new CloseMessage(true, e.Message, "Error"));
+                }
+            }
+            get { return _zoomLevel; }
+        }
+
+        private bool _topmostFlag;
+        public bool TopmostFlag
+        {
+            set
+            {
+                _topmostFlag = _babumiConfig.Topmost = value;
+                this.RaisePropertyChanged("TopmostFlag");
+                CharacterNotify.Instance.TopMostMessage(_topmostFlag);
+            }
+            get { return _topmostFlag; }
+        }
+
+        private ViewModelCommand _reloadCommand;
+        public ViewModelCommand ReloadCommand
+        {
+            get
+            {
+                if (_reloadCommand == null)
+                {
+                    _reloadCommand = new ViewModelCommand(() =>
+                    {
+                        Reload();
+                    });
+                }
+                return _reloadCommand;
+            }
+        }
+
         public CharacterSettingViewModel()
         {
             _listCollection = new ObservableCollection<CharacterName>();
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             _babumiConfig = repo.GetConfig();
+            _topmostFlag = _babumiConfig.Topmost;
+            _zoomLevel = _babumiConfig.ZoomLevel;
             Reload();
         }
 
@@ -104,20 +161,10 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
-        private ViewModelCommand _reloadCommand;
-        public ViewModelCommand ReloadCommand
+        public void OnClose()
         {
-            get
-            {
-                if (_reloadCommand == null)
-                {
-                    _reloadCommand = new ViewModelCommand(() =>
-                    {
-                        Reload();
-                    });
-                }
-                return _reloadCommand;
-            }
+            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+            repo.Save(_babumiConfig);
         }
     }
 }

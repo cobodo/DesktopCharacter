@@ -19,9 +19,13 @@ namespace DesktopCharacter.Model.Graphics
     class Live2DManaged
     {
         /// <summary>
+        /// 初期化済みかどうか
+        /// </summary>
+        public bool Initialized { get; private set; } = false;
+        /// <summary>
         /// スクリーンサイズ
         /// </summary>
-        private System.Drawing.Point _screenSize;
+        private Util.Math.Point _screenSize;
         /// <summary>
         /// xamlに渡すための書き込み先ビットマップ
         /// </summary>
@@ -68,9 +72,6 @@ namespace DesktopCharacter.Model.Graphics
             _live2DManager.DeleteModel();
             _live2DManager.Load(modelJsonPath);
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-            //!< 次回からこちらをロードする
-            _babumiConfig.ModelJsonPath = modelJsonPath;
-            repo.Save(_babumiConfig);
         }
 
         /// <summary>
@@ -87,8 +88,10 @@ namespace DesktopCharacter.Model.Graphics
         /// </summary>
         /// <param name="name">キャラクター名</param>
         /// <param name="screenSize">スクリーンサイズ</param>
-        public void Initialize(System.Drawing.Point screenSize)
+        public void Initialize(Util.Math.Point screenSize)
         {
+            //!< 初期化
+            Initialized = true;
             //!< スクリーンサイズ設定
             _screenSize = screenSize;
             //!< キャラクターをロードする
@@ -98,20 +101,32 @@ namespace DesktopCharacter.Model.Graphics
             {
                 return; //!< GL4.3以下なので処理をしない
             }
-            _bitmapSource = new WriteableBitmap(_screenSize.X, _screenSize.Y, 96, 96, PixelFormats.Bgra32, null);
-            _sourceRect = new Int32Rect(0, 0, _screenSize.X, _screenSize.Y);
+            _bitmapSource = new WriteableBitmap((int)_screenSize.X, (int)_screenSize.Y, 96, 96, PixelFormats.Bgra32, null);
+            _sourceRect = new Int32Rect(0, 0, (int)_screenSize.X - 20, (int)_screenSize.Y - 20);
 
             _renderTarget = new RenderTarget { Width = (uint)_screenSize.X, Height = (uint)_screenSize.Y };
             _renderTarget.Create();
 
             _sssbObject = new SSBObject();
-            _sssbObject.Create(1000000 * sizeof(uint));
+            _sssbObject.Create((int)_screenSize.X * (int)_screenSize.Y * sizeof(uint));
 
             _computeShader = new Shader();
             _computeShader.CreateShader("Res/computeShader.fx", Shader.Type.ComputeShader);
             _computeShader.Attach();
 
             GraphicsManager.Instance.SetRenderTarget(_renderTarget);
+        }
+
+        /// <summary>
+        /// グラフィックスオブジェクト削除
+        /// 再初期化ができる
+        /// </summary>
+        public void Destory()
+        {
+            Initialized = false;
+            _sssbObject?.Destory();
+            _renderTarget?.Destory();
+            _computeShader?.Destory();
         }
 
         /// <summary>
@@ -130,7 +145,7 @@ namespace DesktopCharacter.Model.Graphics
 
             Manager.Begin();
             {
-                _live2DManager.Update(_screenSize.X, _screenSize.Y);
+                _live2DManager.Update((int)_screenSize.X, (int)_screenSize.Y);
             }
             Manager.End();
 
@@ -146,7 +161,7 @@ namespace DesktopCharacter.Model.Graphics
                 _bitmapSource.WritePixels(
                     _sourceRect,
                     ptr,
-                    (int)stride * _screenSize.Y,
+                    (int)stride * (int)_screenSize.Y,
                     (int)stride);
                 Manager.UnMap(OpenGL.GL_SHADER_STORAGE_BUFFER);
             }

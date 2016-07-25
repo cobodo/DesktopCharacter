@@ -16,6 +16,21 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <GroupBox Header="キャラの動作" Grid.Column="0">
+                <StackPanel>
+                    <!--<CheckBox Content="マウスの移動に視線が移動する" Margin="4, 10, 5, 0" IsChecked="{Binding TopmostFlag}"/>
+                    <CheckBox Content="時報機能" Margin="4, 10, 5, 0" IsChecked="{Binding TopmostFlag}"/>-->
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="キャラの状態">
+                <StackPanel>
+                    <TextBlock Grid.Column="0" Text="キャラクターの大きさ" FontSize="14" Width="auto" Height="24" Margin="5, 5, 5, 0" HorizontalAlignment="Left" />
+                    <Slider Maximum="2" Minimum="-2" Value="{Binding ZoomLevel}" Margin="5, 0, 5, 0"/>
+                    <CheckBox Content="キャラクターを常に上にする" Margin="4, 10, 5, 0" IsChecked="{Binding TopmostFlag}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
         <ListView ItemsSource="{Binding ListCollection}" Grid.Column="1" Margin="0,0,0,25">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

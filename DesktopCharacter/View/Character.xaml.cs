@@ -26,8 +26,6 @@ namespace DesktopCharacter.View
 
             var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
             userVM.CharacterVM = this.DataContext as CharacterViewModel;
-            var characterVM = this.DataContext as ViewModel.CharacterViewModel;
-            characterVM.ScreenSize = new System.Drawing.Point((int)this.Width, (int)this.Height);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -41,33 +39,6 @@ namespace DesktopCharacter.View
             base.OnClosed(e);
             var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
             repo.Save((int)Left, (int)Top);
-        }
-
-        private void Window_ContentRendered(object sender, EventArgs e)
-        {
-            //!< Debugの時だけバージョンチェックをする
-            var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-            var setting = repo.GetConfig();
-            //!< 起動時に例外処理をしているので必ずnullではないと思うのだけど...
-            if (setting == null)
-            {
-                //!< GLのバージョンを表示してアプリケーションを終了する
-                MessageBox.Show("Configファイルを正しく読み込めてない可能性があるため終了します");
-                //!< アプリケーションを終了する
-                Environment.Exit(0);
-            }
-            //!< OpenGLのバージョンチェック
-            if ( setting.RequiredVersion > GraphicsManager.Instance.GetVersion())
-            {
-                //!< GLのバージョンを表示してアプリケーションを終了する
-                MessageBox.Show(string.Format(
-                    "[ ERROR ]\nGL_VENDOR: {0} \nGL_RENDERER : {1} \nGL_VERSION : {2} \nOpenGLのバージョンが4.3以下です！コンピュートシェーダに対応していないため終了します",
-                    GraphicsManager.Instance.mVender,
-                    GraphicsManager.Instance.mRender,
-                    GraphicsManager.Instance.mVersion));
-                //!< アプリケーションを終了する
-                Environment.Exit(0);
-            }
         }
     }
 }

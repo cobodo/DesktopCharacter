@@ -14,7 +14,6 @@ using System.Collections.ObjectModel;
 using DesktopCharacter.Model.Locator;
 using NLog;
 using System.Windows.Media.Imaging;
-using System.Windows;
 using BabumiGraphics.Graphics;
 using BabumiGraphics.Live2D;
 using System.IO;
@@ -24,23 +23,29 @@ using SharpGL;
 using System.Windows.Media;
 using DesktopCharacter.Model;
 using DesktopCharacter.Model.Graphics;
+using DesktopCharacter.Util.Messenger.Message;
+using DesktopCharacter.Util.Math;
 
 namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {
         /// <summary>
-        /// TalkVMのインスタンス
+        /// 初期化フラグ
         /// </summary>
-        public TalkViewModel TalkViewModel { private get; set; }
+        private bool _initialized = false;
         /// <summary>
         /// スクリーンサイズ
         /// </summary>
-        public System.Drawing.Point ScreenSize { private get; set; }
+        private Point _screenSize;
         /// <summary>
         /// モデル描画をまとめたModel層
         /// </summary>
         private Live2DManaged _model = new Live2DManaged();
+        /// <summary>
+        /// コンフィグファイルのリポジトリ
+        /// </summary>
+        private BabumiConfigRepository _babumiConfigRepository;
         /// <summary>
         /// マスコット画像のイメージ
         /// </summary>
@@ -55,11 +60,6 @@ namespace DesktopCharacter.ViewModel
             }
         }
 
-        public CharacterViewModel()
-        {
-
-        }
-
         private ViewModelCommand mDrawCommand;
         public ViewModelCommand DrawCommand
         {
@@ -69,6 +69,15 @@ namespace DesktopCharacter.ViewModel
                 {
                     mDrawCommand = new ViewModelCommand( () =>
                     {
+                        //!< キャラクターVMの初期化が終わるまで遅延させる
+                        if (!_initialized)
+                        {
+                            return;
+                        }
+                        if (!_model.Initialized)
+                        {
+                            _model.Initialize(_screenSize);
+                        }
                         Source = _model.Draw();
                     });
                 }
@@ -85,11 +94,99 @@ namespace DesktopCharacter.ViewModel
                 {
                     mInitializeCommand = new ViewModelCommand(() =>
                     {
-                        _model.Initialize(ScreenSize);
+                        //!< ここでモデルの初期化はしない
+                        //!< 描画コマンドの実行時にはスクリーンサイズが取得できているのでそちらで行う
+                        //!< コマンドとして定義している理由は、ビヘイビアでDeviceの初期化を行っているため
+                        return; 
                     });
                 }
                 return mInitializeCommand;
             }
+        }
+
+        private Livet.Commands.ListenerCommand<object> _scaleChangeCommand;
+        public Livet.Commands.ListenerCommand<object> ScaleChangeCommand
+        {
+            get
+            {
+                if (_scaleChangeCommand == null)
+                {
+                    _scaleChangeCommand = new ListenerCommand<object>((object sender) =>
+                    {
+                        var setting = _babumiConfigRepository.GetConfig();
+                        var param = sender as MouseWheelEventArgs;
+                        if (param != null)
+                        {
+                            if (param.Delta > 0)
+                            {
+                                setting.AddZoomLevel(+1);
+                            }
+                            if (param.Delta < 0)
+                            {
+                                setting.AddZoomLevel(-1);
+                            }
+                            try
+                            {
+                                CharacterNotify.Instance.WindowResizeMessage(setting.ZoomLevel);
+                            }
+                            catch (Exception e)
+                            {
+                                Messenger.Raise(new CloseMessage(true, e.Message, "Error"));
+                            }
+                            _babumiConfigRepository.Save(setting);
+                        }
+                    });
+                }
+                return _scaleChangeCommand;
+            }
+        }
+
+        public CharacterViewModel()
+        {
+            CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
+            CharacterNotify.Instance.WindowSizeMessageSubject.Subscribe(WindowSizeChange);
+            _babumiConfigRepository = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
+        }
+
+        public void Initialize()
+        {
+            //!< 初期化フラグOn
+            _initialized = true;
+            //!< コンフィグファイルを読み込む
+            var setting = _babumiConfigRepository.GetConfig();
+            try
+            {
+                CharacterNotify.Instance.WindowResizeMessage(setting.ZoomLevel);
+            }
+            catch (Exception e)
+            {
+                Messenger.Raise(new CloseMessage(true, e.Message, "Error"));
+            }           
+            //!< Windowの最前面かどうかをコンフィグから設定
+            TopMostMessageSend(setting.Topmost);
+            //!< 起動時に例外処理をしているので必ずnullではないと思うのだけど...
+            Messenger.Raise(new CloseMessage( setting == null, "Configファイルを正しく読み込めてない可能性があるため終了します", "InfoMessage"));
+            //!< GLのバージョンを表示してアプリケーションを終了する
+            Messenger.Raise(new CloseMessage(
+                setting.RequiredVersion > GraphicsManager.Instance.GetVersion(),
+                string.Format("GL_VENDOR: {0} \nGL_RENDERER : {1} \nGL_VERSION : {2} \nOpenGLのバージョンが4.3以下です！\nコンピュートシェーダに対応していないため終了します",
+                GraphicsManager.Instance.mVender,
+                GraphicsManager.Instance.mRender,
+                GraphicsManager.Instance.mVersion),
+                "InfoMessage"));  
+        }
+
+        private void TopMostMessageSend( bool topmost )
+        {
+            //!< Windowの最前面かどうかをコンフィグから設定
+            Messenger.Raise(new TopmostMessage("TopmostMessage", topmost));
+        }
+
+        private void WindowSizeChange(Point scaleSize )
+        {
+            _screenSize = scaleSize;
+            Messenger.Raise(new ReszieMessage("WindowResizeMessage", _screenSize));
+            _model.Destory();  
         }
     }
 }

@@ -10,6 +10,7 @@
         xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
         xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate" 
         xmlns:menuView="clr-namespace:DesktopCharacter.View.Menu"
+        xmlns:util="clr-namespace:DesktopCharacter.Util.Messenger.Action"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:DesktopCharacter.ViewModel"
         xmlns:behavior="clr-namespace:DesktopCharacter.Util.Behavior"
@@ -19,7 +20,6 @@
         ShowInTaskbar="False"
         Topmost="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        ContentRendered="Window_ContentRendered"
         Title="MainWindow" Height="400" Width="400"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF">
     <Window.DataContext>
@@ -35,14 +35,34 @@
             <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
         </l:InteractionMessageTrigger>
         
-    </i:Interaction.Triggers> 
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
+        </i:EventTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="TopmostMessage" Messenger="{Binding Messenger}">
+            <util:TopmostAction InvokeActionOnlyWhenWindowIsActive="False"/>
+        </l:InteractionMessageTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="WindowResizeMessage" Messenger="{Binding Messenger}">
+            <util:ResizeAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="InfoMessage" Messenger="{Binding Messenger}">
+            <util:CloseAction InvokeActionOnlyWhenWindowIsActive="False"/>
+        </l:InteractionMessageTrigger>
+        
+    </i:Interaction.Triggers>
+    
+    <i:Interaction.Behaviors>
+        <behavior:MouseWheelBeavior IsBindKey="true" BindKey="control" Command="{Binding ScaleChangeCommand}" />
+    </i:Interaction.Behaviors>
 
     <Grid>
         <Grid.ContextMenu>
           <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         </Grid.ContextMenu>
         <Image x:Name="Image" Source="{Binding Source}" Width="400" Height="400"></Image>
-        <v:Talk Margin="0,257,0,0"></v:Talk>
+        <v:Talk x:Name="Talk" Margin="0,257,0,0"></v:Talk>
         <sharpGL:OpenGLControl 
             Width="0" Height="0" RenderContextType="FBO" 
             behavior:SharpGLBehavior.OpenGLDrawCommand="{Binding DrawCommand}"
