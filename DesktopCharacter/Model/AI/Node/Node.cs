@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace DesktopCharacter.Model.AI.Node
 {
-    abstract class ActionNode : Node
+    interface Node
     {
-        public virtual bool Update()
-        {
-            return true;
-        }
+        /// <summary>
+        /// 実行する
+        /// </summary>
+        /// <returns>true:成功 false:失敗</returns>
+        bool Update();
     }
 }

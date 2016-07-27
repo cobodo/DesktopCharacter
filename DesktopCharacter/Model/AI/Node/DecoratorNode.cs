@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace DesktopCharacter.Model.AI.Node
 {
-    class DecoratorNode
+    abstract class DecoratorNode : Node
     {
+        public virtual bool Update()
+        {
+            if (Result)
+            {
+                if (Child != null)
+                {
+                    return Child.Update();
+                }
+            }
+            return false;
+        }
+
+        public bool Result { get; set; }
+        public Node Child { get; set; }
     }
 }
