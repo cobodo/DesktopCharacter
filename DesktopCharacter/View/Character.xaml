@@ -59,9 +59,7 @@
     </i:Interaction.Behaviors>
 
     <Grid>
-        <Grid.ContextMenu>
-          <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
-        </Grid.ContextMenu>
+        <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
         <Image x:Name="Image" Source="{Binding Source}" Width="400" Height="400"></Image>
         <v:Talk x:Name="Talk" Margin="0,257,0,0"></v:Talk>
         <sharpGL:OpenGLControl 

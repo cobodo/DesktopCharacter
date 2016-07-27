@@ -30,7 +30,8 @@ project "DesktopCharacter"
         "DesktopCharacter/obj/**.*",
         "DesktopCharacter/bin/**.*",
         "./packages/**.*",
-        "./Extension/**.*"
+        "./Extension/**.*",
+		"./.vs/**.*"
     }
     
     links { 
@@ -75,6 +76,7 @@ project "DesktopCharacter"
         "packages/System.Data.SQLite.Linq.1.0.99.0/lib/net451/System.Data.SQLite.Linq.dll",
         "packages/CalcBinding.2.2.5.1/lib/net45/CalcBinding.dll",
         "packages/DynamicExpresso.Core.1.3.0.0/lib/net40/DynamicExpresso.Core.dll",
+		"packages/RadialMenu.WPF.1.3.0/lib/net45/RadialMenu.dll",
         "Extension/Lib/$(Configuration)/BabumiGraphics.dll",
         "Extension/Lib/$(Configuration)/Live2DforDLL.dll",
         "Extension/Lib/$(Configuration)/SharpGL.WPF.dll",

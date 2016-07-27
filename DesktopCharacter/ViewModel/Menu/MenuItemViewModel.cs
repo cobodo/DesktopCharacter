@@ -26,6 +26,20 @@ namespace DesktopCharacter.ViewModel.Menu
 
         }
 
+        private bool _isOpen = false;
+        public bool IsOpen
+        {
+            get
+            {
+                return _isOpen;
+            }
+            set
+            {
+                _isOpen = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ViewModelCommand mTalkCommand;
         public ViewModelCommand TalkCommand
         {
