@@ -258,3 +258,6 @@ DesktopCharacter/Res/**/*.moc
 DesktopCharacter/Res/**/sounds/*
 DesktopCharacter/Res/**/motions/*
 DesktopCharacter/Res/**/expressions/*
+DesktopCharacter/Res/Live2D/**
+
+Extension/Dependency/**
