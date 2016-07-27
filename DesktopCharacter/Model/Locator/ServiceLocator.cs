@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Service.Slack;
 using DesktopCharacter.Model.Service.TimeSignal;
 using DesktopCharacter.Model.Service.Twitter;
 using DesktopCharacter.Model.AI;
@@ -51,6 +52,8 @@ namespace DesktopCharacter.Model.Locator
                     new Service.TimeSignal.Impl.SimpleTimeSignalService())
                 );
             RegisterByApplicationScope<BlackBoard>(() => new BlackBoard());
+            RegisterByPrototypeScope<SlackUserRepository>(() => new SlackUserRepository());
+            RegisterByConfigBaseScope<ISlackService>(() => new SlackService());
             logger.Info("=== End RegistFactories ===");
         }
 

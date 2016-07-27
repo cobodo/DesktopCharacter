@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -10,6 +11,9 @@ using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Database.Domain;
 using System.IO;
+using DesktopCharacter.Model;
+using DesktopCharacter.Model.Service.Slack;
+using Microsoft.Win32;
 
 namespace DesktopCharacter
 {
@@ -30,6 +34,9 @@ namespace DesktopCharacter
                     logger.Error(exception);
                 }
             };
+
+            SetupRegistory();
+
             base.OnStartup(e);
             ServiceLocator.Instance.InitializeServiceLocator();
 
@@ -79,6 +86,15 @@ namespace DesktopCharacter
             //!< プロジェクトのコンフィグファイルを読み込む
             var repo = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             repo.ExportXML("Babumi.config"); 
+        }
+
+        //WebBrowserコンポーネントでIEの新しいバージョンが使えるようにレジストリをいじる
+        private void SetupRegistory()
+        {
+            var name = Process.GetCurrentProcess().ProcessName + ".exe";
+            var IEVAlue = 10001;
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION",
+                name, IEVAlue, RegistryValueKind.DWord);
         }
     }
 }
