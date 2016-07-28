@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DesktopCharacter.Model.Repository;
 using DesktopCharacter.Model.Service.TimeSignal;
 using DesktopCharacter.Model.Service.Twitter;
+using DesktopCharacter.Model.AI;
 using NLog;
 
 namespace DesktopCharacter.Model.Locator
@@ -48,6 +49,7 @@ namespace DesktopCharacter.Model.Locator
             RegisterByApplicationScope<ITimeSignalService>(() => new CompositeTimeSignalService(
                     new Service.TimeSignal.Impl.SimpleTimeSignalService())
                 );
+            RegisterByApplicationScope<BlackBoard>(() => new BlackBoard());
             logger.Info("=== End RegistFactories ===");
         }
 

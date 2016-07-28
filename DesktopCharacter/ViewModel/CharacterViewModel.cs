@@ -25,12 +25,12 @@ using DesktopCharacter.Model;
 using DesktopCharacter.Model.Graphics;
 using DesktopCharacter.Util.Messenger.Message;
 using DesktopCharacter.Util.Math;
+using DesktopCharacter.Model.AI;
 
 namespace DesktopCharacter.ViewModel
 {
     class CharacterViewModel : Livet.ViewModel
     {
-        private CharacterEmotion _characterEmotion;
         /// <summary>
         /// 初期化フラグ
         /// </summary>
@@ -151,20 +151,13 @@ namespace DesktopCharacter.ViewModel
                 {
                     _motionRunCommand = new ListenerCommand<object>((object sender) =>
                     {
-                        var emotion = _characterEmotion.GetEmotion(_screenSize, (Util.Math.Point)sender);
-                        CharacterNotify.Instance.SetAnimation(emotion.ToString());
-                        switch (emotion)
-                        {
-                            case CharacterEmotion.Type.Anger:
-                                CharacterNotify.Instance.Talk("激おこ");
-                                break;
-                            case CharacterEmotion.Type.Happy:
-                                CharacterNotify.Instance.Talk("嬉しい！");
-                                break;
-                            case CharacterEmotion.Type.Shy:
-                                CharacterNotify.Instance.Talk("恥ずかしいぃよ...");
-                                break;
-                        }
+                        var board = ServiceLocator.Instance.GetInstance<BlackBoard>();
+                        //!< 思考に必要なものを記憶させる
+                        board.TouchAction.IsClickAction = true;
+                        board.TouchAction.MousePoint = (Util.Math.Point)sender;
+                        board.TouchAction.SplitSize = _screenSize.Y / 2.0;
+                        //!< Behaviorを実行
+                        new BehaviorTree().Update();
                     });
                 }
                 return _motionRunCommand;
@@ -176,7 +169,6 @@ namespace DesktopCharacter.ViewModel
             CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
             CharacterNotify.Instance.WindowSizeMessageSubject.Subscribe(WindowSizeChange);
             _babumiConfigRepository = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
-            _characterEmotion = new CharacterEmotion();
         }
 
         public void Initialize()
