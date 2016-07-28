@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesktopCharacter.Model.Service.TimeSignal.Impl
 {
-    class AnimationTImeSignal : TimeSignalServiceAdapter
+    class AnimationTimeSignal : TimeSignalServiceAdapter
     {
         public override void OnMessage(DateTime time)
         {
