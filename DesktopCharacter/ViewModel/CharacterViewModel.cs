@@ -25,6 +25,7 @@ using DesktopCharacter.Model;
 using DesktopCharacter.Model.Graphics;
 using DesktopCharacter.Util.Messenger.Message;
 using DesktopCharacter.Util.Math;
+using DesktopCharacter.Model.AI;
 
 namespace DesktopCharacter.ViewModel
 {
@@ -138,6 +139,28 @@ namespace DesktopCharacter.ViewModel
                     });
                 }
                 return _scaleChangeCommand;
+            }
+        }
+
+        private Livet.Commands.ListenerCommand<object> _motionRunCommand;
+        public Livet.Commands.ListenerCommand<object> MotionRunCommand
+        {
+            get
+            {
+                if (_motionRunCommand == null)
+                {
+                    _motionRunCommand = new ListenerCommand<object>((object sender) =>
+                    {
+                        var board = ServiceLocator.Instance.GetInstance<BlackBoard>();
+                        //!< 思考に必要なものを記憶させる
+                        board.TouchAction.IsClickAction = true;
+                        board.TouchAction.MousePoint = (Util.Math.Point)sender;
+                        board.TouchAction.SplitSize = _screenSize.Y / 2.0;
+                        //!< Behaviorを実行
+                        new BehaviorTree().Update();
+                    });
+                }
+                return _motionRunCommand;
             }
         }
 

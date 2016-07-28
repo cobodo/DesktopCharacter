@@ -77,7 +77,7 @@ namespace DesktopCharacter.Model.Graphics
         /// <summary>
         /// アニメーションセット
         /// </summary>
-        /// <param name="name">アニメーションの名前</param>
+        /// <param name="name">アニメーションの名前(完全一致しなくてもよい、空文字の場合完全ランダム)</param>
         public void SetAnimation(string name)
         {
             _live2DManager.SetAnimation(name, true);

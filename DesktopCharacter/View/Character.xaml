@@ -19,7 +19,6 @@
         WindowStyle="None"
         ShowInTaskbar="False"
         Topmost="True"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="MainWindow" Height="400" Width="400"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF">
     <Window.DataContext>
@@ -54,7 +53,9 @@
     </i:Interaction.Triggers>
     
     <i:Interaction.Behaviors>
+        <behavior:MouseDrawMoveBehavior></behavior:MouseDrawMoveBehavior>
         <behavior:MouseWheelBeavior IsBindKey="true" BindKey="control" Command="{Binding ScaleChangeCommand}" />
+        <behavior:MouseClickBeavior EnableDoubleClick="True" Command="{Binding MotionRunCommand}" />
     </i:Interaction.Behaviors>
 
     <Grid>

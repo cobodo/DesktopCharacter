@@ -31,17 +31,6 @@ namespace DesktopCharacter.Model.Service.TimeSignal
     }
 
     /// <summary>
-    /// 現在の時刻のみを表示するシンプルな時報
-    /// </summary>
-    class SimpleTimeSignalService : TimeSignalServiceAdapter
-    {
-        public override void OnMessage(DateTime time)
-        {
-            CharacterNotify.Instance.Talk(time.Hour + "時になったよ");
-        }
-    }
-
-    /// <summary>
     /// 複数の時報を入れ子にして使うためのComposite
     /// </summary>
     class CompositeTimeSignalService : TimeSignalServiceAdapter
