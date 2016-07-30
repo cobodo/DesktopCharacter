@@ -12,15 +12,19 @@ namespace DesktopCharacter.ViewModel.Dialog
         public delegate void Callback(Uri result);
         private readonly Callback _callback;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="callback">コールバックページへ移動した時のイベント</param>
         public SlackSignInViewModel(Callback callback)
         {
             _callback = callback;
         }
 
 
-        public void Complete(Uri uri)
+        public async void Complete(Uri uri)
         {
-            _callback.Invoke(uri);
+            await Task.Run(() => _callback.Invoke(uri));
         }
     }
 }

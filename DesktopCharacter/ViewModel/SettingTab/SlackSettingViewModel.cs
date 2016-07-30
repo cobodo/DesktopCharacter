@@ -4,7 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using DesktopCharacter.Model.Database.Domain;
 using DesktopCharacter.Model.Locator;
 using DesktopCharacter.Model.Repository;
@@ -61,22 +64,25 @@ namespace DesktopCharacter.ViewModel.SettingTab
             }
         }
 
+        private ViewModelCommand _deleteAccount;
+        public ViewModelCommand DeleteAccount => _deleteAccount ??
+            (_deleteAccount = new ViewModelCommand(() =>
+            {
+                _slackUsers.Remove(_selectedSlackUser);
+            }));
+
         private readonly List<SlackUser> _oldSlackUsersList;
 
 
         public SlackSettingViewModel()
         {
             var slackUserRepository = ServiceLocator.Instance.GetInstance<SlackUserRepository>();
-            var slackService = ServiceLocator.Instance.GetInstance<ISlackService>();
 
             SlackUsers = new ObservableCollection<SlackUser>();
             var users = slackUserRepository.FindAll();
             _oldSlackUsersList = users;
 
-            users.ForEach(user =>
-            {
-                SlackUsers.Add(user);
-            });
+            UpdateSlackUsers();
         }
 
         public void OnClose()
@@ -94,7 +100,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
             slackUserRepository.Delete(diff);
         }
 
-        public async void OnCodeReceive(Uri uri)
+        public void OnCodeReceive(Uri uri)
         {
             var query = uri.Query;
             if (query.Length != 0)
@@ -104,22 +110,40 @@ namespace DesktopCharacter.ViewModel.SettingTab
             var uriParams = query.Split('&')
                 .Select(q => q.Split('='))
                 .ToDictionary(k => k[0], v => v[1]);
-            var code = uriParams["code"];
 
-            if (code == null)
+            if (!uriParams.ContainsKey("code"))
             {
                 //codeの値がなければおかしい
-                throw new Exception("認証エラー");
+                //キャンセルした時とかに入る。例外出さずにそのままクローズする
+                return;
             }
+            var code = uriParams["code"];
+
 
             var slackService = ServiceLocator.Instance.GetInstance<ISlackService>();
             //コードを使って認証
-            var auth = await slackService.ProcessAuth(code);
-            //TODO 認証処理のブロッキング
-            //ブロックしないと処理中にConfigurationScopeのインスタンスが作りなおされるとまずいかも
-
+            var auth = slackService.ProcessAuth(code);
+            //処理待ち
+            auth.Wait();
             //永続化
-            slackService.Save(auth);
+            slackService.Save(auth.Result);
+
+            Application.Current.Dispatcher.Invoke(UpdateSlackUsers);
+
+        }
+
+        private void UpdateSlackUsers()
+        {
+            var slackUserRepository = ServiceLocator.Instance.GetInstance<SlackUserRepository>();
+            SlackUsers.Clear();
+            var slackUsers = slackUserRepository.FindAll();
+            slackUsers.ForEach(user => SlackUsers.Add(user));
+
+            if (SelectedSlackUser != null)
+            {
+                var token = SelectedSlackUser.AccessToken;
+                SelectedSlackUser = SlackUsers.ToList().Find(user => user.AccessToken == token);
+            }
         }
     }
 }

@@ -48,23 +48,26 @@ namespace DesktopCharacter.Model.Service.Slack
             return $"https://slack.com/oauth/authorize?client_id={CLIENT_ID}&scope=client";
         }
 
-        public async Task<SlackAuthInfo> ProcessAuth(string code)
+        public Task<SlackAuthInfo> ProcessAuth(string code)
         {
-            using (var client = new HttpClient())
+            return Task.Run(() =>
             {
-                var url = $"https://slack.com/api/oauth.access?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&code={code}";
-                client.Timeout = TimeSpan.FromSeconds(10);
-                var result = await client.GetStringAsync(url);
-                var json = DynamicJson.Parse(result);
-                if (!json.ok)
+                using (var client = new HttpClient())
                 {
-                    throw new SlackAuthException(json.error);
+                    var url = $"https://slack.com/api/oauth.access?client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&code={code}";
+                    client.Timeout = TimeSpan.FromSeconds(10);
+                    var task = client.GetStringAsync(url);
+                    task.Wait();
+                    var json = DynamicJson.Parse(task.Result);
+                    if (!json.ok)
+                    {
+                        throw new SlackAuthException(json.error);
+                    }
+
+                    var slackAuthInfo = new SlackAuthInfo(json.access_token, json.scope, json.user_id, json.team_name, json.team_id);
+                    return slackAuthInfo;
                 }
-
-
-                var slackAuthInfo = new SlackAuthInfo(json.access_token, json.scope, json.user_id, json.team_name, json.team_id);
-                return slackAuthInfo;
-            }
+            });
         }
 
         public void Save(SlackAuthInfo info)
@@ -72,7 +75,8 @@ namespace DesktopCharacter.Model.Service.Slack
             var slackUser = new SlackUser
             {
                 AccessToken = info.AccessToken,
-                TeamName = info.TeamName
+                TeamName = info.TeamName,
+                Filter = new SlackNotificationFilter()
             };
             var repo = ServiceLocator.Instance.GetInstance<SlackUserRepository>();
             repo.Save(slackUser);
@@ -83,7 +87,7 @@ namespace DesktopCharacter.Model.Service.Slack
         {
             var repo = ServiceLocator.Instance.GetInstance<SlackUserRepository>();
             return repo.FindAll()
-                .Select(user => new SlackClient(user.AccessToken))
+                .Select(user => new SlackClient(user))
                 .ToList();
         }
 
@@ -93,7 +97,7 @@ namespace DesktopCharacter.Model.Service.Slack
             foreach (var slackClient in _clientList)
             {
                 slackClient.ConnectStreaming();
-                slackClient.Message.Subscribe(str => CharacterNotify.Instance.Talk(str));
+                slackClient.Message.Subscribe(json => OnMessageReceive(slackClient, json));
             }
         }
 
@@ -102,6 +106,18 @@ namespace DesktopCharacter.Model.Service.Slack
             foreach (var slackClient in _clientList)
             {
                 slackClient.CloseStream();
+            }
+        }
+
+        private void OnMessageReceive(SlackClient client, dynamic message)
+        {
+            var filter = client.User.Filter;
+            var type = message.type;
+
+            if (filter.Message && type == "message")
+            {
+                CharacterNotify.Instance.Talk("【Slack】" + message.text);
+                return;
             }
         }
     }

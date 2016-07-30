@@ -32,6 +32,7 @@ namespace DesktopCharacter.Model.Repository
             using (var context = new DatabaseContext())
             {
                 context.TwitterUser.AddOrUpdate(user);
+                context.TwitterNotificationFilter.AddOrUpdate(user.Filter);
                 context.SaveChanges();
             }
         }

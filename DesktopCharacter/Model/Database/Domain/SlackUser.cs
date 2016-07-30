@@ -17,5 +17,25 @@ namespace DesktopCharacter.Model.Database.Domain
         public string AccessToken { get; set; }
         [Column("team_name")]
         public string TeamName { get; set; }
+
+        public SlackNotificationFilter Filter { get; set; }
+
+        protected bool Equals(SlackUser other)
+        {
+            return string.Equals(AccessToken, other.AccessToken);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((SlackUser) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return AccessToken?.GetHashCode() ?? 0;
+        }
     }
 }

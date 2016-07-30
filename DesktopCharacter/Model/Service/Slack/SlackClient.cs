@@ -8,19 +8,20 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Codeplex.Data;
+using DesktopCharacter.Model.Database.Domain;
 
 namespace DesktopCharacter.Model.Service.Slack
 {
     public class SlackClient
     {
-        private readonly string _accessToken;
         private ClientWebSocket _ws = null;
+        public SlackUser User { get; private set; }
 
-        public Subject<string> Message { get; private set; } = new Subject<string>();
+        public Subject<dynamic> Message { get; private set; } = new Subject<dynamic>();
 
-        internal SlackClient(string accessToken)
+        internal SlackClient(SlackUser user)
         {
-            _accessToken = accessToken;
+            User = user;
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace DesktopCharacter.Model.Service.Slack
         {
             using (var client = new HttpClient())
             {
-                var url = $"https://slack.com/api/rtm.start?token={_accessToken}";
+                var url = $"https://slack.com/api/rtm.start?token={User.AccessToken}";
                 client.Timeout = TimeSpan.FromSeconds(10);
                 var response = await client.GetStringAsync(url);
 
@@ -59,11 +60,7 @@ namespace DesktopCharacter.Model.Service.Slack
                             continue;
                         }
                         var messageJson = DynamicJson.Parse(messageStr);
-
-                        if (messageJson.type == "message")
-                        {
-                            Message.OnNext(messageJson.text);
-                        }
+                        Message.OnNext(messageJson);
                     }
                 }
 

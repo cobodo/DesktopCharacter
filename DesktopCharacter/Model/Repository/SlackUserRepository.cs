@@ -15,7 +15,7 @@ namespace DesktopCharacter.Model.Repository
         {
             using (var context = new DatabaseContext())
             {
-                return context.SlackUser.ToList();
+                return context.SlackUser.Include("Filter").ToList();
             }
         }
 
@@ -24,6 +24,7 @@ namespace DesktopCharacter.Model.Repository
             using (var context = new DatabaseContext())
             {
                 context.SlackUser.AddOrUpdate(user);
+                context.SlackNotificationFilter.AddOrUpdate(user.Filter);
                 context.SaveChanges();
             }
         }
@@ -33,6 +34,7 @@ namespace DesktopCharacter.Model.Repository
             using (var context = new DatabaseContext())
             {
                 context.SlackUser.AddOrUpdate(users.ToArray());
+                context.SlackNotificationFilter.AddOrUpdate(users.Select(u => u.Filter).ToArray());
                 context.SaveChanges();
             }
         }

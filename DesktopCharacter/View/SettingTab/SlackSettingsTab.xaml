@@ -43,8 +43,12 @@
         <GroupBox Header="設定" Margin="165,30,10,10"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <StackPanel>
-                <CheckBox Content="メンション"
+                <CheckBox Content="メッセージ"
+                          IsChecked="{Binding SelectedSlackUser.Filter.Message, FallbackValue=False, Mode=TwoWay}"
                           IsEnabled="{Binding SelectedSlackUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
+                <Button Content="{x:Static properties:Resources.TwitterSettingTab_Erace}"
+                        Command="{Binding DeleteAccount}"
+                        IsEnabled="{Binding SelectedSlackUser, Converter={StaticResource ObjectIsNotNullConverter}}"/>
             </StackPanel>
         </GroupBox>
     </Grid>

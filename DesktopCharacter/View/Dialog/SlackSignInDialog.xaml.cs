@@ -41,9 +41,9 @@ namespace DesktopCharacter.View.Dialog
         {
             if (e.Uri.Host == "localhost")
             {
-                Close();
                 var vm = DataContext as SlackSignInViewModel;
                 vm.Complete(e.Uri);
+                Close();
             }
         }
     }

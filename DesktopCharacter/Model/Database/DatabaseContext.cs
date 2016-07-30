@@ -18,6 +18,7 @@ namespace DesktopCharacter.Model.Database
         public DbSet<TwitterNotificationFilter> TwitterNotificationFilter { get; set; }
         public DbSet<WindowPosition> WindowPosition { get; set; }
         public DbSet<SlackUser> SlackUser { get; set; }
+        public DbSet<SlackNotificationFilter> SlackNotificationFilter { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
