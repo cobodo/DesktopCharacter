@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using DesktopCharacter.ViewModel.Tool;
 using System.Windows;
+using DesktopCharacter.Util.Messenger.Message;
 
 namespace DesktopCharacter.ViewModel.Menu
 {
@@ -21,9 +22,10 @@ namespace DesktopCharacter.ViewModel.Menu
             set; private get;
         }
 
-        public MenuItemViewModel()
+        public MenuItemViewModel(CharacterViewModel vm)
         {
-
+            IsOpen = true;
+            CharacterVM = vm;
         }
 
         private bool _isOpen = false;
@@ -37,6 +39,91 @@ namespace DesktopCharacter.ViewModel.Menu
             {
                 _isOpen = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        private bool _isToolOpen = false;
+        public bool IsToolOpen
+        {
+            get
+            {
+                return _isToolOpen;
+            }
+            set
+            {
+                _isToolOpen = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ViewModelCommand _moveToMainMenuCommand;
+        public ViewModelCommand MoveToMainMenuCommand
+        {
+            get
+            {
+                if (_moveToMainMenuCommand == null)
+                {
+                    _moveToMainMenuCommand = new ViewModelCommand(() =>
+                    {
+                        IsToolOpen = false;
+                        IsOpen = true;
+                    });
+                }
+                return _moveToMainMenuCommand;
+            }
+        }
+
+        private ViewModelCommand _moveToToolCommand;
+        public ViewModelCommand MoveToToolCommand
+        {
+            get
+            {
+                if (_moveToToolCommand == null)
+                {
+                    _moveToToolCommand = new ViewModelCommand(() =>
+                    {
+                        IsToolOpen = true;
+                        IsOpen = false;
+                    });
+                }
+                return _moveToToolCommand;
+            }
+        }
+
+        private ViewModelCommand _moveToLauncherItems;
+        public ViewModelCommand MoveToLauncherItems
+        {
+            get
+            {
+                if (_moveToLauncherItems == null)
+                {
+                    _moveToLauncherItems = new ViewModelCommand(() =>
+                    {
+                        using (var vm = new ViewModel.Menu.LauncherMenuViewModel(this, CharacterVM.ScreenSize))
+                        {
+                            IsOpen = false;
+                            Messenger.Raise(new TransitionMessage(vm, "LauncherItems"));
+                        }
+                    });
+                }
+                return _moveToLauncherItems;
+            }
+        }
+
+        private ViewModelCommand _menuCloseCommand;
+        public ViewModelCommand MenuCloseCommand
+        {
+            get
+            {
+                if (_menuCloseCommand == null)
+                {
+                    _menuCloseCommand = new ViewModelCommand(() =>
+                    {
+                        IsOpen = false;
+                        Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                    });
+                }
+                return _menuCloseCommand;
             }
         }
 
@@ -126,5 +213,9 @@ namespace DesktopCharacter.ViewModel.Menu
             }
         }
 
+        public void Initialize()
+        {
+            Messenger.Raise(new ReszieMessage("WindowResizeMessage", CharacterVM.ScreenSize));
+        }
     }
 }

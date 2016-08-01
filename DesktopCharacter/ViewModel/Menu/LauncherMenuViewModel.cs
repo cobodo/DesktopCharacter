@@ -8,32 +8,71 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.Windows;
+using DesktopCharacter.Util.Messenger.Message;
+using System.Windows.Controls;
+using Livet.Messaging.Windows;
 
 namespace DesktopCharacter.ViewModel.Menu
 {
     class LauncherMenuViewModel : Livet.ViewModel
     {
-        private ObservableCollection<LauncherMenuViewModel> mChildren;      //!< 現在の子供
-        public ObservableCollection<LauncherMenuViewModel> Children
+        public MenuItemViewModel MenuVM
         {
-            get { return this.mChildren; }
+            set; private get;
         }
 
-        public string Headder { get; set; }
-        public ViewModelCommand Command { get; private set; }
-        public object Focus { get; set; }
-
-        public LauncherMenuViewModel(string headder, ViewModelCommand command)
+        public Util.Math.Point ScreenSize
         {
-            Headder = headder;
-            Command = command;
+            set; private get;
         }
 
-        public LauncherMenuViewModel()
+        private List<RadialMenu.Controls.RadialMenuItem> _itemSource;
+        public List<RadialMenu.Controls.RadialMenuItem> ItemSource
         {
-            this.mChildren = new ObservableCollection<LauncherMenuViewModel>(new LauncherMenuViewModel[] {
-                new LauncherMenuViewModel("notepad.exe", new ViewModelCommand( () => { Process.Start("notepad.exe"); }) ),
-                new LauncherMenuViewModel(Properties.Resources.Launcher_Add, new ViewModelCommand(() =>
+            set { _itemSource = value; this.RaisePropertyChanged("ItemSource"); }
+            get { return this._itemSource; }
+        }
+
+        private bool _isOpen = false;
+        public bool IsOpen
+        {
+            get
+            {
+                return _isOpen;
+            }
+            set
+            {
+                _isOpen = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ViewModelCommand _moveToMenuCommand;
+        public ViewModelCommand MoveToMenuCommand
+        {
+            get
+            {
+                if (_moveToMenuCommand == null)
+                {
+                    _moveToMenuCommand = new ViewModelCommand(() =>
+                    {
+                        IsOpen = false;
+                        Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                        MenuVM.IsOpen = true;
+                    });
+                }
+                return _moveToMenuCommand;
+            }
+        }
+
+        public LauncherMenuViewModel(MenuItemViewModel vm, Util.Math.Point screenSize)
+        {
+            MenuVM = vm;
+            IsOpen = true;
+            ScreenSize = screenSize;
+            this.ItemSource = new List<RadialMenu.Controls.RadialMenuItem>(new RadialMenu.Controls.RadialMenuItem[] {
+                new RadialMenu.Controls.RadialMenuItem { Content = new TextBlock { Text = "notepad.exe" }, Command = new ViewModelCommand( () => { Process.Start("notepad.exe"); })},
+                new RadialMenu.Controls.RadialMenuItem { Content = new TextBlock { Text = Properties.Resources.Launcher_Add }, Command = new ViewModelCommand(() =>
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     openFileDialog.FilterIndex = 1;
@@ -41,14 +80,24 @@ namespace DesktopCharacter.ViewModel.Menu
                     bool? result = openFileDialog.ShowDialog();
                     if (result == true)
                     {
-                        this.mChildren.Insert( this.mChildren.Count - 1,
-                        new LauncherMenuViewModel
-                        (
-                            openFileDialog.SafeFileName, new ViewModelCommand( () => { Process.Start( openFileDialog.FileName ); } )
-                        ) );
+                        this.ItemSource.Add(
+                        new RadialMenu.Controls.RadialMenuItem
+                        {
+                            Content = new TextBlock { Text = openFileDialog.SafeFileName }, Command = new ViewModelCommand( () => { Process.Start( openFileDialog.FileName ); } )
+                        });
                     }
-                })),
+                    IsOpen = false;
+                    Task.Run(async () => {
+                        await Task.Delay(200);
+                        IsOpen = true;
+                    });
+                })},
             });
+        }
+
+        public void Initialize()
+        {
+            Messenger.Raise(new ReszieMessage("WindowResizeMessage", ScreenSize));
         }
     }
 }

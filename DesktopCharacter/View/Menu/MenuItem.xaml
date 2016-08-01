@@ -1,24 +1,25 @@
-﻿<UserControl x:Class="DesktopCharacter.View.Menu.MenuItem"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DesktopCharacter.View"
-             xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.Menu"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
-             xmlns:v="clr-namespace:DesktopCharacter.View"
-             xmlns:menuVM="clr-namespace:DesktopCharacter.View.Menu"
-             xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
-             xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate"
-             xmlns:properties="clr-namespace:DesktopCharacter.Properties"
-             xmlns:RadialMenu="clr-namespace:RadialMenu.Controls;assembly=RadialMenu"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <vm:MenuItemViewModel></vm:MenuItemViewModel>
-    </UserControl.DataContext>
-
+﻿<Window x:Class="DesktopCharacter.View.Menu.MenuItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:DesktopCharacter.View"
+        xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.Menu"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:v="clr-namespace:DesktopCharacter.View"
+        xmlns:menuView="clr-namespace:DesktopCharacter.View.Menu"
+        xmlns:ToolTimerView="clr-namespace:DesktopCharacter.View.Tool.Timer" 
+        xmlns:ToolTranslateView="clr-namespace:DesktopCharacter.View.Tool.Translate"
+        xmlns:properties="clr-namespace:DesktopCharacter.Properties"
+        xmlns:RadialMenu="clr-namespace:RadialMenu.Controls;assembly=RadialMenu"
+        xmlns:util="clr-namespace:DesktopCharacter.Util.Messenger.Action"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        mc:Ignorable="d" 
+        Height="400" Width="400">
     <i:Interaction.Triggers>
         <l:InteractionMessageTrigger MessageKey="TimerSetting" Messenger="{Binding Messenger}">
             <l:TransitionInteractionMessageAction WindowType="{x:Type ToolTimerView:TimerSetting}" Mode="Modal" />
@@ -29,29 +30,108 @@
         <l:InteractionMessageTrigger MessageKey="CodicWindow" Messenger="{Binding Messenger}">
             <l:TransitionInteractionMessageAction WindowType="{x:Type ToolTranslateView:Translate}" Mode="Modal" />
         </l:InteractionMessageTrigger>
+        <l:InteractionMessageTrigger MessageKey="WindowResizeMessage" Messenger="{Binding Messenger}">
+            <util:ResizeAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
+        </i:EventTrigger>
+        <l:InteractionMessageTrigger MessageKey="LauncherItems" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type menuView:LauncherMenu}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+        <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
+            <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
-        <RadialMenu:RadialMenu IsOpen="{Binding IsOpen}">
+        <Grid.Resources>
+            <!--<RadialMenu:RadialMenuCentralItem.Resources>-->
+            <Style TargetType="RadialMenu:RadialMenuCentralItem">
+                <Setter Property="Background" Value="AliceBlue"/>
+                <Setter Property="BorderBrush" Value="DarkBlue"/>
+                <Setter Property="BorderThickness" Value="4"/>
+                <Setter Property="Width" Value="64"/>
+                <Setter Property="Height" Value="64"/>
+            </Style>
+            <Style TargetType="RadialMenu:RadialMenuItem">
 
+                <Setter Property="Background" Value="AliceBlue"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="InnerRadius" Value="40"/>
+                <Setter Property="OuterRadius" Value="150"/>
+                <Setter Property="ContentRadius" Value="85"/>
+
+                <Setter Property="EdgeBackground" Value="DarkBlue"/>
+                <Setter Property="EdgePadding" Value="7"/>
+                <Setter Property="EdgeInnerRadius" Value="130"/>
+                <Setter Property="EdgeOuterRadius" Value="145"/>
+
+                <Setter Property="ArrowBackground" Value="Cyan"/>
+                <Setter Property="ArrowRadius" Value="138"/>
+
+            </Style>
+            <!--</RadialMenu:RadialMenuCentralItem.Resources>-->
+        </Grid.Resources>
+
+        <RadialMenu:RadialMenu IsOpen="{Binding IsOpen}">
             <RadialMenu:RadialMenu.CentralItem>
-                <RadialMenu:RadialMenuCentralItem  Command="{Binding CloseRadialMenuCommand}">
-                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool}" />
+                <RadialMenu:RadialMenuCentralItem  Command="{Binding CloseCommand}">
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Exit}" />
                 </RadialMenu:RadialMenuCentralItem>
             </RadialMenu:RadialMenu.CentralItem>
 
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToToolCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+            <RadialMenu:RadialMenuItem Command="{Binding TalkCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Talk}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+            <RadialMenu:RadialMenuItem Command="{Binding SettingCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Setting}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToLauncherItems}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Launcher}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+            <RadialMenu:RadialMenuItem Command="{Binding MenuCloseCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_MenuClose}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+        </RadialMenu:RadialMenu>
 
+        <RadialMenu:RadialMenu IsOpen="{Binding IsToolOpen}">
+            <RadialMenu:RadialMenu.CentralItem>
+                <RadialMenu:RadialMenuCentralItem  Command="{Binding MoveToMainMenuCommand}">
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Exit}" />
+                </RadialMenu:RadialMenuCentralItem>
+            </RadialMenu:RadialMenu.CentralItem>
+
+            <RadialMenu:RadialMenuItem Command="{Binding TimerSettingOpenCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool_Timer}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+            <RadialMenu:RadialMenuItem Command="{Binding CodicWindowOpenCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool_Tranlate}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
         </RadialMenu:RadialMenu>
     </Grid>
-
-    <!--<MenuItem Header="{x:Static properties:Resources.MenuItem_Tool}">
-        <MenuItem Header="{x:Static properties:Resources.MenuItem_Tool_Timer}" Command="{Binding TimerSettingOpenCommand}"/>
-        <MenuItem Header="{x:Static properties:Resources.MenuItem_Tool_Tranlate}" Command="{Binding CodicWindowOpenCommand}"/>
-    </MenuItem>
- 
-    <menuVM:LauncherMenu></menuVM:LauncherMenu>
-    
-    <MenuItem Header="{x:Static properties:Resources.MenuItem_Talk}" Command="{Binding TalkCommand}"/>
-    <MenuItem Header="{x:Static properties:Resources.MenuItem_Setting}" Command="{Binding SettingCommand}"/>
-    <MenuItem Header="{x:Static properties:Resources.MenuItem_Exit}" Command="{Binding CloseCommand}"/>-->
-</UserControl>
+</Window>

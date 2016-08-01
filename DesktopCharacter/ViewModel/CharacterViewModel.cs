@@ -38,7 +38,7 @@ namespace DesktopCharacter.ViewModel
         /// <summary>
         /// スクリーンサイズ
         /// </summary>
-        private Point _screenSize;
+        public Point ScreenSize { get; set; }
         /// <summary>
         /// モデル描画をまとめたModel層
         /// </summary>
@@ -61,6 +61,25 @@ namespace DesktopCharacter.ViewModel
             }
         }
 
+        private ViewModelCommand _menuOpenCommand;
+        public ViewModelCommand MenuOpenCommand
+        {
+            get
+            {
+                if (_menuOpenCommand == null)
+                {
+                    _menuOpenCommand = new ViewModelCommand(() =>
+                    {
+                        using (var vm = new Menu.MenuItemViewModel(this))
+                        {
+                            Messenger.Raise(new TransitionMessage(vm, "MenuItem"));
+                        }
+                    });
+                }
+                return _menuOpenCommand;
+            }
+        }
+
         private ViewModelCommand mDrawCommand;
         public ViewModelCommand DrawCommand
         {
@@ -77,7 +96,7 @@ namespace DesktopCharacter.ViewModel
                         }
                         if (!_model.Initialized)
                         {
-                            _model.Initialize(_screenSize);
+                            _model.Initialize(ScreenSize);
                         }
                         Source = _model.Draw();
                     });
@@ -155,7 +174,7 @@ namespace DesktopCharacter.ViewModel
                         //!< 思考に必要なものを記憶させる
                         board.TouchAction.IsClickAction = true;
                         board.TouchAction.MousePoint = (Util.Math.Point)sender;
-                        board.TouchAction.SplitSize = _screenSize.Y / 2.0;
+                        board.TouchAction.SplitSize = ScreenSize.Y / 2.0;
                         //!< Behaviorを実行
                         new BehaviorTree().Update();
                     });
@@ -163,7 +182,24 @@ namespace DesktopCharacter.ViewModel
                 return _motionRunCommand;
             }
         }
-
+        private Livet.Commands.ListenerCommand<object> _savePositionCommand;
+        public Livet.Commands.ListenerCommand<object> SavePositionCommand
+        {
+            get
+            {
+                if (_savePositionCommand == null)
+                {
+                    _savePositionCommand = new ListenerCommand<object>((object sender) =>
+                    {
+                        var point = (Util.Math.Point)sender;
+                        var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
+                        repo.Save((int)point.X, (int)point.Y);
+                    });
+                }
+                return _savePositionCommand;
+            }
+        }
+        
         public CharacterViewModel()
         {
             CharacterNotify.Instance.TopMostMessageSubject.Subscribe(TopMostMessageSend);
@@ -198,7 +234,7 @@ namespace DesktopCharacter.ViewModel
                 GraphicsManager.Instance.mVersion),
                 "InfoMessage"));  
         }
-
+        
         private void TopMostMessageSend( bool topmost )
         {
             //!< Windowの最前面かどうかをコンフィグから設定
@@ -207,8 +243,8 @@ namespace DesktopCharacter.ViewModel
 
         private void WindowSizeChange(Point scaleSize )
         {
-            _screenSize = scaleSize;
-            Messenger.Raise(new ReszieMessage("WindowResizeMessage", _screenSize));
+            ScreenSize = scaleSize;
+            Messenger.Raise(new ReszieMessage("WindowResizeMessage", ScreenSize));
             _model.Destory();  
         }
     }

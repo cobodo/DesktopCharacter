@@ -156,11 +156,20 @@
   <data name="Launcher_Add" xml:space="preserve">
     <value>Add...</value>
   </data>
+  <data name="Launcher_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="MenuItem_ErrorCoidcAccesToken" xml:space="preserve">
     <value>There's no setting for Codic access token!</value>
   </data>
   <data name="MenuItem_Exit" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="MenuItem_Launcher" xml:space="preserve">
+    <value>Launcher</value>
+  </data>
+  <data name="MenuItem_MenuClose" xml:space="preserve">
+    <value>Menu Close</value>
   </data>
   <data name="MenuItem_Setting" xml:space="preserve">
     <value>Settings</value>

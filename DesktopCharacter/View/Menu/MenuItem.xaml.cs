@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DesktopCharacter.Model.Locator;
+using DesktopCharacter.Model.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +20,18 @@ namespace DesktopCharacter.View.Menu
     /// <summary>
     /// MenuItem.xaml の相互作用ロジック
     /// </summary>
-    public partial class MenuItem : UserControl
+    public partial class MenuItem : Window
     {
         public MenuItem()
         {
             InitializeComponent();
+            //!< 保存したPositionを取り出し設定する
+            {
+                var repo = ServiceLocator.Instance.GetInstance<WindowPositionRepository>();
+                var pos = repo.FetchPosition();
+                Top = pos.PosY;
+                Left = pos.PosX;
+            }
         }
     }
 }
