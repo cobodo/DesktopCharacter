@@ -36,6 +36,7 @@ namespace DesktopCharacter.View
             vm.CharacterSetting = CharacterTab.DataContext as CharacterSettingViewModel;
             vm.TwitterSetting = TwitterSettingsTab.DataContext as TwitterSettingViewModel;
             vm.CodicSettingTab =  CodicSettingTab.DataContext as CodicSettingTabViewModel;
+            vm.SlackSetting = SlackSetting.DataContext as SlackSettingViewModel;
             
         }
     }

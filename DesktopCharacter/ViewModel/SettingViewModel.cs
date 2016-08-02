@@ -14,6 +14,7 @@ namespace DesktopCharacter.ViewModel
         public CharacterSettingViewModel CharacterSetting { set; private get; }
         public TwitterSettingViewModel TwitterSetting { set; private get; }
         public CodicSettingTabViewModel CodicSettingTab { set; private get; }
+        public SlackSettingViewModel SlackSetting { set; private get; }
 
         public SettingViewModel()
         {
@@ -25,6 +26,7 @@ namespace DesktopCharacter.ViewModel
             TwitterSetting.OnClose();
             CodicSettingTab.OnClose();
             CharacterSetting.OnClose();
+            SlackSetting.OnClose();
 
             ServiceLocator.Instance.ClearConfigBaseContext();
         }

@@ -31,6 +31,9 @@
             <TabItem Header="{x:Static properties:Resources.Setting_Codic}">
                 <st:CodicTab x:Name="CodicSettingTab"></st:CodicTab>
             </TabItem>
+            <TabItem Header="Slack">
+                <st:SlackSettingsTab x:Name="SlackSetting"></st:SlackSettingsTab>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
