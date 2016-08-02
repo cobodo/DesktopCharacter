@@ -189,6 +189,18 @@
   <data name="Setting_Twitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
+  <data name="SlackSettingTab_Erace" xml:space="preserve">
+    <value>Delete Account</value>
+  </data>
+  <data name="SlackSettingTab_Header" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SlackSettingTab_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="SlackSettingTab_NewAcuunt" xml:space="preserve">
+    <value>New Account</value>
+  </data>
   <data name="TimerSetting_30SecondsAgoNotify" xml:space="preserve">
     <value>Notice before 30 seconds</value>
   </data>

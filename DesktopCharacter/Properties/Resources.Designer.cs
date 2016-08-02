@@ -277,6 +277,42 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
+        ///   Delete Account に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SlackSettingTab_Erace {
+            get {
+                return ResourceManager.GetString("SlackSettingTab_Erace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Settings に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SlackSettingTab_Header {
+            get {
+                return ResourceManager.GetString("SlackSettingTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Message に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SlackSettingTab_Message {
+            get {
+                return ResourceManager.GetString("SlackSettingTab_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   New Account に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SlackSettingTab_NewAcuunt {
+            get {
+                return ResourceManager.GetString("SlackSettingTab_NewAcuunt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Notice before 30 seconds に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TimerSetting_30SecondsAgoNotify {
