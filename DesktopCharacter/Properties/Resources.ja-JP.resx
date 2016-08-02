@@ -163,7 +163,7 @@
     <value>Coidcのアクセストークンが設定されていません</value>
   </data>
   <data name="MenuItem_Exit" xml:space="preserve">
-    <value>終了</value>
+    <value>アプリ終了</value>
   </data>
   <data name="MenuItem_Launcher" xml:space="preserve">
     <value>ランチャー</value>

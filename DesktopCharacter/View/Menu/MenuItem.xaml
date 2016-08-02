@@ -74,59 +74,60 @@
             <!--</RadialMenu:RadialMenuCentralItem.Resources>-->
         </Grid.Resources>
 
-        <RadialMenu:RadialMenu IsOpen="{Binding IsOpen}">
+        <RadialMenu:RadialMenu IsOpen="{Binding IsMainMenuOpen}">
             <RadialMenu:RadialMenu.CentralItem>
-                <RadialMenu:RadialMenuCentralItem  Command="{Binding CloseCommand}">
-                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Exit}" />
+                <RadialMenu:RadialMenuCentralItem  Command="{Binding MoveToCommand}" CommandParameter="MenuClose">
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_MenuClose}" />
                 </RadialMenu:RadialMenuCentralItem>
             </RadialMenu:RadialMenu.CentralItem>
 
-            <RadialMenu:RadialMenuItem Command="{Binding MoveToToolCommand}">
+            <RadialMenu:RadialMenuItem Command="{Binding CloseCommand}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25"></Rectangle>
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Exit}" />
+                </WrapPanel>
+            </RadialMenu:RadialMenuItem>
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="ToolMenu">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool}" />
                 </WrapPanel>
             </RadialMenu:RadialMenuItem>
-            <RadialMenu:RadialMenuItem Command="{Binding TalkCommand}">
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="Talk">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Talk}" />
                 </WrapPanel>
             </RadialMenu:RadialMenuItem>
-            <RadialMenu:RadialMenuItem Command="{Binding SettingCommand}">
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="SettingMenu">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Setting}" />
                 </WrapPanel>
             </RadialMenu:RadialMenuItem>
-            <RadialMenu:RadialMenuItem Command="{Binding MoveToLauncherItems}">
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="LauncerMenu">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Launcher}" />
                 </WrapPanel>
             </RadialMenu:RadialMenuItem>
-            <RadialMenu:RadialMenuItem Command="{Binding MenuCloseCommand}">
-                <WrapPanel Orientation="Vertical">
-                    <Rectangle Width="25" Height="25"></Rectangle>
-                    <TextBlock Text="{x:Static properties:Resources.MenuItem_MenuClose}" />
-                </WrapPanel>
-            </RadialMenu:RadialMenuItem>
+
         </RadialMenu:RadialMenu>
 
-        <RadialMenu:RadialMenu IsOpen="{Binding IsToolOpen}">
+        <RadialMenu:RadialMenu IsOpen="{Binding IsToolMenuOpen}">
             <RadialMenu:RadialMenu.CentralItem>
-                <RadialMenu:RadialMenuCentralItem  Command="{Binding MoveToMainMenuCommand}">
-                    <TextBlock Text="{x:Static properties:Resources.MenuItem_Exit}" />
+                <RadialMenu:RadialMenuCentralItem  Command="{Binding MoveToCommand}" CommandParameter="MainMenu">
+                    <TextBlock Text="{x:Static properties:Resources.MenuItem_MenuClose}" />
                 </RadialMenu:RadialMenuCentralItem>
             </RadialMenu:RadialMenu.CentralItem>
 
-            <RadialMenu:RadialMenuItem Command="{Binding TimerSettingOpenCommand}">
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="Timer">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool_Timer}" />
                 </WrapPanel>
             </RadialMenu:RadialMenuItem>
-            <RadialMenu:RadialMenuItem Command="{Binding CodicWindowOpenCommand}">
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="Codic">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Tool_Tranlate}" />

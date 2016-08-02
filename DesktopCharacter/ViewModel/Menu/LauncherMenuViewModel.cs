@@ -58,7 +58,7 @@ namespace DesktopCharacter.ViewModel.Menu
                     {
                         IsOpen = false;
                         Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
-                        MenuVM.IsOpen = true;
+                        MenuVM.IsMainMenuOpen = true;
                     });
                 }
                 return _moveToMenuCommand;

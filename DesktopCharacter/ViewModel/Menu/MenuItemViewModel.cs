@@ -24,192 +24,114 @@ namespace DesktopCharacter.ViewModel.Menu
 
         public MenuItemViewModel(CharacterViewModel vm)
         {
-            IsOpen = true;
+            IsMainMenuOpen = true;
             CharacterVM = vm;
         }
 
-        private bool _isOpen = false;
-        public bool IsOpen
+        private bool _isMainMenuOpen = false;
+        public bool IsMainMenuOpen
         {
             get
             {
-                return _isOpen;
+                return _isMainMenuOpen;
             }
             set
             {
-                _isOpen = value;
+                _isMainMenuOpen = value;
                 RaisePropertyChanged();
             }
         }
 
-        private bool _isToolOpen = false;
-        public bool IsToolOpen
+        private bool _isToolMenuOpen = false;
+        public bool IsToolMenuOpen
         {
             get
             {
-                return _isToolOpen;
+                return _isToolMenuOpen;
             }
             set
             {
-                _isToolOpen = value;
+                _isToolMenuOpen = value;
                 RaisePropertyChanged();
             }
         }
 
-        private ViewModelCommand _moveToMainMenuCommand;
-        public ViewModelCommand MoveToMainMenuCommand
-        {
-            get
-            {
-                if (_moveToMainMenuCommand == null)
-                {
-                    _moveToMainMenuCommand = new ViewModelCommand(() =>
-                    {
-                        IsToolOpen = false;
-                        IsOpen = true;
-                    });
-                }
-                return _moveToMainMenuCommand;
-            }
-        }
+        public string CurrentSeqnecen { get; set; } = "MainMenu";
 
-        private ViewModelCommand _moveToToolCommand;
-        public ViewModelCommand MoveToToolCommand
+        private ListenerCommand<string> _moveToCommand;
+        public ListenerCommand<string> MoveToCommand
         {
             get
             {
-                if (_moveToToolCommand == null)
+                if (_moveToCommand == null)
                 {
-                    _moveToToolCommand = new ViewModelCommand(() =>
+                    _moveToCommand = new ListenerCommand<string>(( string seqeunceName ) =>
                     {
-                        IsToolOpen = true;
-                        IsOpen = false;
-                    });
-                }
-                return _moveToToolCommand;
-            }
-        }
-
-        private ViewModelCommand _moveToLauncherItems;
-        public ViewModelCommand MoveToLauncherItems
-        {
-            get
-            {
-                if (_moveToLauncherItems == null)
-                {
-                    _moveToLauncherItems = new ViewModelCommand(() =>
-                    {
-                        using (var vm = new ViewModel.Menu.LauncherMenuViewModel(this, CharacterVM.ScreenSize))
+                        switch (seqeunceName)
                         {
-                            IsOpen = false;
-                            Messenger.Raise(new TransitionMessage(vm, "LauncherItems"));
+                            case "MainMenu":
+                                IsMainMenuOpen = true;
+                                if(CurrentSeqnecen == "ToolMenu")
+                                {
+                                    IsToolMenuOpen = false;
+                                }
+                                break;
+                            case "ToolMenu":
+                                if (CurrentSeqnecen == "MainMenu")
+                                {
+                                    IsMainMenuOpen = false;
+                                }
+                                IsToolMenuOpen = true;
+                                break;
+                            case "LauncerMenu":
+                                IsMainMenuOpen = false;
+                                using( var vm =  new ViewModel.Menu.LauncherMenuViewModel(this, CharacterVM.ScreenSize))
+                                {
+                                    Messenger.Raise(new TransitionMessage(vm, "LauncherItems"));
+                                }     
+                                break;
+                            case "SettingMenu":
+                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                using (var vm = new ViewModel.SettingViewModel())
+                                {
+                                    Messenger.Raise(new TransitionMessage(vm, "Setting"));
+                                }
+                                break;
+                            case "Timer":
+                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                using (var vm = new Tool.Timer.TimerSettingViewModel(CharacterVM))
+                                {
+                                    Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
+                                }
+                                break;
+                            case "Codic":
+                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                try
+                                {
+                                    using (var vm = new Tool.Translate.TranslateViewModel())
+                                    {
+                                        Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
+                                    }
+                                }
+                                catch (NullReferenceException)
+                                {
+                                    MessageBox.Show(Properties.Resources.MenuItem_ErrorCoidcAccesToken);
+                                }
+                                break;
+                            case "Talk":
+                                DesktopCharacter.Model.CharacterNotify.Instance.Talk("にゃーん");
+                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                break;
+                            case "MenuClose":
+                                IsMainMenuOpen = false;
+                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                break;
+
                         }
+                        CurrentSeqnecen = seqeunceName;
                     });
                 }
-                return _moveToLauncherItems;
-            }
-        }
-
-        private ViewModelCommand _menuCloseCommand;
-        public ViewModelCommand MenuCloseCommand
-        {
-            get
-            {
-                if (_menuCloseCommand == null)
-                {
-                    _menuCloseCommand = new ViewModelCommand(() =>
-                    {
-                        IsOpen = false;
-                        Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
-                    });
-                }
-                return _menuCloseCommand;
-            }
-        }
-
-        private ViewModelCommand mTalkCommand;
-        public ViewModelCommand TalkCommand
-        {
-            get
-            {
-                if (mTalkCommand == null)
-                {
-                    mTalkCommand = new ViewModelCommand(() =>
-                    {
-                        DesktopCharacter.Model.CharacterNotify.Instance.Talk("にゃーん");
-                    });
-                }
-                return mTalkCommand;
-            }
-        }
-
-        private ViewModelCommand mSettingCommand;
-        public ViewModelCommand SettingCommand
-        {
-            get
-            {
-                if (mSettingCommand == null)
-                {
-                    mSettingCommand = new ViewModelCommand(() =>
-                    {
-                        using (var vm = new ViewModel.SettingViewModel())
-                        {
-                            Messenger.Raise(new TransitionMessage(vm, "Setting"));
-                        }
-                    });
-                }
-                return mSettingCommand;
-            }
-        }
-
-        private ViewModelCommand mCloseCommand;
-        public ViewModelCommand CloseCommand
-        {
-            get
-            {
-                return mCloseCommand == null
-                    ? mCloseCommand = new ViewModelCommand(() => { CharacterVM.Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close")); })
-                    : mCloseCommand;
-            }
-        }
-
-        private ViewModelCommand mTimerSettingOpenCommand;
-        public ViewModelCommand TimerSettingOpenCommand
-        {
-            get
-            {
-                if (mTimerSettingOpenCommand == null)
-                {
-                    mTimerSettingOpenCommand = new ViewModelCommand(() =>
-                    {
-                        using (var vm = new Tool.Timer.TimerSettingViewModel(CharacterVM))
-                        {
-                            Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
-                        }
-                    });
-                }
-                return mTimerSettingOpenCommand;
-            }
-        }
-
-        private ViewModelCommand _codicWindowOpenCommand;
-        public ViewModelCommand CodicWindowOpenCommand
-        {
-            get
-            {
-                return _codicWindowOpenCommand ?? (_codicWindowOpenCommand = new ViewModelCommand(() => 
-                {
-                    try {
-                        using (var vm = new Tool.Translate.TranslateViewModel())
-                        {
-                            Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
-                        }
-                    } 
-                    catch(NullReferenceException)
-                    {
-                        MessageBox.Show(Properties.Resources.MenuItem_ErrorCoidcAccesToken);
-                    }
-                }));
+                return _moveToCommand;
             }
         }
 
