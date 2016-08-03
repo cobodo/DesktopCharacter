@@ -26,8 +26,8 @@
     </Window.DataContext>
 
     <i:Interaction.Triggers>
-        <l:InteractionMessageTrigger MessageKey="Timer" Messenger="{Binding Messenger}">
-            <l:TransitionInteractionMessageAction WindowType="{x:Type ToolTimerView:Timer}" Mode="Modal" />
+        <l:InteractionMessageTrigger MessageKey="MenuItem" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction WindowType="{x:Type menuView:MenuItem}" Mode="Modal" />
         </l:InteractionMessageTrigger>
         
         <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
@@ -49,19 +49,17 @@
         <l:InteractionMessageTrigger MessageKey="InfoMessage" Messenger="{Binding Messenger}">
             <util:CloseAction InvokeActionOnlyWhenWindowIsActive="False"/>
         </l:InteractionMessageTrigger>
-        
+
     </i:Interaction.Triggers>
     
     <i:Interaction.Behaviors>
-        <behavior:MouseDrawMoveBehavior></behavior:MouseDrawMoveBehavior>
+        <behavior:MouseDrawMoveBehavior PostCommand="{Binding SavePositionCommand}"></behavior:MouseDrawMoveBehavior>
         <behavior:MouseWheelBeavior IsBindKey="true" BindKey="control" Command="{Binding ScaleChangeCommand}" />
-        <behavior:MouseClickBeavior EnableDoubleClick="True" Command="{Binding MotionRunCommand}" />
+        <behavior:MouseClickBeavior EnableDoubleClick="True" ClickType="Left" Command="{Binding MotionRunCommand}" />
+        <behavior:MouseClickBeavior EnableDoubleClick="False" ClickType="Right" Command="{Binding MenuOpenCommand}" />
     </i:Interaction.Behaviors>
 
     <Grid>
-        <Grid.ContextMenu>
-          <menuView:MenuItem x:Name="menuItem"></menuView:MenuItem>
-        </Grid.ContextMenu>
         <Image x:Name="Image" Source="{Binding Source}" Width="400" Height="400"></Image>
         <v:Talk x:Name="Talk" Margin="0,257,0,0"></v:Talk>
         <sharpGL:OpenGLControl 

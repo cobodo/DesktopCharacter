@@ -19,6 +19,16 @@ namespace DesktopCharacter.Util.Behavior
         /// オフセット
         /// </summary>
         private Point _offset;
+        /// <summary>
+        /// 移動し終わったあとに実行されるコマンド
+        /// </summary>
+        public ICommand PostCommand
+        {
+            get { return (ICommand)GetValue(PostCommandProperty); }
+            set { SetValue(PostCommandProperty, value); }
+        }
+        public static readonly DependencyProperty PostCommandProperty =
+            DependencyProperty.RegisterAttached("PostCommand", typeof(ICommand), typeof(MouseDrawMoveBehavior), new UIPropertyMetadata(null));
 
         protected override void OnAttached()
         {
@@ -56,6 +66,11 @@ namespace DesktopCharacter.Util.Behavior
                 return;
             }
             _dragFlag = false;
+
+            if (PostCommand != null && PostCommand.CanExecute(sender))
+            {
+                PostCommand.Execute( new Math.Point( control.Left, control.Top ) );
+            }
         }
 
         public void OnMouseMoveHandler(object sender, MouseEventArgs args)

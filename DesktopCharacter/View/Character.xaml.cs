@@ -23,9 +23,6 @@ namespace DesktopCharacter.View
                 Top = pos.PosY;
                 Left = pos.PosX;
             }
-
-            var userVM = this.menuItem.DataContext as ViewModel.Menu.MenuItemViewModel;
-            userVM.CharacterVM = this.DataContext as CharacterViewModel;
         }
 
         protected override void OnClosed(EventArgs e)

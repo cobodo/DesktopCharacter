@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using DesktopCharacter.ViewModel.Tool;
 using System.Windows;
+using DesktopCharacter.Util.Messenger.Message;
 
 namespace DesktopCharacter.ViewModel.Menu
 {
@@ -21,96 +22,129 @@ namespace DesktopCharacter.ViewModel.Menu
             set; private get;
         }
 
-        public MenuItemViewModel()
+        public MenuItemViewModel(CharacterViewModel vm)
         {
-
+            CharacterVM = vm;
+            Task.Run(async () =>
+            {
+                await Task.Delay(200);
+                //!< 遅延させないで開くとアニメーションしつつウィンドウの移動が行われるので
+                //!< ガクッと動いてしまうのを抑える
+                IsMainMenuOpen = true;
+            });
         }
 
-        private ViewModelCommand mTalkCommand;
-        public ViewModelCommand TalkCommand
+        private bool _isMainMenuOpen = false;
+        public bool IsMainMenuOpen
         {
             get
             {
-                if (mTalkCommand == null)
+                return _isMainMenuOpen;
+            }
+            set
+            {
+                _isMainMenuOpen = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _isToolMenuOpen = false;
+        public bool IsToolMenuOpen
+        {
+            get
+            {
+                return _isToolMenuOpen;
+            }
+            set
+            {
+                _isToolMenuOpen = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string CurrentSeqnecen { get; set; } = "MainMenu";
+
+        private ListenerCommand<string> _moveToCommand;
+        public ListenerCommand<string> MoveToCommand
+        {
+            get
+            {
+                if (_moveToCommand == null)
                 {
-                    mTalkCommand = new ViewModelCommand(() =>
+                    _moveToCommand = new ListenerCommand<string>(( string seqeunceName ) =>
                     {
-                        DesktopCharacter.Model.CharacterNotify.Instance.Talk("にゃーん");
+                        switch (seqeunceName)
+                        {
+                            case "MainMenu":
+                                IsMainMenuOpen = true;
+                                IsToolMenuOpen = false;           
+                                break;
+                            case "ToolMenu":
+                                IsMainMenuOpen = false;
+                                IsToolMenuOpen = true;
+                                break;
+                            case "LauncerMenu":
+                                IsMainMenuOpen = false;
+                                using( var vm =  new ViewModel.Menu.LauncherMenuViewModel(this, CharacterVM.ScreenSize))
+                                {
+                                    Messenger.Raise(new TransitionMessage(vm, "LauncherItems"));
+                                }     
+                                break;
+                            case "SettingMenu":
+                                using (var vm = new ViewModel.SettingViewModel())
+                                {
+                                    Messenger.Raise(new TransitionMessage(vm, "Setting"));
+                                }
+                                break;
+                            case "Timer":
+                                using (var vm = new Tool.Timer.TimerSettingViewModel(CharacterVM))
+                                {
+                                    Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
+                                }
+                                break;
+                            case "Codic":
+                                try
+                                {
+                                    using (var vm = new Tool.Translate.TranslateViewModel())
+                                    {
+                                        Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
+                                    }
+                                }
+                                catch (NullReferenceException)
+                                {
+                                    MessageBox.Show(Properties.Resources.MenuItem_ErrorCoidcAccesToken);
+                                }
+                                break;
+                            case "Talk":
+                                DesktopCharacter.Model.CharacterNotify.Instance.Talk("にゃーん");
+                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                break;
+                            case "MenuClose":
+                                IsMainMenuOpen = false;
+                                Task.Run(async () =>
+                                {
+                                    await Task.Delay(200);
+                                    //!< アニメーション終了してからウィンドウを閉じるために遅延させている
+                                    Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                });
+                                
+                                break;
+                            case "Close":
+                                CharacterVM.Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                break;
+
+
+                        }
+                        CurrentSeqnecen = seqeunceName;
                     });
                 }
-                return mTalkCommand;
+                return _moveToCommand;
             }
         }
 
-        private ViewModelCommand mSettingCommand;
-        public ViewModelCommand SettingCommand
+        public void Initialize()
         {
-            get
-            {
-                if (mSettingCommand == null)
-                {
-                    mSettingCommand = new ViewModelCommand(() =>
-                    {
-                        using (var vm = new ViewModel.SettingViewModel())
-                        {
-                            Messenger.Raise(new TransitionMessage(vm, "Setting"));
-                        }
-                    });
-                }
-                return mSettingCommand;
-            }
+            Messenger.Raise(new ReszieMessage("WindowResizeMessage", CharacterVM.ScreenSize));
         }
-
-        private ViewModelCommand mCloseCommand;
-        public ViewModelCommand CloseCommand
-        {
-            get
-            {
-                return mCloseCommand == null
-                    ? mCloseCommand = new ViewModelCommand(() => { CharacterVM.Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close")); })
-                    : mCloseCommand;
-            }
-        }
-
-        private ViewModelCommand mTimerSettingOpenCommand;
-        public ViewModelCommand TimerSettingOpenCommand
-        {
-            get
-            {
-                if (mTimerSettingOpenCommand == null)
-                {
-                    mTimerSettingOpenCommand = new ViewModelCommand(() =>
-                    {
-                        using (var vm = new Tool.Timer.TimerSettingViewModel(CharacterVM))
-                        {
-                            Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
-                        }
-                    });
-                }
-                return mTimerSettingOpenCommand;
-            }
-        }
-
-        private ViewModelCommand _codicWindowOpenCommand;
-        public ViewModelCommand CodicWindowOpenCommand
-        {
-            get
-            {
-                return _codicWindowOpenCommand ?? (_codicWindowOpenCommand = new ViewModelCommand(() => 
-                {
-                    try {
-                        using (var vm = new Tool.Translate.TranslateViewModel())
-                        {
-                            Messenger.Raise(new TransitionMessage(vm, "CodicWindow"));
-                        }
-                    } 
-                    catch(NullReferenceException)
-                    {
-                        MessageBox.Show(Properties.Resources.MenuItem_ErrorCoidcAccesToken);
-                    }
-                }));
-            }
-        }
-
     }
 }

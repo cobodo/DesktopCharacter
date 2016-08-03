@@ -156,11 +156,20 @@
   <data name="Launcher_Add" xml:space="preserve">
     <value>追加</value>
   </data>
+  <data name="Launcher_Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
   <data name="MenuItem_ErrorCoidcAccesToken" xml:space="preserve">
     <value>Coidcのアクセストークンが設定されていません</value>
   </data>
   <data name="MenuItem_Exit" xml:space="preserve">
-    <value>終了</value>
+    <value>アプリ終了</value>
+  </data>
+  <data name="MenuItem_Launcher" xml:space="preserve">
+    <value>ランチャー</value>
+  </data>
+  <data name="MenuItem_MenuClose" xml:space="preserve">
+    <value>閉じる</value>
   </data>
   <data name="MenuItem_Setting" xml:space="preserve">
     <value>設定</value>

@@ -151,6 +151,15 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
+        ///   Close に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Launcher_Close {
+            get {
+                return ResourceManager.GetString("Launcher_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Index に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string LauncherTab_Index {
@@ -192,6 +201,24 @@ namespace DesktopCharacter.Properties {
         public static string MenuItem_Exit {
             get {
                 return ResourceManager.GetString("MenuItem_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Launcher に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_Launcher {
+            get {
+                return ResourceManager.GetString("MenuItem_Launcher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Menu Close に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MenuItem_MenuClose {
+            get {
+                return ResourceManager.GetString("MenuItem_MenuClose", resourceCulture);
             }
         }
         

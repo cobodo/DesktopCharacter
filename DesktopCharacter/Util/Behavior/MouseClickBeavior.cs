@@ -12,6 +12,24 @@ namespace DesktopCharacter.Util.Behavior
 {
     class MouseClickBeavior : Behavior<FrameworkElement>
     {
+        public enum Type
+        {
+            Right,
+            Left,
+            None,
+        }
+
+        /// <summary>
+        /// どっちのクリックボタン？
+        /// </summary>
+        public Type ClickType
+        {
+            get { return (Type)GetValue(ClickTypeProperty); }
+            set { SetValue(ClickTypeProperty, value); }
+        }
+        public static readonly DependencyProperty ClickTypeProperty =
+            DependencyProperty.Register("ClickTypeProperty", typeof(Type), typeof(MouseClickBeavior), new UIPropertyMetadata(null));
+
         /// <summary>
         /// マウスクリックした時に実行されるコマンド
         /// </summary>
@@ -37,13 +55,33 @@ namespace DesktopCharacter.Util.Behavior
         protected override void OnAttached()
         {
             base.OnAttached();
-            this.AssociatedObject.MouseLeftButtonDown += OnMouseClickHandler;
+            switch (ClickType)
+            {
+                case Type.Left:
+                    this.AssociatedObject.MouseLeftButtonDown += OnMouseClickHandler;
+                    break;
+                case Type.Right:
+                    this.AssociatedObject.MouseRightButtonDown += OnMouseClickHandler;
+                    break;
+                case Type.None:
+                    break;
+            }
         }
 
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            this.AssociatedObject.MouseLeftButtonDown -= OnMouseClickHandler;
+            switch (ClickType)
+            {
+                case Type.Left:
+                    this.AssociatedObject.MouseLeftButtonDown -= OnMouseClickHandler;
+                    break;
+                case Type.Right:
+                    this.AssociatedObject.MouseRightButtonDown -= OnMouseClickHandler;
+                    break;
+                case Type.None:
+                    break;
+            }
         }
 
         public void OnMouseClickHandler( object sender, MouseEventArgs args )
