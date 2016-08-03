@@ -48,28 +48,21 @@
         <Grid.Resources>
             <!--<RadialMenu:RadialMenuCentralItem.Resources>-->
             <Style TargetType="RadialMenu:RadialMenuCentralItem">
-                <Setter Property="Background" Value="AliceBlue"/>
-                <Setter Property="BorderBrush" Value="DarkBlue"/>
+                <Setter Property="Background" Value="WhiteSmoke"/>
                 <Setter Property="BorderThickness" Value="4"/>
                 <Setter Property="Width" Value="64"/>
                 <Setter Property="Height" Value="64"/>
             </Style>
             <Style TargetType="RadialMenu:RadialMenuItem">
-
-                <Setter Property="Background" Value="AliceBlue"/>
+                <Setter Property="Background" Value="WhiteSmoke"/>
                 <Setter Property="Padding" Value="2"/>
                 <Setter Property="InnerRadius" Value="40"/>
                 <Setter Property="OuterRadius" Value="150"/>
                 <Setter Property="ContentRadius" Value="85"/>
-
-                <Setter Property="EdgeBackground" Value="DarkBlue"/>
                 <Setter Property="EdgePadding" Value="7"/>
                 <Setter Property="EdgeInnerRadius" Value="130"/>
                 <Setter Property="EdgeOuterRadius" Value="145"/>
-
-                <Setter Property="ArrowBackground" Value="Cyan"/>
                 <Setter Property="ArrowRadius" Value="138"/>
-
             </Style>
             <!--</RadialMenu:RadialMenuCentralItem.Resources>-->
         </Grid.Resources>
@@ -81,7 +74,7 @@
                 </RadialMenu:RadialMenuCentralItem>
             </RadialMenu:RadialMenu.CentralItem>
 
-            <RadialMenu:RadialMenuItem Command="{Binding CloseCommand}">
+            <RadialMenu:RadialMenuItem Command="{Binding MoveToCommand}" CommandParameter="Close">
                 <WrapPanel Orientation="Vertical">
                     <Rectangle Width="25" Height="25"></Rectangle>
                     <TextBlock Text="{x:Static properties:Resources.MenuItem_Exit}" />

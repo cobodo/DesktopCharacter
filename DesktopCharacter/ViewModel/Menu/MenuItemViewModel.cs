@@ -24,8 +24,14 @@ namespace DesktopCharacter.ViewModel.Menu
 
         public MenuItemViewModel(CharacterViewModel vm)
         {
-            IsMainMenuOpen = true;
             CharacterVM = vm;
+            Task.Run(async () =>
+            {
+                await Task.Delay(200);
+                //!< 遅延させないで開くとアニメーションしつつウィンドウの移動が行われるので
+                //!< ガクッと動いてしまうのを抑える
+                IsMainMenuOpen = true;
+            });
         }
 
         private bool _isMainMenuOpen = false;
@@ -71,16 +77,10 @@ namespace DesktopCharacter.ViewModel.Menu
                         {
                             case "MainMenu":
                                 IsMainMenuOpen = true;
-                                if(CurrentSeqnecen == "ToolMenu")
-                                {
-                                    IsToolMenuOpen = false;
-                                }
+                                IsToolMenuOpen = false;           
                                 break;
                             case "ToolMenu":
-                                if (CurrentSeqnecen == "MainMenu")
-                                {
-                                    IsMainMenuOpen = false;
-                                }
+                                IsMainMenuOpen = false;
                                 IsToolMenuOpen = true;
                                 break;
                             case "LauncerMenu":
@@ -91,21 +91,18 @@ namespace DesktopCharacter.ViewModel.Menu
                                 }     
                                 break;
                             case "SettingMenu":
-                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
                                 using (var vm = new ViewModel.SettingViewModel())
                                 {
                                     Messenger.Raise(new TransitionMessage(vm, "Setting"));
                                 }
                                 break;
                             case "Timer":
-                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
                                 using (var vm = new Tool.Timer.TimerSettingViewModel(CharacterVM))
                                 {
                                     Messenger.Raise(new TransitionMessage(vm, "TimerSetting"));
                                 }
                                 break;
                             case "Codic":
-                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
                                 try
                                 {
                                     using (var vm = new Tool.Translate.TranslateViewModel())
@@ -124,8 +121,18 @@ namespace DesktopCharacter.ViewModel.Menu
                                 break;
                             case "MenuClose":
                                 IsMainMenuOpen = false;
-                                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                Task.Run(async () =>
+                                {
+                                    await Task.Delay(200);
+                                    //!< アニメーション終了してからウィンドウを閉じるために遅延させている
+                                    Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                });
+                                
                                 break;
+                            case "Close":
+                                CharacterVM.Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+                                break;
+
 
                         }
                         CurrentSeqnecen = seqeunceName;
