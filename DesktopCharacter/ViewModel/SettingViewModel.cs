@@ -27,6 +27,7 @@ namespace DesktopCharacter.ViewModel
             CodicSettingTab.OnClose();
             CharacterSetting.OnClose();
             SlackSetting.OnClose();
+            LauncherSetting.OnClose();
 
             ServiceLocator.Instance.ClearConfigBaseContext();
         }

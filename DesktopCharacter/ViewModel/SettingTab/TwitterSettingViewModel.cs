@@ -17,7 +17,7 @@ using Livet.Messaging;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
-    class TwitterSettingViewModel : Livet.ViewModel
+    class TwitterSettingViewModel : Livet.ViewModel, SettingViewModelBase
     {
         private ViewModelCommand _createAccount;
         public ViewModelCommand CreateAccount

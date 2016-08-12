@@ -65,7 +65,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
         }
     }
 
-    class CharacterSettingViewModel : Livet.ViewModel
+    class CharacterSettingViewModel : Livet.ViewModel, SettingViewModelBase
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         /// <summary>

@@ -18,6 +18,7 @@ namespace DesktopCharacter.Model.Database.Domain
         public string Live2DResourceDir { get; set; }
         public bool Topmost { get; set; }
         public int ZoomLevel { get; set; }
+        public List<LauncherSettingsDataSet> Dataset { get; set; } = new List<LauncherSettingsDataSet>();
         [XmlIgnore]
         public Point WindowSizeOrigin { get; private set; } = new Point { X = 400, Y = 400 };
         [XmlIgnore]

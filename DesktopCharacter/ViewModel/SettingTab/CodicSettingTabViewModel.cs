@@ -9,7 +9,7 @@ using DesktopCharacter.Model.Database.Domain;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
-    class CodicSettingTabViewModel : Livet.ViewModel
+    class CodicSettingTabViewModel : Livet.ViewModel, SettingViewModelBase
     {
         private CodicUser _codicUser;
 
