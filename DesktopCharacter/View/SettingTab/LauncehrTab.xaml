@@ -36,7 +36,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn>
-                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="Icon"/>
+                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="{x:Static properties:Resources.LauncherSettingTab_Icon}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding Icon}"></Image>
@@ -44,15 +44,15 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding DisplayName}" Width="auto">
-                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="File Name" Width="280"  HorizontalAlignment="Right"/>
+                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="{x:Static properties:Resources.LauncherSettingTab_DisplayName}" Width="280"  HorizontalAlignment="Right"/>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Width="133" Command="{Binding AddCommand}" Content="Add"></Button>
-            <Button Width="133" Command="{Binding DeleteCommand}" Content="Delete"></Button>
-            <Button Width="133" Command="{Binding PathResetCommand}" Content="PathReset"></Button>
+            <Button Width="130" Command="{Binding AddCommand}" Content="{x:Static properties:Resources.LauncherSettingTab_Add}"></Button>
+            <Button Width="130" Command="{Binding DeleteCommand}" Content="{x:Static properties:Resources.LauncherSettingTab_Delete}"></Button>
+            <Button Width="130" Command="{Binding PathResetCommand}" Content="{x:Static properties:Resources.LauncherSettingTab_ResetPath}" ></Button>
         </StackPanel>
     </Grid>
 </UserControl>

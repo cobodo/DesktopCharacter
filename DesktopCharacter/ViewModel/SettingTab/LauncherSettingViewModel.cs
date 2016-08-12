@@ -144,7 +144,7 @@ namespace DesktopCharacter.ViewModel.SettingTab
                     {
                         var firstValue = list.FirstOrDefault();
                         OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.Title =  firstValue.DisplayName + "のファイルパスを再設定";
+                        openFileDialog.Title =  firstValue.DisplayName + " " + Properties.Resources.LauncherSettingTab_OpenFileDialog;
                         openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(firstValue.Path);
                         openFileDialog.FilterIndex = 1;
                         openFileDialog.Filter = "Setting Files|*.exe|All Files (*.*)|*.*";

@@ -144,11 +144,23 @@
   <data name="CodicTab_TokenGuide" xml:space="preserve">
     <value>Paste TOKEN</value>
   </data>
-  <data name="LauncherTab_Index" xml:space="preserve">
-    <value>Index</value>
+  <data name="LauncherSettingTab_Add" xml:space="preserve">
+    <value>Add...</value>
   </data>
-  <data name="LauncherTab_Path" xml:space="preserve">
-    <value>Pass</value>
+  <data name="LauncherSettingTab_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="LauncherSettingTab_DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+  </data>
+  <data name="LauncherSettingTab_Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="LauncherSettingTab_OpenFileDialog" xml:space="preserve">
+    <value>File path resetting</value>
+  </data>
+  <data name="LauncherSettingTab_ResetPath" xml:space="preserve">
+    <value>ResetPath</value>
   </data>
   <data name="LauncherTab_ShortcutPath" xml:space="preserve">
     <value>Shortcut Name</value>

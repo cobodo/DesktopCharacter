@@ -144,11 +144,23 @@
   <data name="CodicTab_TokenGuide" xml:space="preserve">
     <value>Token貼り付けて</value>
   </data>
-  <data name="LauncherTab_Index" xml:space="preserve">
-    <value>インデックス</value>
+  <data name="LauncherSettingTab_Add" xml:space="preserve">
+    <value>追加</value>
   </data>
-  <data name="LauncherTab_Path" xml:space="preserve">
-    <value>パス名</value>
+  <data name="LauncherSettingTab_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="LauncherSettingTab_DisplayName" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="LauncherSettingTab_Icon" xml:space="preserve">
+    <value>アイコン</value>
+  </data>
+  <data name="LauncherSettingTab_OpenFileDialog" xml:space="preserve">
+    <value>ファイルパスの再設定</value>
+  </data>
+  <data name="LauncherSettingTab_ResetPath" xml:space="preserve">
+    <value>再設定</value>
   </data>
   <data name="LauncherTab_ShortcutPath" xml:space="preserve">
     <value>ショートカットパス名</value>
