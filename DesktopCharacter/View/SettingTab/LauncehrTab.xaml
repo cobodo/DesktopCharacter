@@ -3,18 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
              xmlns:local="clr-namespace:DesktopCharacter.View.SettingTab"
              xmlns:properties="clr-namespace:DesktopCharacter.Properties"
+             xmlns:behavior="clr-namespace:DesktopCharacter.Util.Behavior"
+             xmlns:vm="clr-namespace:DesktopCharacter.ViewModel.SettingTab"
+             AllowDrop="True"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid x:Name="LauncherGrid" Margin="0">
-        <DataGrid x:Name="dataGrid">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static properties:Resources.LauncherTab_Index}"/>
-                <DataGridTextColumn Header="{x:Static properties:Resources.LauncherTab_ShortcutPath}"/>
-                <DataGridTextColumn Header="{x:Static properties:Resources.LauncherTab_Path}" Width="Auto"/>
-            </DataGrid.Columns>
-        </DataGrid>
+             d:DesignHeight="400" d:DesignWidth="400">
+    <UserControl.DataContext>
+        <vm:LauncherSettingViewModel></vm:LauncherSettingViewModel>
+    </UserControl.DataContext>
+    
+    <i:Interaction.Behaviors>
+        <behavior:DragAndDropBehavior PostCommand="{Binding DropPostCommand}"></behavior:DragAndDropBehavior>
+        
+    </i:Interaction.Behaviors>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.92*"/>
+            <RowDefinition Height="0.08*"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding ListCollection}" BorderThickness="0" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="{x:Static properties:Resources.LauncherSettingTab_Icon}"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Icon}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding DisplayName}" Width="auto">
+                        <GridViewColumnHeader IsEnabled="False" Foreground="Black" Content="{x:Static properties:Resources.LauncherSettingTab_DisplayName}" Width="280"  HorizontalAlignment="Right"/>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button Width="130" Command="{Binding AddCommand}" Content="{x:Static properties:Resources.LauncherSettingTab_Add}"></Button>
+            <Button Width="130" Command="{Binding DeleteCommand}" Content="{x:Static properties:Resources.LauncherSettingTab_Delete}"></Button>
+            <Button Width="130" Command="{Binding PathResetCommand}" Content="{x:Static properties:Resources.LauncherSettingTab_ResetPath}" ></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

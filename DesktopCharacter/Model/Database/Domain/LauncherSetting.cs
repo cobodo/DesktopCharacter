@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,20 +8,9 @@ using System.Threading.Tasks;
 namespace DesktopCharacter.Model.Database.Domain
 {
     /// <summary>
-    /// ランチャーの設定
-    /// </summary>
-    public class LauncherSetting
-    {
-        /// <summary>
-        /// ランチャーのデータ
-        /// </summary>
-        public List<LauncherSettingsDataSet> Dataset { get; set; } = new List<LauncherSettingsDataSet>();
-    }
-
-    /// <summary>
     /// ランチャーのデータセット
     /// </summary>
-    public class LauncherSettingsDataSet
+    public class LauncherSettingsDataSet : IEquatable<LauncherSettingsDataSet>
     {
         /// <summary>
         /// 表示名
@@ -30,5 +20,28 @@ namespace DesktopCharacter.Model.Database.Domain
         /// 起動するパス
         /// </summary>
         public string Path { get; set; } = "";
+
+        /// <summary>
+        /// 自作クラスのハッシュコードを返す
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return this.DisplayName.GetHashCode();
+        }
+
+        /// <summary>
+        /// LinqのDistinctを動作させるためにインターフェイスを実装
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(LauncherSettingsDataSet other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+            return (this.DisplayName == other.DisplayName);
+        }
     }
 }

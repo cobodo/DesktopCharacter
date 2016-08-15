@@ -11,6 +11,14 @@ using System.Windows;
 using DesktopCharacter.Util.Messenger.Message;
 using System.Windows.Controls;
 using Livet.Messaging.Windows;
+using DesktopCharacter.Model.Repository;
+using DesktopCharacter.Model.Locator;
+using System.Drawing;
+using System.Windows.Media;
+using DesktopCharacter.Model.Database.Domain;
+using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace DesktopCharacter.ViewModel.Menu
 {
@@ -25,6 +33,10 @@ namespace DesktopCharacter.ViewModel.Menu
         {
             set; private get;
         }
+        /// <summary>
+        /// コンフィグファイルのリポジトリ
+        /// </summary>
+        private BabumiConfigRepository _babumiConfigRepository;
 
         private List<RadialMenu.Controls.RadialMenuItem> _itemSource;
         public List<RadialMenu.Controls.RadialMenuItem> ItemSource
@@ -67,32 +79,32 @@ namespace DesktopCharacter.ViewModel.Menu
 
         public LauncherMenuViewModel(MenuItemViewModel vm, Util.Math.Point screenSize)
         {
+            _babumiConfigRepository = ServiceLocator.Instance.GetInstance<BabumiConfigRepository>();
             MenuVM = vm;
             IsOpen = true;
             ScreenSize = screenSize;
-            this.ItemSource = new List<RadialMenu.Controls.RadialMenuItem>(new RadialMenu.Controls.RadialMenuItem[] {
-                new RadialMenu.Controls.RadialMenuItem { Content = new TextBlock { Text = "notepad.exe" }, Command = new ViewModelCommand( () => { Process.Start("notepad.exe"); })},
-                new RadialMenu.Controls.RadialMenuItem { Content = new TextBlock { Text = Properties.Resources.Launcher_Add }, Command = new ViewModelCommand(() =>
-                {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.FilterIndex = 1;
-                    openFileDialog.Filter = "Setting Files|*.exe|All Files (*.*)|*.*";
-                    bool? result = openFileDialog.ShowDialog();
-                    if (result == true)
-                    {
-                        this.ItemSource.Add(
-                        new RadialMenu.Controls.RadialMenuItem
-                        {
-                            Content = new TextBlock { Text = openFileDialog.SafeFileName }, Command = new ViewModelCommand( () => { Process.Start( openFileDialog.FileName ); } )
-                        });
-                    }
-                    IsOpen = false;
-                    Task.Run(async () => {
-                        await Task.Delay(200);
-                        IsOpen = true;
-                    });
-                })},
+            this.ItemSource = new List<RadialMenu.Controls.RadialMenuItem>();
+
+            Func<LauncherSettingsDataSet, Tuple<WrapPanel, ICommand>> createItem = new Func<LauncherSettingsDataSet, Tuple<WrapPanel, ICommand>>((LauncherSettingsDataSet item ) =>
+            {
+                var wrapPanel = new WrapPanel();
+                System.Windows.Controls.Image soruce = new System.Windows.Controls.Image();
+                soruce.Source = Imaging.CreateBitmapSourceFromHIcon(Icon.ExtractAssociatedIcon(item.Path).Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                wrapPanel.Orientation = Orientation.Vertical;
+                wrapPanel.Children.Add(soruce);
+                wrapPanel.Children.Add( new TextBlock { Text = item.DisplayName } );
+                return new Tuple<WrapPanel, ICommand>( wrapPanel, new ViewModelCommand(() => { Process.Start(item.Path); }));
             });
+
+            foreach ( var launcherItem in _babumiConfigRepository.GetConfig().Dataset )
+            {
+                var item = createItem(launcherItem);
+                this.ItemSource.Add(new RadialMenu.Controls.RadialMenuItem
+                {
+                    Content = item.Item1,
+                    Command = item.Item2
+                });
+            }
         }
 
         public void Initialize()

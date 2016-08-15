@@ -19,7 +19,7 @@ using Livet.Messaging;
 
 namespace DesktopCharacter.ViewModel.SettingTab
 {
-    class SlackSettingViewModel : Livet.ViewModel
+    class SlackSettingViewModel : Livet.ViewModel, SettingViewModelBase
     {
         private ViewModelCommand _createAccount;
         public ViewModelCommand CreateAccount

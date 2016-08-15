@@ -160,20 +160,56 @@ namespace DesktopCharacter.Properties {
         }
         
         /// <summary>
-        ///   Index に類似しているローカライズされた文字列を検索します。
+        ///   Add... に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string LauncherTab_Index {
+        public static string LauncherSettingTab_Add {
             get {
-                return ResourceManager.GetString("LauncherTab_Index", resourceCulture);
+                return ResourceManager.GetString("LauncherSettingTab_Add", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Pass に類似しているローカライズされた文字列を検索します。
+        ///   Delete に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string LauncherTab_Path {
+        public static string LauncherSettingTab_Delete {
             get {
-                return ResourceManager.GetString("LauncherTab_Path", resourceCulture);
+                return ResourceManager.GetString("LauncherSettingTab_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   DisplayName に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherSettingTab_DisplayName {
+            get {
+                return ResourceManager.GetString("LauncherSettingTab_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Icon に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherSettingTab_Icon {
+            get {
+                return ResourceManager.GetString("LauncherSettingTab_Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   File path resetting に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherSettingTab_OpenFileDialog {
+            get {
+                return ResourceManager.GetString("LauncherSettingTab_OpenFileDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ResetPath に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string LauncherSettingTab_ResetPath {
+            get {
+                return ResourceManager.GetString("LauncherSettingTab_ResetPath", resourceCulture);
             }
         }
         
